@@ -5,8 +5,8 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "com.simplecity.recyclerview_fastscroll"
-        minSdkVersion 15
+        applicationId "com.simplecity.recyclerview_fastscroll.sample"
+        minSdkVersion 9
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -21,9 +21,13 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
+
+    //Appcompat
     compile 'com.android.support:appcompat-v7:23.1.1'
 
     //RecyclerView
     compile 'com.android.support:recyclerview-v7:23.1.1'
+
+    //RecyclerView-FastScroll
+    compile project(':library')
 }

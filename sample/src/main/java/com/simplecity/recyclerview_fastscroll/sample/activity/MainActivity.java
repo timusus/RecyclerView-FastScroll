@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.simplecity.recyclerview_fastscroll.activity;
+package com.simplecity.recyclerview_fastscroll.sample.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +26,7 @@ import android.view.ViewGroup;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
-import com.simplecity.recyclerview_fastscroll.R;
+import com.simplecity.recyclerview_fastscroll.sample.R;
 import com.simplecity.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 public class MainActivity extends AppCompatActivity {

@@ -52,18 +52,18 @@ public class FastScroller {
 
     private boolean mIsDragging;
 
-    public FastScroller(FastScrollRecyclerView recyclerView, Resources res) {
+    public FastScroller(FastScrollRecyclerView recyclerView, Resources resources) {
 
         mRecyclerView = recyclerView;
-        mPopup = new FastScrollPopup(res, recyclerView);
+        mPopup = new FastScrollPopup(resources, recyclerView);
 
-        mThumbHeight = Utils.toPixels(res, 48);
-        mThumbWidth = Utils.toPixels(res, 8);
+        mThumbHeight = Utils.toPixels(resources, 48);
+        mThumbWidth = Utils.toPixels(resources, 8);
 
-        mTouchInset = Utils.toPixels(res, -24);
+        mTouchInset = Utils.toPixels(resources, -24);
 
         mHandle = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mHandle.setColor(res.getColor(R.color.colorAccent));
+        mHandle.setColor(resources.getColor(R.color.colorAccent));
 
         //Set the track to grey
         int trackColor = 0xffdcdcdc;
