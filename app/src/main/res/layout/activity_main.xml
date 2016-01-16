@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2016 Tim Malseed
   ~
   ~  Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,16 +18,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.simplecity.recyclerview_fastscroll.MainActivity">
+    tools:context=".activity.MainActivity">
 
-    <android.support.v7.widget.RecyclerView
+    <com.simplecity.recyclerview_fastscroll.views.FastScrollRecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <com.simplecity.recyclerview_fastscroll.FastScroller
-        android:id="@+id/fastScroller"
-        android:layout_width="96dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="end" />
 </FrameLayout>

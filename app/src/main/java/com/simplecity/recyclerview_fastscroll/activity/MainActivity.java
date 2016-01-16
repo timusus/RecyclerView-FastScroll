@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.simplecity.recyclerview_fastscroll;
+package com.simplecity.recyclerview_fastscroll.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -23,7 +23,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SectionIndexer;
 import android.widget.TextView;
+
+import com.simplecity.recyclerview_fastscroll.R;
+import com.simplecity.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,20 +36,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler);
+        FastScrollRecyclerView recyclerView = (FastScrollRecyclerView) findViewById(R.id.recycler);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new RecyclerAdapter());
-
-        FastScroller fastScroller = (FastScroller) findViewById(R.id.fastScroller);
-        fastScroller.setRecyclerView(recyclerView);
     }
 
-    private class RecyclerAdapter extends RecyclerView.Adapter {
+    private class RecyclerAdapter extends RecyclerView.Adapter implements SectionIndexer {
 
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             TextView textView = new TextView(MainActivity.this);
+            textView.setPadding(100, 100, 100, 100);
             return new ViewHolder(textView);
         }
 
@@ -56,9 +58,26 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-            //Notice the fastscroller looks nice and smooth... but if you reduce the item count
-            //to something like 10, it's not smooth at all. I have a fix in mind for this.
-            return 200;
+            return 20;
+        }
+
+        @Override
+        public Object[] getSections() {
+            Object[] objects = new Object[getItemCount()];
+            for (int i = 0, length = getItemCount(); i < length; i++) {
+                objects[i] = i;
+            }
+            return objects;
+        }
+
+        @Override
+        public int getPositionForSection(int sectionIndex) {
+            return sectionIndex;
+        }
+
+        @Override
+        public int getSectionForPosition(int position) {
+            return position;
         }
     }
 
