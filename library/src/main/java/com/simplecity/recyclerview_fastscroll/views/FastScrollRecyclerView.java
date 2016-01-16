@@ -202,7 +202,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         int rowCount = getAdapter().getItemCount();
         if (getLayoutManager() instanceof GridLayoutManager) {
             int spanCount = ((GridLayoutManager) getLayoutManager()).getSpanCount();
-            rowCount = rowCount / spanCount;
+            rowCount = (int) Math.ceil((double) rowCount / spanCount);
         }
         if (rowCount == 0 || !(getAdapter() instanceof SectionIndexer)) {
             return "";
@@ -229,7 +229,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         int rowCount = getAdapter().getItemCount();
         if (getLayoutManager() instanceof GridLayoutManager) {
             int spanCount = ((GridLayoutManager) getLayoutManager()).getSpanCount();
-            rowCount = rowCount / spanCount;
+            rowCount = (int) Math.ceil((double) rowCount / spanCount);
         }
         // Skip early if, there are no items.
         if (rowCount == 0) {
