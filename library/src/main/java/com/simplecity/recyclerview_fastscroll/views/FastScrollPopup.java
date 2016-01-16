@@ -25,7 +25,6 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.text.TextUtils;
 
-import com.simplecity.recyclerview_fastscroll.R;
 import com.simplecity.recyclerview_fastscroll.utils.Utils;
 
 public class FastScrollPopup {
@@ -67,14 +66,20 @@ public class FastScrollPopup {
         mCornerRadius = mBackgroundSize / 2;
 
         mBackgroundPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mBackgroundPaint.setColor(mRes.getColor(R.color.colorAccent));
 
         mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mTextPaint.setColor(mRes.getColor(android.R.color.primary_text_dark));
         mTextPaint.setAlpha(0);
         //Todo: Set typeface from attributes or create method setTypeface()
         //mTextPaint.setTypeface(TypefaceManager.getInstance().getTypeface(TypefaceManager.SANS_SERIF));
         mTextPaint.setTextSize(Utils.toPixels(mRes, 56));
+    }
+
+    public void setBgColor(int color) {
+        mBackgroundPaint.setColor(color);
+    }
+
+    public void setTextColor(int color) {
+        mTextPaint.setColor(color);
     }
 
     /**

@@ -14,6 +14,12 @@
   ~  See the License for the specific language governing permissions and
   ~  limitations under the License.
   -->
+
 <resources>
-    <color name="colorAccent">#FF4081</color>
+    <declare-styleable name="FastScrollRecyclerView">
+        <attr name="fastScrollThumbColor" format="reference|color" />
+        <attr name="fastScrollTrackColor" format="reference|color" />
+        <attr name="fastScrollPopupBgColor" format="reference|color" />
+        <attr name="fastScrollPopupTextColor" format="reference|color" />
+    </declare-styleable>
 </resources>

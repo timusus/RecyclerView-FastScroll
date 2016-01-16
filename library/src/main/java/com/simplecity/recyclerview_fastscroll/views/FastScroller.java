@@ -16,11 +16,14 @@
 
 package com.simplecity.recyclerview_fastscroll.views;
 
+import android.content.Context;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 
@@ -35,7 +38,7 @@ public class FastScroller {
     private int mThumbHeight;
     private int mThumbWidth;
 
-    private Paint mHandle;
+    private Paint mThumb;
     private Paint mTrack;
 
     private Rect mTmpRect = new Rect();
@@ -52,7 +55,9 @@ public class FastScroller {
 
     private boolean mIsDragging;
 
-    public FastScroller(FastScrollRecyclerView recyclerView, Resources resources) {
+    public FastScroller(Context context, FastScrollRecyclerView recyclerView, AttributeSet attrs) {
+
+        Resources resources = context.getResources();
 
         mRecyclerView = recyclerView;
         mPopup = new FastScrollPopup(resources, recyclerView);
@@ -62,14 +67,24 @@ public class FastScroller {
 
         mTouchInset = Utils.toPixels(resources, -24);
 
-        mHandle = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mHandle.setColor(resources.getColor(R.color.colorAccent));
-
-        //Set the track to grey
-        int trackColor = 0xffdcdcdc;
-
+        mThumb = new Paint(Paint.ANTI_ALIAS_FLAG);
         mTrack = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mTrack.setColor(trackColor);
+
+        TypedArray typedArray = context.getTheme().obtainStyledAttributes(
+                attrs, R.styleable.FastScrollRecyclerView, 0, 0);
+        try {
+            int trackColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollTrackColor, 0xffdcdcdc);
+            int thumbColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollThumbColor, 0xffff4081);
+            int popupBgColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollPopupBgColor, 0xff000000);
+            int popupTextColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollPopupTextColor, resources.getColor(android.R.color.primary_text_dark));
+
+            mTrack.setColor(trackColor);
+            mThumb.setColor(thumbColor);
+            mPopup.setBgColor(popupBgColor);
+            mPopup.setTextColor(popupTextColor);
+        } finally {
+            typedArray.recycle();
+        }
     }
 
     public int getHeight() {
@@ -140,7 +155,7 @@ public class FastScroller {
         canvas.drawRect(mThumbOffset.x, mThumbHeight / 2, mThumbOffset.x + mThumbWidth, mRecyclerView.getHeight() - mThumbHeight / 2, mTrack);
 
         //Handle
-        canvas.drawRect(mThumbOffset.x, mThumbOffset.y, mThumbOffset.x + mRecyclerView.getWidth(), mThumbOffset.y + mThumbHeight, mHandle);
+        canvas.drawRect(mThumbOffset.x, mThumbOffset.y, mThumbOffset.x + mRecyclerView.getWidth(), mThumbOffset.y + mThumbHeight, mThumb);
 
         //Popup
         mPopup.draw(canvas);

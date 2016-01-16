@@ -63,7 +63,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
 
     public FastScrollRecyclerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mScrollbar = new FastScroller(this, getResources());
+        mScrollbar = new FastScroller(context, this, attrs);
     }
 
     //Todo: move
