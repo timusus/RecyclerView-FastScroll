@@ -23,6 +23,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.text.TextUtils;
 
 import com.simplecity.recyclerview_fastscroll.R;
 import com.simplecity.recyclerview_fastscroll.utils.Utils;
@@ -165,6 +166,6 @@ public class FastScrollPopup {
     }
 
     public boolean isVisible() {
-        return (mAlpha > 0f) && (mSectionName != null);
+        return (mAlpha > 0f) && (!TextUtils.isEmpty(mSectionName));
     }
 }
