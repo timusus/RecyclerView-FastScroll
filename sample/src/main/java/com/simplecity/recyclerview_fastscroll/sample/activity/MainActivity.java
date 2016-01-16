@@ -40,7 +40,9 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(new RecyclerAdapter());
     }
 
-    private class RecyclerAdapter extends RecyclerView.Adapter implements SectionIndexer {
+    private class RecyclerAdapter extends RecyclerView.Adapter
+            implements SectionIndexer
+    {
 
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
