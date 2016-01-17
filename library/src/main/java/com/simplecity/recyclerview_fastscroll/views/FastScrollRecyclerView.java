@@ -223,7 +223,8 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
 
         int posInt = (int) ((touchFraction == 1) ? pos - 1 : pos);
 
-        return ((SectionIndexer) getAdapter()).getSections()[posInt].toString();
+        SectionIndexer sectionIndexer = (SectionIndexer) getAdapter();
+        return sectionIndexer.getSections()[sectionIndexer.getSectionForPosition(posInt)].toString();
     }
 
     /**
