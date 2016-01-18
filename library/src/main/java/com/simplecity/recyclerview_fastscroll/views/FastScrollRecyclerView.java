@@ -213,9 +213,8 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
 
         getCurScrollState(mScrollPosState);
         float pos = rowCount * touchFraction;
-        int availableScrollHeight = getAvailableScrollHeight(rowCount, mScrollPosState.rowHeight, 0);
         LinearLayoutManager layoutManager = ((LinearLayoutManager) getLayoutManager());
-        layoutManager.scrollToPositionWithOffset(0, (int) -(availableScrollHeight * touchFraction));
+        layoutManager.scrollToPositionWithOffset((int) pos, 0);
 
         if (!(getAdapter() instanceof SectionIndexer)) {
             return "";
