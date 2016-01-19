@@ -6,7 +6,7 @@ Supports vertical RecyclerViews using either `LinearLayoutManager` or `GridLayou
 The style is loosely based on the ListView FastScroller from whatever the last version of Lollipop was. This library borrows heavily from [Google's Launcher3 FastScroller](https://android.googlesource.com/platform/packages/apps/Launcher3/)
 
 ###Usage###
-You must to use `FastScrollRecyclerView` as your base `RecyclerView`. 
+You must use `FastScrollRecyclerView` as your base `RecyclerView`. 
 
 If your RecyclerView Adapter implements a SectionIndexer, the FastScrollPopup will display the text returned from that implementation.
 
