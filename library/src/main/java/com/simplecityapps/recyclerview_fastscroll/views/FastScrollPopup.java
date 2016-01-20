@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.simplecity.recyclerview_fastscroll.views;
+package com.simplecityapps.recyclerview_fastscroll.views;
 
 import android.animation.ObjectAnimator;
 import android.content.res.Resources;
@@ -25,7 +25,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.text.TextUtils;
 
-import com.simplecity.recyclerview_fastscroll.utils.Utils;
+import com.simplecityapps.recyclerview_fastscroll.utils.Utils;
 
 public class FastScrollPopup {
 

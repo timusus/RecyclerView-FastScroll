@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.simplecity.recyclerview_fastscroll.utils;
+package com.simplecityapps.recyclerview_fastscroll.utils;
 
 import android.annotation.TargetApi;
 import android.content.res.Resources;

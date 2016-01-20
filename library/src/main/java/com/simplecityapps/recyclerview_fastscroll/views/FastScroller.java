@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.simplecity.recyclerview_fastscroll.views;
+package com.simplecityapps.recyclerview_fastscroll.views;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -27,8 +27,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 
-import com.simplecity.recyclerview_fastscroll.R;
-import com.simplecity.recyclerview_fastscroll.utils.Utils;
+import com.simplecityapps.recyclerview_fastscroll.R;
+import com.simplecityapps.recyclerview_fastscroll.utils.Utils;
 
 public class FastScroller {
 

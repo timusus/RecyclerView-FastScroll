@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.simplecity.recyclerview_fastscroll.views;
+package com.simplecityapps.recyclerview_fastscroll.views;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -26,7 +26,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.SectionIndexer;
 
-import com.simplecity.recyclerview_fastscroll.utils.Utils;
+import com.simplecityapps.recyclerview_fastscroll.utils.Utils;
 
 public class FastScrollRecyclerView extends RecyclerView implements RecyclerView.OnItemTouchListener {
 
