@@ -199,20 +199,22 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
      * Maps the touch (from 0..1) to the adapter position that should be visible.
      */
     public String scrollToPositionAtProgress(float touchFraction) {
-        int rowCount = getAdapter().getItemCount();
+        int itemCount = getAdapter().getItemCount();
+        if (itemCount == 0) {
+            return "";
+        }
+        int rowCount = itemCount;
         if (getLayoutManager() instanceof GridLayoutManager) {
             int spanCount = ((GridLayoutManager) getLayoutManager()).getSpanCount();
             rowCount = (int) Math.ceil((double) rowCount / spanCount);
-        }
-        if (rowCount == 0) {
-            return "";
         }
 
         // Stop the scroller if it is scrolling
         stopScroll();
 
         getCurScrollState(mScrollPosState);
-        float pos = rowCount * touchFraction;
+
+        float itemPos = itemCount * touchFraction;
 
         LinearLayoutManager layoutManager = ((LinearLayoutManager) getLayoutManager());
 
@@ -222,18 +224,18 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         //the RecyclerView relative to the offset.
         //But, if we don't use an offset when we have a small number of items (say, less than 50),
         //then the RecyclerView doesn't scroll to the correct position.
-        if (rowCount < 51) {
+        if (rowCount < 50) {
             int availableScrollHeight = getAvailableScrollHeight(rowCount, mScrollPosState.rowHeight, 0);
             layoutManager.scrollToPositionWithOffset(0, (int) -(availableScrollHeight * touchFraction));
         } else {
-            layoutManager.scrollToPositionWithOffset((int) pos, 0);
+            layoutManager.scrollToPositionWithOffset((int) itemPos, 0);
         }
 
         if (!(getAdapter() instanceof SectionIndexer)) {
             return "";
         }
 
-        int posInt = (int) ((touchFraction == 1) ? pos - 1 : pos);
+        int posInt = (int) ((touchFraction == 1) ? itemPos - 1 : itemPos);
 
         SectionIndexer sectionIndexer = (SectionIndexer) getAdapter();
         return sectionIndexer.getSections()[sectionIndexer.getSectionForPosition(posInt)].toString();
