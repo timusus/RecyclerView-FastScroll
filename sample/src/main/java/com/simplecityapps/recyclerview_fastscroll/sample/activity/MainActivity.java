@@ -17,12 +17,14 @@
 package com.simplecityapps.recyclerview_fastscroll.sample.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.simplecityapps.recyclerview_fastscroll.sample.R;
@@ -38,53 +40,43 @@ public class MainActivity extends AppCompatActivity {
         FastScrollRecyclerView recyclerView = (FastScrollRecyclerView) findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new RecyclerAdapter());
+
+        recyclerView.setThumbColor(ContextCompat.getColor(this, R.color.colorAccent));
+        recyclerView.setPopupBgColor(ContextCompat.getColor(this, R.color.colorAccent));
+        recyclerView.setPopupTextColor(ContextCompat.getColor(this, android.R.color.primary_text_dark));
     }
 
-    private class RecyclerAdapter extends RecyclerView.Adapter
-            implements SectionIndexer
-    {
+    private static class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>
+            implements FastScrollRecyclerView.SectionedAdapter {
 
         @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            TextView textView = new TextView(MainActivity.this);
-            textView.setPadding(100, 100, 100, 100);
-            return new ViewHolder(textView);
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false));
         }
 
         @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-            ((TextView) holder.itemView).setText(String.format("Item %d", position));
+        public void onBindViewHolder(ViewHolder holder, int position) {
+            holder.text.setText(String.format("Item %d", position));
         }
 
         @Override
         public int getItemCount() {
-            return 20;
+            return 100;
         }
 
+        @NonNull
         @Override
-        public Object[] getSections() {
-            Object[] objects = new Object[getItemCount()];
-            for (int i = 0, length = getItemCount(); i < length; i++) {
-                objects[i] = i;
+        public String getSectionName(int position) {
+            return String.valueOf(position);
+        }
+
+        static class ViewHolder extends RecyclerView.ViewHolder {
+            public TextView text;
+
+            public ViewHolder(View itemView) {
+                super(itemView);
+                text = (TextView) itemView.findViewById(R.id.text);
             }
-            return objects;
-        }
-
-        @Override
-        public int getPositionForSection(int sectionIndex) {
-            return sectionIndex;
-        }
-
-        @Override
-        public int getSectionForPosition(int position) {
-            return position;
-        }
-    }
-
-    private class ViewHolder extends RecyclerView.ViewHolder {
-
-        public ViewHolder(View itemView) {
-            super(itemView);
         }
     }
 }

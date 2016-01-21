@@ -23,6 +23,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
@@ -73,10 +74,10 @@ public class FastScroller {
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(
                 attrs, R.styleable.FastScrollRecyclerView, 0, 0);
         try {
-            int trackColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollTrackColor, 0xffdcdcdc);
-            int thumbColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollThumbColor, 0xffff4081);
-            int popupBgColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollPopupBgColor, 0xffff4081);
-            int popupTextColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollPopupTextColor, resources.getColor(android.R.color.primary_text_dark));
+            int trackColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollTrackColor, 0x1f000000);
+            int thumbColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollThumbColor, 0xff000000);
+            int popupBgColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollPopupBgColor, 0xff000000);
+            int popupTextColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollPopupTextColor, 0xffffffff);
 
             mTrack.setColor(trackColor);
             mThumb.setColor(thumbColor);
@@ -179,5 +180,23 @@ public class FastScroller {
         mThumbOffset.set(x, y);
         mInvalidateRect.union(new Rect(mThumbOffset.x, 0, mThumbOffset.x + mThumbWidth, mRecyclerView.getHeight()));
         mRecyclerView.invalidate(mInvalidateRect);
+    }
+
+    public void setThumbColor(@ColorInt int color) {
+        mThumb.setColor(color);
+        mRecyclerView.invalidate(mInvalidateRect);
+    }
+
+    public void setTrackColor(@ColorInt int color) {
+        mTrack.setColor(color);
+        mRecyclerView.invalidate(mInvalidateRect);
+    }
+
+    public void setPopupBgColor(@ColorInt int color) {
+        mPopup.setBgColor(color);
+    }
+
+    public void setPopupTextColor(@ColorInt int color) {
+        mPopup.setTextColor(color);
     }
 }
