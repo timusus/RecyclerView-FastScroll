@@ -17,6 +17,7 @@
 package com.simplecityapps.recyclerview_fastscroll.sample.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,7 +25,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.simplecityapps.recyclerview_fastscroll.sample.R;
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private static class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>
-            implements SectionIndexer {
+            implements FastScrollRecyclerView.SectionedAdapter {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -64,23 +64,10 @@ public class MainActivity extends AppCompatActivity {
             return 100;
         }
 
+        @NonNull
         @Override
-        public Object[] getSections() {
-            Object[] objects = new Object[getItemCount()];
-            for (int i = 0, length = getItemCount(); i < length; i++) {
-                objects[i] = i;
-            }
-            return objects;
-        }
-
-        @Override
-        public int getPositionForSection(int sectionIndex) {
-            return sectionIndex;
-        }
-
-        @Override
-        public int getSectionForPosition(int position) {
-            return position;
+        public String getSectionName(int position) {
+            return String.valueOf(position);
         }
 
         static class ViewHolder extends RecyclerView.ViewHolder {

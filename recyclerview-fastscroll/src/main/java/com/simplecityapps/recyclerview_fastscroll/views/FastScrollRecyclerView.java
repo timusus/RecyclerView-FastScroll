@@ -19,13 +19,13 @@ package com.simplecityapps.recyclerview_fastscroll.views;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.SectionIndexer;
 
 import com.simplecityapps.recyclerview_fastscroll.utils.Utils;
 
@@ -230,14 +230,14 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         layoutManager.scrollToPositionWithOffset(spanCount * exactItemPos / mScrollPosState.rowHeight,
                 -(exactItemPos % mScrollPosState.rowHeight));
 
-        if (!(getAdapter() instanceof SectionIndexer)) {
+        if (!(getAdapter() instanceof SectionedAdapter)) {
             return "";
         }
 
         int posInt = (int) ((touchFraction == 1) ? itemPos - 1 : itemPos);
 
-        SectionIndexer sectionIndexer = (SectionIndexer) getAdapter();
-        return sectionIndexer.getSections()[sectionIndexer.getSectionForPosition(posInt)].toString();
+        SectionedAdapter sectionedAdapter = (SectionedAdapter) getAdapter();
+        return sectionedAdapter.getSectionName(posInt);
     }
 
     /**
@@ -303,5 +303,10 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
 
     public void setPopupTextColor(@ColorInt int color) {
         mScrollbar.setPopupTextColor(color);
+    }
+
+    public interface SectionedAdapter {
+        @NonNull
+        String getSectionName(int position);
     }
 }
