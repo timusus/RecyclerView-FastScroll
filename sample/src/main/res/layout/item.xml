@@ -18,7 +18,7 @@
     android:id="@+id/text"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:height="72dp"
+    android:height="56dp"
     android:background="?selectableItemBackground"
     android:clickable="true"
     android:gravity="center_vertical"
