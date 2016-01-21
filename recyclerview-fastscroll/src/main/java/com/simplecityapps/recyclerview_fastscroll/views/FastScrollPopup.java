@@ -76,10 +76,12 @@ public class FastScrollPopup {
 
     public void setBgColor(int color) {
         mBackgroundPaint.setColor(color);
+        mRecyclerView.invalidate(mBgBounds);
     }
 
     public void setTextColor(int color) {
         mTextPaint.setColor(color);
+        mRecyclerView.invalidate(mBgBounds);
     }
 
     /**

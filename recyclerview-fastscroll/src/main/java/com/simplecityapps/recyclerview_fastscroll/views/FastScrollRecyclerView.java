@@ -18,6 +18,7 @@ package com.simplecityapps.recyclerview_fastscroll.views;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.support.annotation.ColorInt;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -286,5 +287,21 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         }
         stateOut.rowTopOffset = getLayoutManager().getDecoratedTop(child);
         stateOut.rowHeight = child.getHeight();
+    }
+
+    public void setThumbColor(@ColorInt int color) {
+        mScrollbar.setThumbColor(color);
+    }
+
+    public void setTrackColor(@ColorInt int color) {
+        mScrollbar.setTrackColor(color);
+    }
+
+    public void setPopupBgColor(@ColorInt int color) {
+        mScrollbar.setPopupBgColor(color);
+    }
+
+    public void setPopupTextColor(@ColorInt int color) {
+        mScrollbar.setPopupTextColor(color);
     }
 }

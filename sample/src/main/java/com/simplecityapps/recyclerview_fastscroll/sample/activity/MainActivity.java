@@ -17,6 +17,7 @@
 package com.simplecityapps.recyclerview_fastscroll.sample.activity;
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -39,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
         FastScrollRecyclerView recyclerView = (FastScrollRecyclerView) findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new RecyclerAdapter());
+
+        recyclerView.setThumbColor(ContextCompat.getColor(this, R.color.colorAccent));
+        recyclerView.setPopupBgColor(ContextCompat.getColor(this, R.color.colorAccent));
+        recyclerView.setPopupTextColor(ContextCompat.getColor(this, android.R.color.primary_text_dark));
     }
 
     private static class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>

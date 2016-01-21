@@ -23,6 +23,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
@@ -179,5 +180,23 @@ public class FastScroller {
         mThumbOffset.set(x, y);
         mInvalidateRect.union(new Rect(mThumbOffset.x, 0, mThumbOffset.x + mThumbWidth, mRecyclerView.getHeight()));
         mRecyclerView.invalidate(mInvalidateRect);
+    }
+
+    public void setThumbColor(@ColorInt int color) {
+        mThumb.setColor(color);
+        mRecyclerView.invalidate(mInvalidateRect);
+    }
+
+    public void setTrackColor(@ColorInt int color) {
+        mTrack.setColor(color);
+        mRecyclerView.invalidate(mInvalidateRect);
+    }
+
+    public void setPopupBgColor(@ColorInt int color) {
+        mPopup.setBgColor(color);
+    }
+
+    public void setPopupTextColor(@ColorInt int color) {
+        mPopup.setTextColor(color);
     }
 }
