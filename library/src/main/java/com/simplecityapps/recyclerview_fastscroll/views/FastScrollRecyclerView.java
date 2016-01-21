@@ -216,18 +216,11 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
 
         LinearLayoutManager layoutManager = ((LinearLayoutManager) getLayoutManager());
 
-        //This is a bit of a hack..
-        //When we have many items in the list, scrollToPositionWithOffset gets very laggy, presumably
-        //because it's trying to measure the height of many child views to determine where to position
-        //the RecyclerView relative to the offset.
-        //But, if we don't use an offset when we have a small number of items (say, less than 50),
-        //then the RecyclerView doesn't scroll to the correct position.
-        if (rowCount < 51) {
-            int availableScrollHeight = getAvailableScrollHeight(rowCount, mScrollPosState.rowHeight, 0);
-            layoutManager.scrollToPositionWithOffset(0, (int) -(availableScrollHeight * touchFraction));
-        } else {
-            layoutManager.scrollToPositionWithOffset((int) pos, 0);
-        }
+        final int rowHeight = mScrollPosState.rowHeight;
+        final int availableScrollHeight = getAvailableScrollHeight(rowCount, rowHeight, 0);
+        final int offset = (int) (availableScrollHeight * touchFraction); // offset from position 0
+
+        layoutManager.scrollToPositionWithOffset(offset / rowHeight, -(offset % rowHeight));
 
         if (!(getAdapter() instanceof SectionIndexer)) {
             return "";
