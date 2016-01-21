@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SectionIndexer;
@@ -40,20 +41,18 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(new RecyclerAdapter());
     }
 
-    private class RecyclerAdapter extends RecyclerView.Adapter
-            implements SectionIndexer
-    {
+    private static class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>
+            implements SectionIndexer {
 
         @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            TextView textView = new TextView(MainActivity.this);
-            textView.setPadding(100, 100, 100, 100);
-            return new ViewHolder(textView);
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false));
         }
 
         @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-            ((TextView) holder.itemView).setText(String.format("Item %d", position));
+
+        public void onBindViewHolder(ViewHolder holder, int position) {
+            holder.text.setText(String.format("Item %d", position));
         }
 
         @Override
@@ -79,12 +78,14 @@ public class MainActivity extends AppCompatActivity {
         public int getSectionForPosition(int position) {
             return position;
         }
-    }
 
-    private class ViewHolder extends RecyclerView.ViewHolder {
+        static class ViewHolder extends RecyclerView.ViewHolder {
+            public TextView text;
 
-        public ViewHolder(View itemView) {
-            super(itemView);
+            public ViewHolder(View itemView) {
+                super(itemView);
+                text = (TextView) itemView.findViewById(R.id.text);
+            }
         }
     }
 }
