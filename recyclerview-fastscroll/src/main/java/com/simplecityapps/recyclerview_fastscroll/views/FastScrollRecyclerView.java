@@ -204,8 +204,9 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
             return "";
         }
         int rowCount = itemCount;
+        int spanCount = 1;
         if (getLayoutManager() instanceof GridLayoutManager) {
-            int spanCount = ((GridLayoutManager) getLayoutManager()).getSpanCount();
+            spanCount = ((GridLayoutManager) getLayoutManager()).getSpanCount();
             rowCount = (int) Math.ceil((double) rowCount / spanCount);
         }
 
@@ -222,7 +223,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         final int availableScrollHeight = getAvailableScrollHeight(rowCount, rowHeight, 0);
         final int offset = (int) (availableScrollHeight * touchFraction); // offset from position 0
 
-        layoutManager.scrollToPositionWithOffset(offset / rowHeight, -(offset % rowHeight));
+        layoutManager.scrollToPositionWithOffset(spanCount * offset / mScrollPosState.rowHeight, -(offset % mScrollPosState.rowHeight));
 
         if (!(getAdapter() instanceof SectionIndexer)) {
             return "";

@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-
         public void onBindViewHolder(ViewHolder holder, int position) {
             holder.text.setText(String.format("Item %d", position));
         }
