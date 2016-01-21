@@ -203,9 +203,10 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         if (itemCount == 0) {
             return "";
         }
+        int spanCount = 1;
         int rowCount = itemCount;
         if (getLayoutManager() instanceof GridLayoutManager) {
-            int spanCount = ((GridLayoutManager) getLayoutManager()).getSpanCount();
+            spanCount = ((GridLayoutManager) getLayoutManager()).getSpanCount();
             rowCount = (int) Math.ceil((double) rowCount / spanCount);
         }
 
@@ -216,20 +217,17 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
 
         float itemPos = itemCount * touchFraction;
 
-        LinearLayoutManager layoutManager = ((LinearLayoutManager) getLayoutManager());
+        int availableScrollHeight = getAvailableScrollHeight(rowCount, mScrollPosState.rowHeight, 0);
 
-        //This is a bit of a hack..
-        //When we have many items in the list, scrollToPositionWithOffset gets very laggy, presumably
-        //because it's trying to measure the height of many child views to determine where to position
-        //the RecyclerView relative to the offset.
-        //But, if we don't use an offset when we have a small number of items (say, less than 50),
-        //then the RecyclerView doesn't scroll to the correct position.
-        if (rowCount < 50) {
-            int availableScrollHeight = getAvailableScrollHeight(rowCount, mScrollPosState.rowHeight, 0);
-            layoutManager.scrollToPositionWithOffset(0, (int) -(availableScrollHeight * touchFraction));
-        } else {
-            layoutManager.scrollToPositionWithOffset((int) itemPos, 0);
-        }
+        //The exact position of our desired item
+        int exactItemPos = (int) (availableScrollHeight * touchFraction);
+
+        //Scroll to the desired item. The offset used here is kind of hard to explain.
+        //If the position we wish to scroll to is, say, position 10.5, we scroll to position 10,
+        //and then offset by 0.5 * rowHeight. This is how we achieve smooth scrolling.
+        LinearLayoutManager layoutManager = ((LinearLayoutManager) getLayoutManager());
+        layoutManager.scrollToPositionWithOffset(spanCount * exactItemPos / mScrollPosState.rowHeight,
+                -(exactItemPos % mScrollPosState.rowHeight));
 
         if (!(getAdapter() instanceof SectionIndexer)) {
             return "";
