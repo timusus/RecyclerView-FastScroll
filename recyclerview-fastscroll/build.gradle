@@ -18,4 +18,4 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:23.1.1'
 }
 
-apply from : 'https://raw.githubusercontent.com/jimmy0251/gradle-bintray-mvn-push/master/gradle-mvn-push.gradle'
+apply from : 'deploy.gradle'
