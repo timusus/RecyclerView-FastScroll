@@ -119,7 +119,18 @@ public class FastScrollPopup {
 
             mBackgroundPath.reset();
             mBackgroundRect.set(mTmpRect);
-            mBackgroundPath.addRoundRect(mBackgroundRect, new float[]{mCornerRadius, mCornerRadius, mCornerRadius, mCornerRadius, 0, 0, mCornerRadius, mCornerRadius}, Path.Direction.CW);
+
+            float[] radii;
+
+            if (Utils.isRtl(mRes)) {
+                radii = new float[]{mCornerRadius, mCornerRadius, mCornerRadius, mCornerRadius, mCornerRadius, mCornerRadius, 0, 0};
+            } else {
+
+                radii = new float[]{mCornerRadius, mCornerRadius, mCornerRadius, mCornerRadius, 0, 0, mCornerRadius, mCornerRadius};
+            }
+
+            mBackgroundPath.addRoundRect(mBackgroundRect, radii, Path.Direction.CW);
+
             mBackgroundPaint.setAlpha((int) (mAlpha * 255));
             mTextPaint.setAlpha((int) (mAlpha * 255));
             canvas.drawPath(mBackgroundPath, mBackgroundPaint);

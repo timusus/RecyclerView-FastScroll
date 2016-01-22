@@ -156,7 +156,7 @@ public class FastScroller {
         canvas.drawRect(mThumbOffset.x, mThumbHeight / 2, mThumbOffset.x + mThumbWidth, mRecyclerView.getHeight() - mThumbHeight / 2, mTrack);
 
         //Handle
-        canvas.drawRect(mThumbOffset.x, mThumbOffset.y, mThumbOffset.x + mRecyclerView.getWidth(), mThumbOffset.y + mThumbHeight, mThumb);
+        canvas.drawRect(mThumbOffset.x, mThumbOffset.y, mThumbOffset.x + mThumbWidth, mThumbOffset.y + mThumbHeight, mThumb);
 
         //Popup
         mPopup.draw(canvas);
