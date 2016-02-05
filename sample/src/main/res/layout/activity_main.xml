@@ -15,18 +15,20 @@
   -->
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activity.MainActivity">
 
     <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:fastScrollThumbColor="@color/colorAccent"
+        app:fastScrollAutoHide="true"
+        app:fastScrollAutoHideDelay="1500"
         app:fastScrollPopupBgColor="@color/colorAccent"
-        app:fastScrollPopupTextColor="@android:color/primary_text_dark"/>
+        app:fastScrollPopupTextColor="@android:color/primary_text_dark"
+        app:fastScrollThumbColor="@color/colorAccent" />
 
 </FrameLayout>
