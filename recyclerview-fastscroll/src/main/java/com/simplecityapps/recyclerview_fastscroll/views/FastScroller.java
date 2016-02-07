@@ -46,9 +46,9 @@ public class FastScroller {
     private int mThumbHeight;
     private int mWidth;
 
-    private Paint mThumb;
-    private Paint mThumbPressed;
-    private Paint mTrack;
+    private Paint mThumbPaint;
+    private Paint mThumbPressedPaint;
+    private Paint mTrackPaint;
 
     private Rect mTmpRect = new Rect();
     private Rect mInvalidateRect = new Rect();
@@ -84,9 +84,9 @@ public class FastScroller {
 
         mTouchInset = Utils.toPixels(resources, -24);
 
-        mThumb = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mThumbPressed = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mTrack = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mThumbPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mThumbPressedPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mTrackPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(
                 attrs, R.styleable.FastScrollRecyclerView, 0, 0);
@@ -100,9 +100,9 @@ public class FastScroller {
             int popupBgColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollPopupBgColor, 0xff000000);
             int popupTextColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollPopupTextColor, 0xffffffff);
 
-            mTrack.setColor(trackColor);
-            mThumb.setColor(thumbColor);
-            mThumbPressed.setColor(thumbPressedColor);
+            mTrackPaint.setColor(trackColor);
+            mThumbPaint.setColor(thumbColor);
+            mThumbPressedPaint.setColor(thumbPressedColor);
 
             mPopup.setBgColor(popupBgColor);
             mPopup.setTextColor(popupTextColor);
@@ -203,10 +203,10 @@ public class FastScroller {
         }
 
         //Background
-        canvas.drawRect(mThumbPosition.x + mOffset.x, mOffset.y, mThumbPosition.x + mOffset.x + mWidth, mRecyclerView.getHeight() + mOffset.y, mTrack);
+        canvas.drawRect(mThumbPosition.x + mOffset.x, mOffset.y, mThumbPosition.x + mOffset.x + mWidth, mRecyclerView.getHeight() + mOffset.y, mTrackPaint);
 
         //Handle
-        canvas.drawRect(mThumbPosition.x + mOffset.x, mThumbPosition.y + mOffset.y, mThumbPosition.x + mOffset.x + mWidth, mThumbPosition.y + mOffset.y + mThumbHeight, mIsDragging ? mThumbPressed : mThumb);
+        canvas.drawRect(mThumbPosition.x + mOffset.x, mThumbPosition.y + mOffset.y, mThumbPosition.x + mOffset.x + mWidth, mThumbPosition.y + mOffset.y + mThumbHeight, mIsDragging ? mThumbPressedPaint : mThumbPaint);
 
         //Popup
         mPopup.draw(canvas);
@@ -257,17 +257,17 @@ public class FastScroller {
     }
 
     public void setThumbColor(@ColorInt int color) {
-        mThumb.setColor(color);
+        mThumbPaint.setColor(color);
         mRecyclerView.invalidate(mInvalidateRect);
     }
 
     public void setThumbPressedColor(@ColorInt int color) {
-        mThumbPressed.setColor(color);
+        mThumbPressedPaint.setColor(color);
         mRecyclerView.invalidate(mInvalidateRect);
     }
 
     public void setTrackColor(@ColorInt int color) {
-        mTrack.setColor(color);
+        mTrackPaint.setColor(color);
         mRecyclerView.invalidate(mInvalidateRect);
     }
 
