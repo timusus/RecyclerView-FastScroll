@@ -96,7 +96,7 @@ public class FastScroller {
 
             int trackColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollTrackColor, 0x1f000000);
             int thumbColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollThumbColor, 0xff000000);
-            int thumbPressedColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollThumbPressedColor, 0xff000000);
+            int thumbPressedColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollThumbPressedColor, thumbColor);
             int popupBgColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollPopupBgColor, 0xff000000);
             int popupTextColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollPopupTextColor, 0xffffffff);
 
