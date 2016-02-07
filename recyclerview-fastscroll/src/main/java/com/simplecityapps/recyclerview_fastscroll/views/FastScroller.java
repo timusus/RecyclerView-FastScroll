@@ -47,6 +47,7 @@ public class FastScroller {
     private int mWidth;
 
     private Paint mThumb;
+    private Paint mThumbPressed;
     private Paint mTrack;
 
     private Rect mTmpRect = new Rect();
@@ -84,6 +85,7 @@ public class FastScroller {
         mTouchInset = Utils.toPixels(resources, -24);
 
         mThumb = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mThumbPressed = new Paint(Paint.ANTI_ALIAS_FLAG);
         mTrack = new Paint(Paint.ANTI_ALIAS_FLAG);
 
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(
@@ -94,11 +96,14 @@ public class FastScroller {
 
             int trackColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollTrackColor, 0x1f000000);
             int thumbColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollThumbColor, 0xff000000);
+            int thumbPressedColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollThumbPressedColor, 0xff000000);
             int popupBgColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollPopupBgColor, 0xff000000);
             int popupTextColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollPopupTextColor, 0xffffffff);
 
             mTrack.setColor(trackColor);
             mThumb.setColor(thumbColor);
+            mThumbPressed.setColor(thumbPressedColor);
+
             mPopup.setBgColor(popupBgColor);
             mPopup.setTextColor(popupTextColor);
         } finally {
@@ -201,7 +206,7 @@ public class FastScroller {
         canvas.drawRect(mThumbPosition.x + mOffset.x, mOffset.y, mThumbPosition.x + mOffset.x + mWidth, mRecyclerView.getHeight() + mOffset.y, mTrack);
 
         //Handle
-        canvas.drawRect(mThumbPosition.x + mOffset.x, mThumbPosition.y + mOffset.y, mThumbPosition.x + mOffset.x + mWidth, mThumbPosition.y + mOffset.y + mThumbHeight, mThumb);
+        canvas.drawRect(mThumbPosition.x + mOffset.x, mThumbPosition.y + mOffset.y, mThumbPosition.x + mOffset.x + mWidth, mThumbPosition.y + mOffset.y + mThumbHeight, mIsDragging ? mThumbPressed : mThumb);
 
         //Popup
         mPopup.draw(canvas);
@@ -253,6 +258,11 @@ public class FastScroller {
 
     public void setThumbColor(@ColorInt int color) {
         mThumb.setColor(color);
+        mRecyclerView.invalidate(mInvalidateRect);
+    }
+
+    public void setThumbPressedColor(@ColorInt int color) {
+        mThumbPressed.setColor(color);
         mRecyclerView.invalidate(mInvalidateRect);
     }
 
