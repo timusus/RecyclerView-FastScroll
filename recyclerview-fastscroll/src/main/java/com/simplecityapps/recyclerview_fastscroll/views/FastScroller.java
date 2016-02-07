@@ -301,7 +301,7 @@ public class FastScroller {
     }
 
     public void setThumbColor(@ColorInt int color) {
-        mThumb.setColor(color);
+        mThumbPaint.setColor(color);
         mRecyclerView.invalidate(mInvalidateRect);
     }
 
@@ -311,7 +311,7 @@ public class FastScroller {
     }
 
     public void setTrackColor(@ColorInt int color) {
-        mTrack.setColor(color);
+        mTrackPaint.setColor(color);
         mRecyclerView.invalidate(mInvalidateRect);
     }
 
