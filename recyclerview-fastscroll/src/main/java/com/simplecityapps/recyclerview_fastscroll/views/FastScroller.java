@@ -256,29 +256,6 @@ public class FastScroller {
         return mOffset.x;
     }
 
-    public void setThumbColor(@ColorInt int color) {
-        mThumbPaint.setColor(color);
-        mRecyclerView.invalidate(mInvalidateRect);
-    }
-
-    public void setThumbPressedColor(@ColorInt int color) {
-        mThumbPressedPaint.setColor(color);
-        mRecyclerView.invalidate(mInvalidateRect);
-    }
-
-    public void setTrackColor(@ColorInt int color) {
-        mTrackPaint.setColor(color);
-        mRecyclerView.invalidate(mInvalidateRect);
-    }
-
-    public void setPopupBgColor(@ColorInt int color) {
-        mPopup.setBgColor(color);
-    }
-
-    public void setPopupTextColor(@ColorInt int color) {
-        mPopup.setTextColor(color);
-    }
-
     public void show() {
         if (!mAnimatingShow) {
             if (mAutoHideAnimator != null) {
@@ -323,21 +300,39 @@ public class FastScroller {
         }
     }
 
-    public int getHideDelay() {
-        return mAutoHideDelay;
+    public void setThumbColor(@ColorInt int color) {
+        mThumb.setColor(color);
+        mRecyclerView.invalidate(mInvalidateRect);
     }
 
-    public void setHideDelay(int hideDelay) {
+    public void setThumbPressedColor(@ColorInt int color) {
+        mThumbPressedPaint.setColor(color);
+        mRecyclerView.invalidate(mInvalidateRect);
+    }
+
+    public void setTrackColor(@ColorInt int color) {
+        mTrack.setColor(color);
+        mRecyclerView.invalidate(mInvalidateRect);
+    }
+
+    public void setPopupBgColor(@ColorInt int color) {
+        mPopup.setBgColor(color);
+    }
+
+    public void setPopupTextColor(@ColorInt int color) {
+        mPopup.setTextColor(color);
+    }
+
+    public void setAutoHideDelay(int hideDelay) {
         mAutoHideDelay = hideDelay;
+        if (mAutoHideEnabled) {
+            postAutoHideDelayed();
+        }
     }
 
-    public boolean isHidingEnabled() {
-        return mAutoHideEnabled;
-    }
-
-    public void setHidingEnabled(boolean hidingEnabled) {
-        mAutoHideEnabled = hidingEnabled;
-        if (hidingEnabled) {
+    public void setAutoHideEnabled(boolean autoHideEnabled) {
+        mAutoHideEnabled = autoHideEnabled;
+        if (autoHideEnabled) {
             postAutoHideDelayed();
         } else {
             cancelAutoHide();
