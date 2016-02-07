@@ -68,11 +68,12 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     }
 
     //Todo: move
+    // move where and why?
     public int getScrollBarWidth() {
         return mScrollbar.getWidth();
     }
 
-    public int getScrollBarHeight() {
+    public int getScrollBarThumbHeight() {
         return mScrollbar.getThumbHeight();
     }
 
@@ -303,6 +304,14 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
 
     public void setPopupTextColor(@ColorInt int color) {
         mScrollbar.setPopupTextColor(color);
+    }
+
+    public void setAutoHideDelay(int hideDelay) {
+        mScrollbar.setAutoHideDelay(hideDelay);
+    }
+
+    public void setAutoHideEnabled(boolean autoHideEnabled) {
+        mScrollbar.setAutoHideEnabled(autoHideEnabled);
     }
 
     public interface SectionedAdapter {

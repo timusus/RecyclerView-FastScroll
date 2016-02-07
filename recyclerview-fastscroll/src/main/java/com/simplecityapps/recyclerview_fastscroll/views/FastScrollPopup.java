@@ -171,7 +171,7 @@ public class FastScrollPopup {
                 mBgBounds.right = recyclerView.getWidth() - (2 * recyclerView.getScrollBarWidth());
                 mBgBounds.left = mBgBounds.right - bgWidth;
             }
-            mBgBounds.top = thumbOffsetY - bgHeight + recyclerView.getScrollBarHeight() / 2;
+            mBgBounds.top = thumbOffsetY - bgHeight + recyclerView.getScrollBarThumbHeight() / 2;
             mBgBounds.top = Math.max(edgePadding, Math.min(mBgBounds.top, recyclerView.getHeight() - edgePadding - bgHeight));
             mBgBounds.bottom = mBgBounds.top + bgHeight;
         } else {
