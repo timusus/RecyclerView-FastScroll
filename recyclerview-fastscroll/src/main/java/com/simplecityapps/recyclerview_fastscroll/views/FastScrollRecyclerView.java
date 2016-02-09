@@ -68,12 +68,13 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     }
 
     //Todo: move
+    // move where and why?
     public int getScrollBarWidth() {
         return mScrollbar.getWidth();
     }
 
-    public int getScrollBarHeight() {
-        return mScrollbar.getHeight();
+    public int getScrollBarThumbHeight() {
+        return mScrollbar.getThumbHeight();
     }
 
     @Override
@@ -149,7 +150,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
      */
     protected int getAvailableScrollBarHeight() {
         int visibleHeight = getHeight();
-        int availableScrollBarHeight = visibleHeight - mScrollbar.getHeight();
+        int availableScrollBarHeight = visibleHeight - mScrollbar.getThumbHeight();
         return availableScrollBarHeight;
     }
 
@@ -176,7 +177,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
 
         // Only show the scrollbar if there is height to be scrolled
         if (availableScrollHeight <= 0) {
-            mScrollbar.setScrollbarThumbOffset(-1, -1);
+            mScrollbar.setThumbPosition(-1, -1);
             return;
         }
 
@@ -193,7 +194,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         } else {
             scrollBarX = getWidth() - mScrollbar.getWidth();
         }
-        mScrollbar.setScrollbarThumbOffset(scrollBarX, scrollBarY);
+        mScrollbar.setThumbPosition(scrollBarX, scrollBarY);
     }
 
     /**
@@ -251,14 +252,14 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         }
         // Skip early if, there are no items.
         if (rowCount == 0) {
-            mScrollbar.setScrollbarThumbOffset(-1, -1);
+            mScrollbar.setThumbPosition(-1, -1);
             return;
         }
 
         // Skip early if, there no child laid out in the container.
         getCurScrollState(mScrollPosState);
         if (mScrollPosState.rowIndex < 0) {
-            mScrollbar.setScrollbarThumbOffset(-1, -1);
+            mScrollbar.setThumbPosition(-1, -1);
             return;
         }
 
@@ -303,6 +304,14 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
 
     public void setPopupTextColor(@ColorInt int color) {
         mScrollbar.setPopupTextColor(color);
+    }
+
+    public void setAutoHideDelay(int hideDelay) {
+        mScrollbar.setAutoHideDelay(hideDelay);
+    }
+
+    public void setAutoHideEnabled(boolean autoHideEnabled) {
+        mScrollbar.setAutoHideEnabled(autoHideEnabled);
     }
 
     public interface SectionedAdapter {
