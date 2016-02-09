@@ -6,15 +6,29 @@ Supports vertical RecyclerViews using either `LinearLayoutManager` or `GridLayou
 The style is loosely based on the ListView FastScroller from whatever the last version of Lollipop was. This library borrows heavily from [Google's Launcher3 FastScroller](https://android.googlesource.com/platform/packages/apps/Launcher3/)
 
 ###Gradle###
-
-`compile 'com.simplecityapps:recyclerview-fastscroll:1.0.5'`
+`compile 'com.simplecityapps:recyclerview-fastscroll:1.0.6'`
 
 ###Usage###
-You must use `FastScrollRecyclerView` as your base `RecyclerView`. 
+You must use `FastScrollRecyclerView` as your base `RecyclerView`. See the sample project if you're having trouble.
 
-If your RecyclerView Adapter implements a SectionIndexer, the FastScrollPopup will display the text returned from that implementation.
+Via xml:
+
+     <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
+             android:id="@+id/recycler"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             app:fastScrollAutoHide="true"
+             app:fastScrollAutoHideDelay="1500"
+             app:fastScrollPopupBgColor="@color/colorAccent"
+             app:fastScrollPopupTextColor="@android:color/primary_text_dark"
+             app:fastScrollThumbColor="@color/colorAccent" />
+
+To display the FastScrollPopup, your adapter must implement `FastScrollRecyclerView.SectionedAdapter` and override `getSectionName()`.
 
 ![Screenshot](https://github.com/timusus/RecyclerView-FastScroll/blob/master/screenshot.jpg)
+
+###Updates###
+Note: as of v1.0.6, the FastScrollPopup no longer requires your adapter to implement `SectionIndexer`, but rather `FastScrollRecyclerView.SectionedAdapter`, which is much easier to use.
 
 ###Licenses###
 
