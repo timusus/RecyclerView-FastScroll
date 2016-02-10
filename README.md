@@ -31,9 +31,9 @@ Via xml:
 
 To display the `FastScrollPopup`, your adapter must implement `FastScrollRecyclerView.SectionedAdapter` and override `getSectionName()`.
 
-####Customisation####
+#####Customisation#####
 
-You can enable/disable autohide using the fastScrollAutoHide & fastScrollAutoHideDelay attributes in xml
+You can enable/disable autohide using the `fastScrollAutoHide` & `fastScrollAutoHideDelay` attributes in xml:
 
      <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
              app:fastScrollAutoHide="true"
@@ -42,7 +42,7 @@ You can enable/disable autohide using the fastScrollAutoHide & fastScrollAutoHid
              
 Or programmatically via `setAutoHideDelay(int hideDelay)` and `setAutoHideEnabled(boolean autoHideEnabled)`
 
-The popup background, popup text, track background and thumb color can all be style via xml
+The popup background, popup text, track background and thumb color can all be styled via xml:
 
       <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
                   app:fastScrollPopupBgColor="@color/colorAccent"
@@ -53,7 +53,7 @@ The popup background, popup text, track background and thumb color can all be st
 Or programmatically via `setThumbColor(@ColorInt int color)`, `setTrackColor(@ColorInt int color)`, `setPopupBgColor(@ColorInt int color)`& `setPopupTextColor(@ColorInt int color)`
 
 ###Updates###
-Note: as of v1.0.6, the FastScrollPopup no longer requires your adapter to implement `SectionIndexer`, but rather `FastScrollRecyclerView.SectionedAdapter`, which is much easier to use.
+Note: as of v1.0.6, the `FastScrollPopup` no longer requires your adapter to implement `SectionIndexer`, but rather `FastScrollRecyclerView.SectionedAdapter`, which is much easier to use.
 
 ###Licenses###
 
