@@ -39,6 +39,8 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
 
     int expandCount = 0;
 
+    boolean enableFastScrolling = true;
+
     /**
      * The current scroll state of the recycler view.  We use this in onUpdateScrollbar()
      * and scrollToPositionAtProgress() to determine the scroll position of the recycler view so
@@ -138,7 +140,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     /**
      * Returns the available scroll height:
      * AvailableScrollHeight = Total height of the all items - last page height
-     * <p/>
+     * <p>
      * This assumes that all rows are the same height.
      *
      * @param yOffset the offset from the top of the recycler view to start tracking.
@@ -163,8 +165,10 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     @Override
     public void draw(Canvas c) {
         super.draw(c);
-        onUpdateScrollbar();
-        mScrollbar.draw(c);
+        if (enableFastScrolling) {
+            onUpdateScrollbar();
+            mScrollbar.draw(c);
+        }
     }
 
     /**
@@ -347,5 +351,10 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
 
     public void setScrollPopUpTypeface(Typeface typeface) {
         mScrollbar.setPopupTypeface(typeface);
+    }
+
+    public void setEnableFastScrolling(boolean enable) {
+        this.enableFastScrolling = enable;
+        invalidate();
     }
 }
