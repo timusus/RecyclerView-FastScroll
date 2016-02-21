@@ -18,9 +18,11 @@ package com.simplecityapps.recyclerview_fastscroll.sample.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,11 +37,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.id_appbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.id_toolbar);
+        setSupportActionBar(toolbar);
         FastScrollRecyclerView recyclerView = (FastScrollRecyclerView) findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new RecyclerAdapter());
         recyclerView.addItemDecoration(new DividerItemDecoration(this));
+        recyclerView.attachAppBarLayout(appBarLayout);
     }
 
     private static class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>
