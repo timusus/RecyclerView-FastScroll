@@ -24,6 +24,7 @@ import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.text.TextUtils;
 
 import com.simplecityapps.recyclerview_fastscroll.utils.Utils;
@@ -56,9 +57,15 @@ public class FastScrollPopup {
 
     private ObjectAnimator mAlphaAnimator;
     private boolean mVisible;
+    private FastScrollPopupAlphaAnimator mFastScrollPopupAlphaAnimator;
 
     public FastScrollPopup(Resources resources, FastScrollRecyclerView recyclerView) {
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            mFastScrollPopupAlphaAnimator = new FastScrollPopupApi14AlphaAnimatorImp();
+        } else {
+            mFastScrollPopupAlphaAnimator = new FastScrollPopupPreApi14AlphaAnimatorImp();
+        }
         mRes = resources;
 
         mRecyclerView = recyclerView;
@@ -70,8 +77,6 @@ public class FastScrollPopup {
 
         mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mTextPaint.setAlpha(0);
-        //Todo: Set typeface from attributes or create method setTypeface()
-        //mTextPaint.setTypeface(TypefaceManager.getInstance().getTypeface(TypefaceManager.SANS_SERIF));
         mTextPaint.setTextSize(Utils.toPixels(mRes, 56));
     }
 
@@ -99,7 +104,7 @@ public class FastScrollPopup {
             if (mAlphaAnimator != null) {
                 mAlphaAnimator.cancel();
             }
-            mAlphaAnimator = ObjectAnimator.ofFloat(this, "alpha", visible ? 1f : 0f);
+            mAlphaAnimator = mFastScrollPopupAlphaAnimator.getAlphaAnimator(this, visible ? 1f : 0f);
             mAlphaAnimator.setDuration(visible ? 200 : 150);
             mAlphaAnimator.start();
         }
