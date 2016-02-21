@@ -23,6 +23,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.text.TextUtils;
 
 import com.simplecityapps.recyclerview_fastscroll.utils.Utils;
@@ -81,6 +82,11 @@ public class FastScrollPopup {
 
     public void setTextColor(int color) {
         mTextPaint.setColor(color);
+        mRecyclerView.invalidate(mBgBounds);
+    }
+
+    public void setTypeface(Typeface typeface) {
+        mTextPaint.setTypeface(typeface);
         mRecyclerView.invalidate(mBgBounds);
     }
 

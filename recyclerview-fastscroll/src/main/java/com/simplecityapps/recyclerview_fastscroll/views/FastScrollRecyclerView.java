@@ -18,6 +18,7 @@ package com.simplecityapps.recyclerview_fastscroll.views;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
@@ -342,5 +343,9 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
 
     public void attachAppBarLayout(AppBarLayout appBarLayout) {
         this.mAppBarLayout = appBarLayout;
+    }
+
+    public void setScrollPopUpTypeface(Typeface typeface) {
+        mScrollbar.setPopupTypeface(typeface);
     }
 }
