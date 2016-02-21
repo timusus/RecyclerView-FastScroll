@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         FastScrollRecyclerView recyclerView = (FastScrollRecyclerView) findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new RecyclerAdapter());
+        recyclerView.addItemDecoration(new DividerItemDecoration(this));
     }
 
     private static class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>
