@@ -6,6 +6,8 @@ android:
     - build-tools-23.0.3
     - android-23
     - extra-android-support
+    - extra-android-m2repository
+    - extra-google-m2repository
 
 script:
    - ./gradlew build connectedCheck
