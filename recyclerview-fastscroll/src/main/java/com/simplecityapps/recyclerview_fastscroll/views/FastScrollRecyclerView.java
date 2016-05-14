@@ -281,10 +281,11 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
 
         int itemCount = getAdapter().getItemCount();
 
-        // Return early if there are no items
-        if (itemCount == 0) {
+        // Return early if there are no items, or no children.
+        if (itemCount == 0 || getChildCount() == 0) {
             return;
         }
+        
         View child = getChildAt(0);
 
         stateOut.rowIndex = getChildAdapterPosition(child);
