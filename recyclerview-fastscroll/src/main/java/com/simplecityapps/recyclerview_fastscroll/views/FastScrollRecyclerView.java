@@ -245,6 +245,11 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
      * Updates the bounds for the scrollbar.
      */
     public void onUpdateScrollbar() {
+
+        if (getAdapter() == null) {
+            return;
+        }
+
         int rowCount = getAdapter().getItemCount();
         if (getLayoutManager() instanceof GridLayoutManager) {
             int spanCount = ((GridLayoutManager) getLayoutManager()).getSpanCount();
