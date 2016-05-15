@@ -6,8 +6,8 @@ android {
 
     defaultConfig {
         minSdkVersion 11
-        versionCode 3
-        versionName "1.0.7"
+        versionCode 5
+        versionName "1.0.9"
     }
 }
 
@@ -18,4 +18,5 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:23.4.0'
 }
 
+//To deploy, re-comment following line & run ./gradlew clean assembleRelease install bintrayUpload
 //apply from : 'deploy.gradle'
