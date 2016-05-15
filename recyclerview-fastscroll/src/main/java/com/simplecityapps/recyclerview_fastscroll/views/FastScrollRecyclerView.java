@@ -132,7 +132,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     /**
      * Returns the available scroll height:
      * AvailableScrollHeight = Total height of the all items - last page height
-     * <p/>
+     *
      * This assumes that all rows are the same height.
      *
      * @param yOffset the offset from the top of the recycler view to start tracking.
