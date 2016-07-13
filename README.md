@@ -10,7 +10,7 @@ Supports vertical `RecyclerViews` using either `LinearLayoutManager` or `GridLay
 
 The style is loosely based on the `ListView` `FastScroller` from whatever the last version of Lollipop was. This library borrows heavily from [Google's Launcher3 FastScroller](https://android.googlesource.com/platform/packages/apps/Launcher3/)
 
-![Screenshot](https://github.com/timusus/RecyclerView-FastScroll/blob/master/screenshot.jpg)
+![Screenshot](https://github.com/timusus/RecyclerView-FastScroll/blob/master/screenshot.png)
 
 ###Gradle###
 `compile 'com.simplecityapps:recyclerview-fastscroll:1.0.6'`
