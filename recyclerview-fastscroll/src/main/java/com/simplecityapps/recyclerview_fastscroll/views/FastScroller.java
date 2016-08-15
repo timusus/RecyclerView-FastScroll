@@ -26,6 +26,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
 import android.support.v4.view.animation.FastOutLinearInInterpolator;
 import android.support.v4.view.animation.LinearOutSlowInInterpolator;
@@ -311,6 +312,10 @@ public class FastScroller {
 
     public void setPopupTextColor(@ColorInt int color) {
         mPopup.setTextColor(color);
+    }
+
+    public void setPopupTypeface(Typeface typeface) {
+        mPopup.setTypeface(typeface);
     }
 
     public void setAutoHideDelay(int hideDelay) {

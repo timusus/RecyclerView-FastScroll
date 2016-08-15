@@ -18,6 +18,7 @@ package com.simplecityapps.recyclerview_fastscroll.views;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
@@ -285,7 +286,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         if (itemCount == 0 || getChildCount() == 0) {
             return;
         }
-        
+
         View child = getChildAt(0);
 
         stateOut.rowIndex = getChildAdapterPosition(child);
@@ -312,6 +313,10 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         mScrollbar.setPopupTextColor(color);
     }
 
+    public void setPopUpTypeface(Typeface typeface) {
+        mScrollbar.setPopupTypeface(typeface);
+    }
+
     public void setAutoHideDelay(int hideDelay) {
         mScrollbar.setAutoHideDelay(hideDelay);
     }
@@ -323,5 +328,6 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     public interface SectionedAdapter {
         @NonNull
         String getSectionName(int position);
+
     }
 }
