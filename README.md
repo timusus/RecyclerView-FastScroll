@@ -43,15 +43,16 @@ You can enable/disable autohide using the `fastScrollAutoHide` & `fastScrollAuto
              
 Or programmatically via `setAutoHideDelay(int hideDelay)` and `setAutoHideEnabled(boolean autoHideEnabled)`
 
-The popup background, popup text, track background and thumb color can all be styled via xml:
+The popup background, popup text, popup text size, track background and thumb color can all be styled via xml:
 
       <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
                   app:fastScrollPopupBgColor="@color/colorAccent"
                   app:fastScrollPopupTextColor="@android:color/primary_text_dark"
-                  app:fastScrollThumbColor="@color/colorAccent" />
-                  app:fastScrollTrackColor="#1f000000"/>
+                  app:fastScrollPopupTextSize="56"
+                  app:fastScrollThumbColor="@color/colorAccent"
+                  app:fastScrollTrackColor="#1f000000" />
                   ...
-Or programmatically via `setThumbColor(@ColorInt int color)`, `setTrackColor(@ColorInt int color)`, `setPopupBgColor(@ColorInt int color)`& `setPopupTextColor(@ColorInt int color)`
+Or programmatically via `setThumbColor(@ColorInt int color)`, `setTrackColor(@ColorInt int color)`, `setPopupBgColor(@ColorInt int color)`, `setPopupTextColor(@ColorInt int color)`& `setPopupTextSize(int size)`
 
 ###Updates###
 v1.0.6

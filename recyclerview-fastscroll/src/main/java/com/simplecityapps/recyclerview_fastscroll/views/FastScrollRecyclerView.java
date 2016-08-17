@@ -312,6 +312,10 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         mScrollbar.setPopupTextColor(color);
     }
 
+    public void setPopupTextSize(int color) {
+        mScrollbar.setPopupTextSize(color);
+    }
+
     public void setAutoHideDelay(int hideDelay) {
         mScrollbar.setAutoHideDelay(hideDelay);
     }

@@ -96,11 +96,13 @@ public class FastScroller {
             int thumbColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollThumbColor, 0xff000000);
             int popupBgColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollPopupBgColor, 0xff000000);
             int popupTextColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollPopupTextColor, 0xffffffff);
+            int popupTextSize = typedArray.getInt(R.styleable.FastScrollRecyclerView_fastScrollPopupTextSize, 56);
 
             mTrack.setColor(trackColor);
             mThumb.setColor(thumbColor);
             mPopup.setBgColor(popupBgColor);
             mPopup.setTextColor(popupTextColor);
+            mPopup.setTextSize(popupTextSize);
         } finally {
             typedArray.recycle();
         }
@@ -311,6 +313,10 @@ public class FastScroller {
 
     public void setPopupTextColor(@ColorInt int color) {
         mPopup.setTextColor(color);
+    }
+
+    public void setPopupTextSize(int size) {
+        mPopup.setTextSize(size);
     }
 
     public void setAutoHideDelay(int hideDelay) {
