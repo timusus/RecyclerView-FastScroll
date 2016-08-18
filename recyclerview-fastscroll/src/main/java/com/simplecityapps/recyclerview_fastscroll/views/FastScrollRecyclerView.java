@@ -155,10 +155,10 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     }
 
     @Override
-    protected void dispatchDraw(Canvas canvas) {
-        super.dispatchDraw(canvas);
+    public void draw(Canvas c) {
+        super.draw(c);
         onUpdateScrollbar();
-        mScrollbar.draw(canvas);
+        mScrollbar.draw(c);
     }
 
     /**
