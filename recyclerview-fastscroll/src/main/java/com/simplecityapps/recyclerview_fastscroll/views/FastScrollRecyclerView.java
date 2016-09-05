@@ -68,8 +68,6 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         mScrollbar = new FastScroller(context, this, attrs);
     }
 
-    //Todo: move
-    // move where and why?
     public int getScrollBarWidth() {
         return mScrollbar.getWidth();
     }

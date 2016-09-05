@@ -70,9 +70,6 @@ public class FastScrollPopup {
 
         setTextSize(Utils.toScreenPixels(mRes, 56));
         setBackgroundSize(Utils.toPixels(mRes, 88));
-
-        //Todo: Set typeface from attributes or create method setTypeface()
-        //mTextPaint.setTypeface(TypefaceManager.getInstance().getTypeface(TypefaceManager.SANS_SERIF));
     }
 
     public void setBgColor(int color) {
