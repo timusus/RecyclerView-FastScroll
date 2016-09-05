@@ -63,6 +63,13 @@ v1.0.9
 - Fixed crash when no adapter was set on the `RecyclerView`
 - Fixed crash when `RecyclerView` children are null (`itemCount` is non zero, but `getChildAt(0)` returns null).
 
+1.0.10
+
+- Added methods/attributes to set popup background & text size
+- Added method to set popup typeface
+- Fixed issue where item decorations were drawn over the top of the popup (#18)
+- Updated dependencies
+
 ###Licenses###
 
 RecyclerView-FastScroll
