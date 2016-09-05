@@ -23,10 +23,10 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     //Appcompat
-    compile 'com.android.support:appcompat-v7:24.1.1'
+    compile 'com.android.support:appcompat-v7:24.2.0'
 
     //RecyclerView
-    compile 'com.android.support:recyclerview-v7:24.1.1'
+    compile 'com.android.support:recyclerview-v7:24.2.0'
 
     //RecyclerView-FastScroll
     compile project(':recyclerview-fastscroll')
