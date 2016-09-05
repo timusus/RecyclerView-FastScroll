@@ -27,8 +27,10 @@
         android:layout_height="match_parent"
         app:fastScrollAutoHide="true"
         app:fastScrollAutoHideDelay="1500"
+        app:fastScrollPopupBackgroundSize="88dp"
         app:fastScrollPopupBgColor="@color/colorAccent"
         app:fastScrollPopupTextColor="@android:color/primary_text_dark"
+        app:fastScrollPopupTextSize="56sp"
         app:fastScrollThumbColor="@color/colorAccent" />
 
 </FrameLayout>

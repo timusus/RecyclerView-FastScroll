@@ -63,16 +63,16 @@ public class FastScrollPopup {
 
         mRecyclerView = recyclerView;
 
-        mBackgroundSize = Utils.toPixels(mRes, 88);
-        mCornerRadius = mBackgroundSize / 2;
-
         mBackgroundPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
         mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mTextPaint.setAlpha(0);
+
+        setTextSize(Utils.toScreenPixels(mRes, 56));
+        setBackgroundSize(Utils.toPixels(mRes, 88));
+
         //Todo: Set typeface from attributes or create method setTypeface()
         //mTextPaint.setTypeface(TypefaceManager.getInstance().getTypeface(TypefaceManager.SANS_SERIF));
-        mTextPaint.setTextSize(Utils.toPixels(mRes, 56));
     }
 
     public void setBgColor(int color) {
@@ -82,6 +82,17 @@ public class FastScrollPopup {
 
     public void setTextColor(int color) {
         mTextPaint.setColor(color);
+        mRecyclerView.invalidate(mBgBounds);
+    }
+
+    public void setTextSize(int size) {
+        mTextPaint.setTextSize(size);
+        mRecyclerView.invalidate(mBgBounds);
+    }
+
+    public void setBackgroundSize(int size) {
+        mBackgroundSize = size;
+        mCornerRadius = mBackgroundSize / 2;
         mRecyclerView.invalidate(mBgBounds);
     }
 
