@@ -13,7 +13,7 @@ The style is loosely based on the `ListView` `FastScroller` from whatever the la
 ![Screenshot](https://github.com/timusus/RecyclerView-FastScroll/blob/master/screenshot.png)
 
 ###Gradle###
-`compile 'com.simplecityapps:recyclerview-fastscroll:1.0.9'`
+`compile 'com.simplecityapps:recyclerview-fastscroll:1.0.10'`
 
 ###Usage###
 You must use `FastScrollRecyclerView` as your base `RecyclerView`. See the sample project if you're having trouble.
