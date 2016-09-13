@@ -36,6 +36,7 @@ import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 
 import com.simplecityapps.recyclerview_fastscroll.R;
+import com.simplecityapps.recyclerview_fastscroll.interfaces.OnFastScrollStateChangeListener;
 import com.simplecityapps.recyclerview_fastscroll.utils.Utils;
 
 public class FastScroller {
@@ -154,7 +155,8 @@ public class FastScroller {
      * Handles the touch event and determines whether to show the fast scroller (or updates it if
      * it is already showing).
      */
-    public void handleTouchEvent(MotionEvent ev, int downX, int downY, int lastY) {
+    public void handleTouchEvent(MotionEvent ev, int downX, int downY, int lastY,
+                                 OnFastScrollStateChangeListener stateChangeListener) {
         ViewConfiguration config = ViewConfiguration.get(mRecyclerView.getContext());
 
         int action = ev.getAction();
@@ -173,6 +175,9 @@ public class FastScroller {
                     mIsDragging = true;
                     mTouchOffset += (lastY - downY);
                     mPopup.animateVisibility(true);
+                    if (stateChangeListener != null) {
+                        stateChangeListener.onFastScrollStart();
+                    }
                 }
                 if (mIsDragging) {
                     // Update the fastscroller section name at this touch position
@@ -191,6 +196,9 @@ public class FastScroller {
                 if (mIsDragging) {
                     mIsDragging = false;
                     mPopup.animateVisibility(false);
+                    if (stateChangeListener != null) {
+                        stateChangeListener.onFastScrollStop();
+                    }
                 }
                 break;
         }
