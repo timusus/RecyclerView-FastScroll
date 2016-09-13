@@ -6,8 +6,8 @@ android {
 
     defaultConfig {
         minSdkVersion 11
-        versionCode 6
-        versionName "1.0.10"
+        versionCode 7
+        versionName "1.0.11"
     }
 }
 

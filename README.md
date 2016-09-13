@@ -30,6 +30,8 @@ Via xml:
 
 To display the `FastScrollPopup`, your adapter must implement `FastScrollRecyclerView.SectionedAdapter` and override `getSectionName()`.
 
+If you need to know when fast-scrolling starts or stops, you can attach an OnFatScrollStateChangedListener to the FastScrollRecyclerView.
+
 #####Customisation#####
 
 You can enable/disable autohide using the `fastScrollAutoHide` & `fastScrollAutoHideDelay` attributes in xml:
@@ -69,6 +71,10 @@ v1.0.9
 - Added method to set popup typeface
 - Fixed issue where item decorations were drawn over the top of the popup (#18)
 - Updated dependencies
+
+1.0.11
+
+- Added FastScrollStateChanged listener. Notifies when scrolling starts & stops.
 
 ###Licenses###
 
