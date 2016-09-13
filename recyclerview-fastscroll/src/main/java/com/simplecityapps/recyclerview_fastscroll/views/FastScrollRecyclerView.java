@@ -28,6 +28,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.simplecityapps.recyclerview_fastscroll.interfaces.OnFastScrollStateChangeListener;
 import com.simplecityapps.recyclerview_fastscroll.utils.Utils;
 
 public class FastScrollRecyclerView extends RecyclerView implements RecyclerView.OnItemTouchListener {
@@ -54,6 +55,8 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     private int mDownX;
     private int mDownY;
     private int mLastY;
+
+    private OnFastScrollStateChangeListener mStateChangeListener;
 
     public FastScrollRecyclerView(Context context) {
         this(context, null);
@@ -109,15 +112,15 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
                 // Keep track of the down positions
                 mDownX = x;
                 mDownY = mLastY = y;
-                mScrollbar.handleTouchEvent(ev, mDownX, mDownY, mLastY);
+                mScrollbar.handleTouchEvent(ev, mDownX, mDownY, mLastY, mStateChangeListener);
                 break;
             case MotionEvent.ACTION_MOVE:
                 mLastY = y;
-                mScrollbar.handleTouchEvent(ev, mDownX, mDownY, mLastY);
+                mScrollbar.handleTouchEvent(ev, mDownX, mDownY, mLastY, mStateChangeListener);
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                mScrollbar.handleTouchEvent(ev, mDownX, mDownY, mLastY);
+                mScrollbar.handleTouchEvent(ev, mDownX, mDownY, mLastY, mStateChangeListener);
                 break;
         }
         return mScrollbar.isDragging();
@@ -325,6 +328,10 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
 
     public void setAutoHideEnabled(boolean autoHideEnabled) {
         mScrollbar.setAutoHideEnabled(autoHideEnabled);
+    }
+
+    public void setStateChangeListener(OnFastScrollStateChangeListener stateChangeListener) {
+        mStateChangeListener = stateChangeListener;
     }
 
     public interface SectionedAdapter {
