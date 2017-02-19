@@ -295,7 +295,8 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
             stateOut.rowIndex = stateOut.rowIndex / ((GridLayoutManager) getLayoutManager()).getSpanCount();
         }
         stateOut.rowTopOffset = getLayoutManager().getDecoratedTop(child);
-        stateOut.rowHeight = child.getHeight();
+        stateOut.rowHeight = child.getHeight() + getLayoutManager().getTopDecorationHeight(child)
+                + getLayoutManager().getBottomDecorationHeight(child);
     }
 
     public void setThumbColor(@ColorInt int color) {
