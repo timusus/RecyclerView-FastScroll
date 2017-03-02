@@ -24,9 +24,14 @@ import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
+import android.support.annotation.IntDef;
 import android.text.TextUtils;
 
 import com.simplecityapps.recyclerview_fastscroll.utils.Utils;
+
+import java.lang.annotation.Retention;
+
+import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 public class FastScrollPopup {
 
@@ -56,6 +61,8 @@ public class FastScrollPopup {
 
     private ObjectAnimator mAlphaAnimator;
     private boolean mVisible;
+
+    @FastScroller.FastScrollerPopupPosition private int mPosition;
 
     public FastScrollPopup(Resources resources, FastScrollRecyclerView recyclerView) {
 
@@ -123,6 +130,27 @@ public class FastScrollPopup {
         return mAlpha;
     }
 
+    public void setPopupPosition(@FastScroller.FastScrollerPopupPosition int position) {
+        mPosition = position;
+    }
+
+    @FastScroller.FastScrollerPopupPosition
+    public int getPopupPosition() {
+        return mPosition;
+    }
+
+    private float[] createRadii() {
+        if (mPosition == FastScroller.FastScrollerPopupPosition.CENTER) {
+            return new float[]{mCornerRadius, mCornerRadius, mCornerRadius, mCornerRadius, mCornerRadius, mCornerRadius, mCornerRadius, mCornerRadius};
+        }
+
+        if (Utils.isRtl(mRes)) {
+            return new float[]{mCornerRadius, mCornerRadius, mCornerRadius, mCornerRadius, mCornerRadius, mCornerRadius, 0, 0};
+        } else {
+            return new float[]{mCornerRadius, mCornerRadius, mCornerRadius, mCornerRadius, 0, 0, mCornerRadius, mCornerRadius};
+        }
+    }
+
     public void draw(Canvas canvas) {
         if (isVisible()) {
             // Draw the fast scroller popup
@@ -134,14 +162,7 @@ public class FastScrollPopup {
             mBackgroundPath.reset();
             mBackgroundRect.set(mTmpRect);
 
-            float[] radii;
-
-            if (Utils.isRtl(mRes)) {
-                radii = new float[]{mCornerRadius, mCornerRadius, mCornerRadius, mCornerRadius, mCornerRadius, mCornerRadius, 0, 0};
-            } else {
-
-                radii = new float[]{mCornerRadius, mCornerRadius, mCornerRadius, mCornerRadius, 0, 0, mCornerRadius, mCornerRadius};
-            }
+            float[] radii = createRadii();
 
             mBackgroundPath.addRoundRect(mBackgroundRect, radii, Path.Direction.CW);
 
@@ -178,15 +199,21 @@ public class FastScrollPopup {
             int bgPadding = (mBackgroundSize - mTextBounds.height()) / 2;
             int bgHeight = mBackgroundSize;
             int bgWidth = Math.max(mBackgroundSize, mTextBounds.width() + (2 * bgPadding));
-            if (Utils.isRtl(mRes)) {
-                mBgBounds.left = (2 * recyclerView.getScrollBarWidth());
+            if (mPosition == FastScroller.FastScrollerPopupPosition.CENTER) {
+                mBgBounds.left = (recyclerView.getWidth() - bgWidth) / 2;
                 mBgBounds.right = mBgBounds.left + bgWidth;
+                mBgBounds.top = (recyclerView.getHeight() - bgHeight) / 2;
             } else {
-                mBgBounds.right = recyclerView.getWidth() - (2 * recyclerView.getScrollBarWidth());
-                mBgBounds.left = mBgBounds.right - bgWidth;
+                if (Utils.isRtl(mRes)) {
+                    mBgBounds.left = (2 * recyclerView.getScrollBarWidth());
+                    mBgBounds.right = mBgBounds.left + bgWidth;
+                } else {
+                    mBgBounds.right = recyclerView.getWidth() - (2 * recyclerView.getScrollBarWidth());
+                    mBgBounds.left = mBgBounds.right - bgWidth;
+                }
+                mBgBounds.top = thumbOffsetY - bgHeight + recyclerView.getScrollBarThumbHeight() / 2;
+                mBgBounds.top = Math.max(edgePadding, Math.min(mBgBounds.top, recyclerView.getHeight() - edgePadding - bgHeight));
             }
-            mBgBounds.top = thumbOffsetY - bgHeight + recyclerView.getScrollBarThumbHeight() / 2;
-            mBgBounds.top = Math.max(edgePadding, Math.min(mBgBounds.top, recyclerView.getHeight() - edgePadding - bgHeight));
             mBgBounds.bottom = mBgBounds.top + bgHeight;
         } else {
             mBgBounds.setEmpty();
