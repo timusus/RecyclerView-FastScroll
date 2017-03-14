@@ -1,4 +1,4 @@
-# RecyclerView-FastScroll
+# RecyclerView-FastScroll #
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.simplecityapps/recyclerview-fastscroll/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.simplecityapps/recyclerview-fastscroll) [![API](https://img.shields.io/badge/API-11%2B-blue.svg?style=flat)](https://android-arsenal.com/api?level=11)
 [![License](http://img.shields.io/badge/license-APACHE2-blue.svg)](NOTICE)
@@ -12,10 +12,10 @@ The style is loosely based on the `ListView` `FastScroller` from whatever the la
 
 ![Screenshot](https://github.com/timusus/RecyclerView-FastScroll/blob/master/screenshot.png)
 
-###Gradle
+###Gradle###
 `compile 'com.simplecityapps:recyclerview-fastscroll:1.0.13'`
 
-###Usage
+###Usage###
 You must use `FastScrollRecyclerView` as your base `RecyclerView`. See the sample project if you're having trouble.
 
 Via xml:
@@ -32,7 +32,7 @@ To display the `FastScrollPopup`, your adapter must implement `FastScrollRecycle
 
 If you need to know when fast-scrolling starts or stops, you can attach an OnFatScrollStateChangedListener to the FastScrollRecyclerView.
 
-#####Customisation
+#####Customisation#####
 
 You can enable/disable autohide using the `fastScrollAutoHide` & `fastScrollAutoHideDelay` attributes in xml:
 
@@ -56,7 +56,7 @@ The popup background, popup text, popupbackground size, popup text size, track b
                   ...
 Or programmatically via `setThumbColor(@ColorInt int color)`, `setTrackColor(@ColorInt int color)`, `setPopupBgColor(@ColorInt int color)`, `setPopupTextColor(@ColorInt int color)`, `setPopupTextSize(int size)` & `setPopupPosition(@FastScroller.FastScrollerPopupPosition int position)`
 
-###Updates
+###Updates###
 
 1.0.13
 
@@ -88,7 +88,7 @@ v1.0.9
 v1.0.6
 - The `FastScrollPopup` no longer requires your adapter to implement `SectionIndexer`, but rather `FastScrollRecyclerView.SectionedAdapter`, which is much easier to use.
 
-###Licenses
+###Licenses###
 
 RecyclerView-FastScroll
 
