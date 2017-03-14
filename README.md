@@ -43,7 +43,7 @@ You can enable/disable autohide using the `fastScrollAutoHide` & `fastScrollAuto
              
 Or programmatically via `setAutoHideDelay(int hideDelay)` and `setAutoHideEnabled(boolean autoHideEnabled)`
 
-The popup background, popup text, popupbackground size, popup text size, track background and thumb color can all be styled via xml:
+The popup background, popup text, popupbackground size, popup text size, track background, thumb color and popup position can all be styled via xml:
 
       <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
                   app:fastScrollPopupBgColor="@color/colorAccent"
@@ -51,11 +51,16 @@ The popup background, popup text, popupbackground size, popup text size, track b
                   app:fastScrollPopupTextSize="56sp"
                   app:fastScrollPopupBackgroundSize="88dp"
                   app:fastScrollThumbColor="@color/colorAccent"
-                  app:fastScrollTrackColor="#1f000000" />
+                  app:fastScrollTrackColor="#1f000000" 
+                  app:fastScrollPopupPosition="adjacent"/>
                   ...
-Or programmatically via `setThumbColor(@ColorInt int color)`, `setTrackColor(@ColorInt int color)`, `setPopupBgColor(@ColorInt int color)`, `setPopupTextColor(@ColorInt int color)`& `setPopupTextSize(int size)`
+Or programmatically via `setThumbColor(@ColorInt int color)`, `setTrackColor(@ColorInt int color)`, `setPopupBgColor(@ColorInt int color)`, `setPopupTextColor(@ColorInt int color)`, `setPopupTextSize(int size)` & `setPopupPosition(@FastScroller.FastScrollerPopupPosition int position)`
 
 ###Updates
+
+1.0.13
+
+- Added option to position the FastScroll-Popup in the center of the RecyclerView (rather than tracking adjacent to the FastScroll thumb)
 
 1.0.12
 
