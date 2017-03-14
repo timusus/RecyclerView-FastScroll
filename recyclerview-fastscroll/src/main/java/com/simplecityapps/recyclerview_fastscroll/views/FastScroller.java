@@ -28,6 +28,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
+import android.support.annotation.IntDef;
 import android.support.annotation.Keep;
 import android.support.v4.view.animation.FastOutLinearInInterpolator;
 import android.support.v4.view.animation.LinearOutSlowInInterpolator;
@@ -39,6 +40,10 @@ import android.view.ViewConfiguration;
 import com.simplecityapps.recyclerview_fastscroll.R;
 import com.simplecityapps.recyclerview_fastscroll.interfaces.OnFastScrollStateChangeListener;
 import com.simplecityapps.recyclerview_fastscroll.utils.Utils;
+
+import java.lang.annotation.Retention;
+
+import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 public class FastScroller {
     private static final int DEFAULT_AUTO_HIDE_DELAY = 1500;
@@ -74,6 +79,13 @@ public class FastScroller {
     private boolean mAutoHideEnabled = true;
     private final Runnable mHideRunnable;
 
+    @Retention(SOURCE)
+    @IntDef({FastScrollerPopupPosition.ADJACENT, FastScrollerPopupPosition.CENTER})
+    protected @interface FastScrollerPopupPosition {
+        int ADJACENT = 0;
+        int CENTER = 1;
+    }
+
     public FastScroller(Context context, FastScrollRecyclerView recyclerView, AttributeSet attrs) {
 
         Resources resources = context.getResources();
@@ -101,6 +113,7 @@ public class FastScroller {
             int popupTextColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollPopupTextColor, 0xffffffff);
             int popupTextSize = typedArray.getDimensionPixelSize(R.styleable.FastScrollRecyclerView_fastScrollPopupTextSize, Utils.toScreenPixels(resources, 56));
             int popupBackgroundSize = typedArray.getDimensionPixelSize(R.styleable.FastScrollRecyclerView_fastScrollPopupBackgroundSize, Utils.toPixels(resources, 88));
+            @FastScrollerPopupPosition int popupPosition = typedArray.getInteger(R.styleable.FastScrollRecyclerView_fastScrollPopupPosition, FastScrollerPopupPosition.ADJACENT);
 
             mTrack.setColor(trackColor);
             mThumb.setColor(thumbColor);
@@ -108,6 +121,7 @@ public class FastScroller {
             mPopup.setTextColor(popupTextColor);
             mPopup.setTextSize(popupTextSize);
             mPopup.setBackgroundSize(popupBackgroundSize);
+            mPopup.setPopupPosition(popupPosition);
         } finally {
             typedArray.recycle();
         }
