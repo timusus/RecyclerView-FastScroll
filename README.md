@@ -12,10 +12,10 @@ The style is loosely based on the `ListView` `FastScroller` from whatever the la
 
 ![Screenshot](https://github.com/timusus/RecyclerView-FastScroll/blob/master/screenshot.png)
 
-###Gradle###
+###Gradle
 `compile 'com.simplecityapps:recyclerview-fastscroll:1.0.11'`
 
-###Usage###
+###Usage
 You must use `FastScrollRecyclerView` as your base `RecyclerView`. See the sample project if you're having trouble.
 
 Via xml:
@@ -32,7 +32,7 @@ To display the `FastScrollPopup`, your adapter must implement `FastScrollRecycle
 
 If you need to know when fast-scrolling starts or stops, you can attach an OnFatScrollStateChangedListener to the FastScrollRecyclerView.
 
-#####Customisation#####
+#####Customisation
 
 You can enable/disable autohide using the `fastScrollAutoHide` & `fastScrollAutoHideDelay` attributes in xml:
 
@@ -55,15 +55,17 @@ The popup background, popup text, popupbackground size, popup text size, track b
                   ...
 Or programmatically via `setThumbColor(@ColorInt int color)`, `setTrackColor(@ColorInt int color)`, `setPopupBgColor(@ColorInt int color)`, `setPopupTextColor(@ColorInt int color)`& `setPopupTextSize(int size)`
 
-###Updates###
-v1.0.6
-- The `FastScrollPopup` no longer requires your adapter to implement `SectionIndexer`, but rather `FastScrollRecyclerView.SectionedAdapter`, which is much easier to use.
+###Updates
 
-v1.0.9 
+1.0.12
 
-- Updated gradle & dependencies
-- Fixed crash when no adapter was set on the `RecyclerView`
-- Fixed crash when `RecyclerView` children are null (`itemCount` is non zero, but `getChildAt(0)` returns null).
+- Fixed a Proguard Obfuscation issue preventing animations from running
+- Fixed an issue where popup background color ignored alpha channel
+- Added support for item decorations
+
+1.0.11
+
+- Added FastScrollStateChanged listener. Notifies when scrolling starts & stops.
 
 1.0.10
 
@@ -72,11 +74,16 @@ v1.0.9
 - Fixed issue where item decorations were drawn over the top of the popup (#18)
 - Updated dependencies
 
-1.0.11
+v1.0.9 
 
-- Added FastScrollStateChanged listener. Notifies when scrolling starts & stops.
+- Updated gradle & dependencies
+- Fixed crash when no adapter was set on the `RecyclerView`
+- Fixed crash when `RecyclerView` children are null (`itemCount` is non zero, but `getChildAt(0)` returns null).
 
-###Licenses###
+v1.0.6
+- The `FastScrollPopup` no longer requires your adapter to implement `SectionIndexer`, but rather `FastScrollRecyclerView.SectionedAdapter`, which is much easier to use.
+
+###Licenses
 
 RecyclerView-FastScroll
 
