@@ -16,6 +16,7 @@
 
 package com.simplecityapps.recyclerview_fastscroll.sample.activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
             return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false));
         }
 
+        @SuppressLint("DefaultLocale")
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             holder.text.setText(String.format("Item %d", position));
