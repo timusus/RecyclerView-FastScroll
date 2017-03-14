@@ -19,6 +19,7 @@ package com.simplecityapps.recyclerview_fastscroll.views;
 import android.animation.ObjectAnimator;
 import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
@@ -41,6 +42,7 @@ public class FastScrollPopup {
     private Path mBackgroundPath = new Path();
     private RectF mBackgroundRect = new RectF();
     private Paint mBackgroundPaint;
+    private int mBackgroundColor = 0xff000000;
 
     private Rect mInvalidateRect = new Rect();
     private Rect mTmpRect = new Rect();
@@ -74,6 +76,7 @@ public class FastScrollPopup {
     }
 
     public void setBgColor(int color) {
+        mBackgroundColor = color;
         mBackgroundPaint.setColor(color);
         mRecyclerView.invalidate(mBgBounds);
     }
@@ -148,7 +151,7 @@ public class FastScrollPopup {
 
             mBackgroundPath.addRoundRect(mBackgroundRect, radii, Path.Direction.CW);
 
-            mBackgroundPaint.setAlpha((int) (mAlpha * 255));
+            mBackgroundPaint.setAlpha((int) (Color.alpha(mBackgroundColor) * mAlpha));
             mTextPaint.setAlpha((int) (mAlpha * 255));
             canvas.drawPath(mBackgroundPath, mBackgroundPaint);
             canvas.drawText(mSectionName, (mBgBounds.width() - mTextBounds.width()) / 2,
