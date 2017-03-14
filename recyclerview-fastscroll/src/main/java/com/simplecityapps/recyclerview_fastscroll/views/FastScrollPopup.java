@@ -24,6 +24,7 @@ import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
+import android.support.annotation.Keep;
 import android.text.TextUtils;
 
 import com.simplecityapps.recyclerview_fastscroll.utils.Utils;
@@ -114,11 +115,13 @@ public class FastScrollPopup {
     }
 
     // Setter/getter for the popup alpha for animations
+    @Keep
     public void setAlpha(float alpha) {
         mAlpha = alpha;
         mRecyclerView.invalidate(mBgBounds);
     }
 
+    @Keep
     public float getAlpha() {
         return mAlpha;
     }

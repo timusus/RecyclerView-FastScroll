@@ -28,6 +28,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
+import android.support.annotation.Keep;
 import android.support.v4.view.animation.FastOutLinearInInterpolator;
 import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.support.v7.widget.RecyclerView;
@@ -256,10 +257,12 @@ public class FastScroller {
     }
 
     // Setter/getter for the popup alpha for animations
+    @Keep
     public void setOffsetX(int x) {
         setOffset(x, mOffset.y);
     }
 
+    @Keep
     public int getOffsetX() {
         return mOffset.x;
     }
