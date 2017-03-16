@@ -81,7 +81,7 @@ public class FastScroller {
 
     @Retention(SOURCE)
     @IntDef({FastScrollerPopupPosition.ADJACENT, FastScrollerPopupPosition.CENTER})
-    protected @interface FastScrollerPopupPosition {
+    public @interface FastScrollerPopupPosition {
         int ADJACENT = 0;
         int CENTER = 1;
     }
@@ -365,5 +365,9 @@ public class FastScroller {
         } else {
             cancelAutoHide();
         }
+    }
+
+    public void setPopupPosition(@FastScrollerPopupPosition int popupPosition) {
+        mPopup.setPopupPosition(popupPosition);
     }
 }
