@@ -209,14 +209,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
             return "";
         }
         int spanCount = 1;
-        int rowCount = itemCount;
-        if (getLayoutManager() instanceof GridLayoutManager) {
-            spanCount = ((GridLayoutManager) getLayoutManager()).getSpanCount();
-            rowCount = (int) Math.ceil((double) rowCount / spanCount);
-        } else if (getLayoutManager() instanceof StaggeredGridLayoutManager) {
-            spanCount = ((StaggeredGridLayoutManager) getLayoutManager()).getSpanCount();
-            rowCount = (int) Math.ceil((double) rowCount / spanCount);
-        }
+        int rowCount = getRowCount();
 
         // Stop the scroller if it is scrolling
         stopScroll();
@@ -262,14 +255,8 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
             return;
         }
 
-        int rowCount = getAdapter().getItemCount();
-        if (getLayoutManager() instanceof GridLayoutManager) {
-            int spanCount = ((GridLayoutManager) getLayoutManager()).getSpanCount();
-            rowCount = (int) Math.ceil((double) rowCount / spanCount);
-        } else if (getLayoutManager() instanceof StaggeredGridLayoutManager) {
-            int spanCount = ((StaggeredGridLayoutManager) getLayoutManager()).getSpanCount();
-            rowCount = (int) Math.ceil((double) rowCount / spanCount);
-        }
+        int rowCount = getRowCount();
+
         // Skip early if, there are no items.
         if (rowCount == 0) {
             mScrollbar.setThumbPosition(-1, -1);
