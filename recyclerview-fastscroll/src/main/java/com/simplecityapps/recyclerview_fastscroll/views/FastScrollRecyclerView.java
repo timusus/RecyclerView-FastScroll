@@ -26,6 +26,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.SparseIntArray;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -57,6 +58,9 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     private int mDownY;
     private int mLastY;
 
+    private SparseIntArray mScrollOffsets;
+
+    private ScrollOffsetInvalidator mScrollOffsetInvalidator;
     private OnFastScrollStateChangeListener mStateChangeListener;
 
     public FastScrollRecyclerView(Context context) {
@@ -70,6 +74,8 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     public FastScrollRecyclerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mScrollbar = new FastScroller(context, this, attrs);
+        mScrollOffsetInvalidator = new ScrollOffsetInvalidator();
+        mScrollOffsets = new SparseIntArray();
     }
 
     public int getScrollBarWidth() {
@@ -84,6 +90,19 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     protected void onFinishInflate() {
         super.onFinishInflate();
         addOnItemTouchListener(this);
+    }
+
+    @Override
+    public void setAdapter(Adapter adapter) {
+        if (getAdapter() != null) {
+            getAdapter().unregisterAdapterDataObserver(mScrollOffsetInvalidator);
+        }
+
+        if (adapter != null) {
+            adapter.registerAdapterDataObserver(mScrollOffsetInvalidator);
+        }
+
+        super.setAdapter(adapter);
     }
 
     /**
@@ -316,6 +335,10 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     }
 
     private int calculateScrollDistanceToPosition(int adapterIndex) {
+        if (mScrollOffsets.indexOfKey(adapterIndex) >= 0) {
+            return mScrollOffsets.get(adapterIndex);
+        }
+
         int totalHeight = 0;
         MeasurableAdapter measurer = (MeasurableAdapter) getAdapter();
 
@@ -326,6 +349,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
             totalHeight += measurer.getViewTypeHeight(viewType, getResources());
         }
 
+        mScrollOffsets.put(adapterIndex, totalHeight);
         return totalHeight;
     }
 
@@ -398,6 +422,42 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
      */
     public void setPopupPosition(@FastScroller.FastScrollerPopupPosition int popupPosition) {
         mScrollbar.setPopupPosition(popupPosition);
+    }
+
+    private class ScrollOffsetInvalidator extends AdapterDataObserver {
+        private void invalidateAllScrollOffsets() {
+            mScrollOffsets.clear();
+        }
+
+        @Override
+        public void onChanged() {
+            invalidateAllScrollOffsets();
+        }
+
+        @Override
+        public void onItemRangeChanged(int positionStart, int itemCount) {
+            invalidateAllScrollOffsets();
+        }
+
+        @Override
+        public void onItemRangeChanged(int positionStart, int itemCount, Object payload) {
+            invalidateAllScrollOffsets();
+        }
+
+        @Override
+        public void onItemRangeInserted(int positionStart, int itemCount) {
+            invalidateAllScrollOffsets();
+        }
+
+        @Override
+        public void onItemRangeRemoved(int positionStart, int itemCount) {
+            invalidateAllScrollOffsets();
+        }
+
+        @Override
+        public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
+            invalidateAllScrollOffsets();
+        }
     }
 
     public interface SectionedAdapter {
