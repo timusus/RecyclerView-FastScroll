@@ -90,20 +90,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public int getHeightOfFirstViewsPx(Resources resources, int viewCount) {
-            /*
-             * This is optional. You only need to implement the MeasurableAdapter interface if
-             * your list has views with different heights. If you have item decorations or a custom
-             * layout manager, you'll need to make sure that this method takes it into account.
-             */
-
-            int numberOfRegularViews = Math.min(100, viewCount);
-            int regularRowHeight = resources.getDimensionPixelSize(R.dimen.list_item_height);
-
-            int numberOfTallViews = Math.max(0, viewCount - 100);
-            int tallRowHeight = resources.getDimensionPixelSize(R.dimen.list_item_tall_height);
-
-            return numberOfRegularViews * regularRowHeight + numberOfTallViews * tallRowHeight;
+        public int getViewTypeHeight(int viewType, Resources resources) {
+            if (viewType == REGULAR_ITEM) {
+                return resources.getDimensionPixelSize(R.dimen.list_item_height);
+            } else if (viewType == TALL_ITEM) {
+                return resources.getDimensionPixelSize(R.dimen.list_item_tall_height);
+            }
+            return 0;
         }
 
         static class ViewHolder extends RecyclerView.ViewHolder {
