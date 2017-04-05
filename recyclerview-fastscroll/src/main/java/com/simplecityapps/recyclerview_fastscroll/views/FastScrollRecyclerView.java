@@ -197,7 +197,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
      *                       all rows are the same height)
      * @param yOffset        the offset to start tracking in the recycler view (only used for all apps)
      */
-    protected void synchronizeScrollBarThumbOffsetToViewScroll(ScrollPositionState scrollPosState, int rowCount, int yOffset) {
+    protected void updateThumbPosition(ScrollPositionState scrollPosState, int rowCount, int yOffset) {
         int availableScrollHeight = getAvailableScrollHeight(rowCount, scrollPosState.rowHeight, yOffset);
         int availableScrollBarHeight = getAvailableScrollBarHeight();
 
@@ -223,7 +223,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         mScrollbar.setThumbPosition(scrollBarX, scrollBarY);
     }
 
-    protected void synchronizeScrollBarThumbOffsetToViewScrollWithHeight(ScrollPositionState scrollPosState, int yOffset) {
+    protected void updateThumbPositionWithMeasurableAdapter(ScrollPositionState scrollPosState, int yOffset) {
         int adapterHeight = calculateAdapterHeight();
 
         int availableScrollHeight = getAvailableScrollHeight(adapterHeight, yOffset);
@@ -324,9 +324,9 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         }
 
         if (getAdapter() instanceof MeasurableAdapter) {
-            synchronizeScrollBarThumbOffsetToViewScrollWithHeight(mScrollPosState, 0);
+            updateThumbPositionWithMeasurableAdapter(mScrollPosState, 0);
         } else {
-            synchronizeScrollBarThumbOffsetToViewScroll(mScrollPosState, rowCount, 0);
+            updateThumbPosition(mScrollPosState, rowCount, 0);
         }
     }
 
