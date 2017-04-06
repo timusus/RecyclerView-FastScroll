@@ -355,7 +355,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
      * should only be called when the attached adapter implements {@link MeasurableAdapter}.
      * @param adapterIndex The index in the adapter to find the total height above the
      *                     corresponding view
-     * @return THe total height of all views above {@code adapterIndex} in pixels
+     * @return The total height of all views above {@code adapterIndex} in pixels
      */
     private int calculateScrollDistanceToPosition(int adapterIndex) {
         if (mScrollOffsets.indexOfKey(adapterIndex) >= 0) {
