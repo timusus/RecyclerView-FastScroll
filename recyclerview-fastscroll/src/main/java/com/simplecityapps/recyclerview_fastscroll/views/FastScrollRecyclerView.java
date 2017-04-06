@@ -17,7 +17,6 @@
 package com.simplecityapps.recyclerview_fastscroll.views;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
@@ -371,7 +370,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         for (int i = 0; i < adapterIndex; i++) {
             mScrollOffsets.put(i, totalHeight);
             int viewType = getAdapter().getItemViewType(i);
-            totalHeight += measurer.getViewTypeHeight(viewType, getResources());
+            totalHeight += measurer.getViewTypeHeight(this, viewType);
         }
 
         mScrollOffsets.put(adapterIndex, totalHeight);
@@ -499,10 +498,10 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     public interface MeasurableAdapter {
         /**
          * Gets the height of a specific view type, including item decorations
+         * @param recyclerView The recyclerView that this item view will be placed in
          * @param viewType The view type to get the height of
-         * @param resources A Resources object (for convenience)
          * @return The height of a single view for the given view type in pixels
          */
-        int getViewTypeHeight(int viewType, Resources resources);
+        int getViewTypeHeight(RecyclerView recyclerView, int viewType);
     }
 }

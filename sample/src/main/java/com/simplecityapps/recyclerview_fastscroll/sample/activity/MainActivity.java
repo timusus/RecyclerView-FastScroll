@@ -17,7 +17,6 @@
 package com.simplecityapps.recyclerview_fastscroll.sample.activity;
 
 import android.annotation.SuppressLint;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -90,11 +89,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public int getViewTypeHeight(int viewType, Resources resources) {
+        public int getViewTypeHeight(RecyclerView recyclerView, int viewType) {
             if (viewType == REGULAR_ITEM) {
-                return resources.getDimensionPixelSize(R.dimen.list_item_height);
+                return recyclerView.getResources().getDimensionPixelSize(R.dimen.list_item_height);
             } else if (viewType == TALL_ITEM) {
-                return resources.getDimensionPixelSize(R.dimen.list_item_tall_height);
+                return recyclerView.getResources().getDimensionPixelSize(R.dimen.list_item_tall_height);
             }
             return 0;
         }
