@@ -6,8 +6,8 @@ android {
 
     defaultConfig {
         minSdkVersion 11
-        versionCode 7
-        versionName "1.0.14"
+        versionCode 15
+        versionName "1.0.15"
     }
 }
 
@@ -19,4 +19,4 @@ dependencies {
 }
 
 //To deploy, re-comment following line & run ./gradlew clean assembleRelease install bintrayUpload
-//apply from : 'deploy.gradle'
+apply from : 'deploy.gradle'
