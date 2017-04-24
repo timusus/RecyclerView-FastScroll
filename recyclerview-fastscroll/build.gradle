@@ -19,4 +19,4 @@ dependencies {
 }
 
 //To deploy, re-comment following line & run ./gradlew clean assembleRelease install bintrayUpload
-apply from : 'deploy.gradle'
+//apply from : 'deploy.gradle'
