@@ -30,7 +30,7 @@ Via xml:
 
 To display the `FastScrollPopup`, your adapter must implement `FastScrollRecyclerView.SectionedAdapter` and override `getSectionName()`.
 
-If you need to know when fast-scrolling starts or stops, you can attach an OnFatScrollStateChangedListener to the FastScrollRecyclerView.
+If you need to know when fast-scrolling starts or stops, you can attach an OnFastScrollStateChangedListener to the FastScrollRecyclerView.
 
 ##### Varying Row Heights
 
