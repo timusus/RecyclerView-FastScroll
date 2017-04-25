@@ -32,6 +32,22 @@ To display the `FastScrollPopup`, your adapter must implement `FastScrollRecycle
 
 If you need to know when fast-scrolling starts or stops, you can attach an OnFatScrollStateChangedListener to the FastScrollRecyclerView.
 
+##### Varying Row Heights
+
+By default, `FastScrollRecyclerView` assumes that all items in the adapter have the same height. If your adapter has
+item views with different heights, then you should make your adapter implement the `MeasurableAdapter` interface and
+override `getViewTypeHeight()` – otherwise the scroll thumb may not appear in the correct position and scrolling may
+be inconsistent.
+
+`getViewTypeHeight()` returns the height of a single view of a given type in pixels. The height of each view must be
+fixed and constant between all instances of a view type. Because the implementor is responsible for computing this
+value before views are laid out, this is not suitable for view types where the height of a view is determined by a
+variable number of lines of text that the item consumes.
+
+Currently, `MeasurableAdapter` only works with `LinearLayoutManager`. Using `MeasurableAdapter` with a 
+`GridLayoutManager` that has more than one span will cause the scrollbar thumb to reach the bottom of the list before
+the halfway point on the scrollbar's background.
+
 ##### Customisation
 
 You can enable/disable autohide using the `fastScrollAutoHide` & `fastScrollAutoHideDelay` attributes in xml:
