@@ -18,6 +18,7 @@ package com.simplecityapps.recyclerview_fastscroll.sample.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -43,11 +44,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private static class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>
-            implements FastScrollRecyclerView.SectionedAdapter {
+            implements FastScrollRecyclerView.SectionedAdapter,
+            FastScrollRecyclerView.MeasurableAdapter {
+
+        private static final int REGULAR_ITEM = 0;
+        private static final int TALL_ITEM = 1;
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false));
+            @LayoutRes int viewId;
+
+            if (viewType == TALL_ITEM) {
+                viewId = R.layout.tall_item;
+            } else {
+                viewId = R.layout.item;
+            }
+
+            return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(viewId, parent, false));
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            if (position > 100) {
+                return TALL_ITEM;
+            }
+            return REGULAR_ITEM;
         }
 
         @SuppressLint("DefaultLocale")
@@ -58,13 +79,23 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-            return 100;
+            return 200;
         }
 
         @NonNull
         @Override
         public String getSectionName(int position) {
             return String.valueOf(position);
+        }
+
+        @Override
+        public int getViewTypeHeight(RecyclerView recyclerView, int viewType) {
+            if (viewType == REGULAR_ITEM) {
+                return recyclerView.getResources().getDimensionPixelSize(R.dimen.list_item_height);
+            } else if (viewType == TALL_ITEM) {
+                return recyclerView.getResources().getDimensionPixelSize(R.dimen.list_item_tall_height);
+            }
+            return 0;
         }
 
         static class ViewHolder extends RecyclerView.ViewHolder {
