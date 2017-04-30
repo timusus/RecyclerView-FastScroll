@@ -13,7 +13,7 @@ The style is loosely based on the `ListView` `FastScroller` from whatever the la
 ![Screenshot](https://github.com/timusus/RecyclerView-FastScroll/blob/master/screenshot.png)
 
 ### Gradle
-`compile 'com.simplecityapps:recyclerview-fastscroll:1.0.14'`
+`compile 'com.simplecityapps:recyclerview-fastscroll:1.0.15'`
 
 ### Usage
 You must use `FastScrollRecyclerView` as your base `RecyclerView`. See the sample project if you're having trouble.
@@ -73,6 +73,12 @@ The popup background, popup text, popupbackground size, popup text size, track b
 Or programmatically via `setThumbColor(@ColorInt int color)`, `setTrackColor(@ColorInt int color)`, `setPopupBgColor(@ColorInt int color)`, `setPopupTextColor(@ColorInt int color)`, `setPopupTextSize(int size)` & `setPopupPosition(@FastScroller.FastScrollerPopupPosition int position)`
 
 ### Updates
+
+1.0.15
+
+- Added support for varying row heights via `MeasurableAdapter`
+- Fixed an issue precenting the view from rendering in the Android Studio 'design' panel.
+- Updated dependencies
 
 1.0.14
 
