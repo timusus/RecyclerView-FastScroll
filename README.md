@@ -74,10 +74,13 @@ Or programmatically via `setThumbColor(@ColorInt int color)`, `setTrackColor(@Co
 
 ### Updates
 
-1.0.15
+1.0.16 (Waiting to be published @ MavenCentral)
 
 - Added support for varying row heights via `MeasurableAdapter`
-- Fixed an issue precenting the view from rendering in the Android Studio 'design' panel.
+
+1.0.15
+
+- Fixed an issue preventing the view from rendering in the Android Studio 'design' panel.
 - Updated dependencies
 
 1.0.14
