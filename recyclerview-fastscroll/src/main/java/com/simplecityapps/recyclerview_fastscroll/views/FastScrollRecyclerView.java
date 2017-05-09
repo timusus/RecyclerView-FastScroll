@@ -407,6 +407,10 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         mScrollbar.setThumbColor(color);
     }
 
+    public void setThumbPressedColor(@ColorInt int color) {
+        mScrollbar.setThumbPressedColor(color);
+    }
+
     public void setTrackColor(@ColorInt int color) {
         mScrollbar.setTrackColor(color);
     }
