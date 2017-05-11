@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getItemViewType(int position) {
-            if (position > 100) {
+            if (position % 2 == 0) {
                 return TALL_ITEM;
             }
             return REGULAR_ITEM;
