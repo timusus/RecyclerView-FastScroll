@@ -35,6 +35,8 @@ import com.simplecityapps.recyclerview_fastscroll.utils.Utils;
 
 public class FastScrollRecyclerView extends RecyclerView implements RecyclerView.OnItemTouchListener {
 
+    private static final String TAG = "FastScrollRecyclerView";
+
     private FastScroller mScrollbar;
 
     /**
@@ -336,7 +338,8 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
             }
         }
 
-        Log.w(VIEW_LOG_TAG, "Failed to find a view at the provided scroll fraction ("
+        // Should never happen
+        Log.w(TAG, "Failed to find a view at the provided scroll fraction ("
                 + touchFraction + ")");
         return touchFraction * getAdapter().getItemCount();
     }
