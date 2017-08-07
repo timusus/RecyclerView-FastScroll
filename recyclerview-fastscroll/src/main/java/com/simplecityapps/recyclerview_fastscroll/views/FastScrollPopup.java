@@ -18,6 +18,7 @@ package com.simplecityapps.recyclerview_fastscroll.views;
 
 import android.animation.ObjectAnimator;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -26,7 +27,14 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.support.annotation.Keep;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.simplecityapps.recyclerview_fastscroll.utils.Utils;
 
@@ -59,8 +67,11 @@ public class FastScrollPopup {
 
     private ObjectAnimator mAlphaAnimator;
     private boolean mVisible;
+    @Nullable
+    private Bitmap mCustomBubbleBitMap;
 
-    @FastScroller.FastScrollerPopupPosition private int mPosition;
+    @FastScroller.FastScrollerPopupPosition
+    private int mPosition;
 
     public FastScrollPopup(Resources resources, FastScrollRecyclerView recyclerView) {
 
@@ -76,6 +87,15 @@ public class FastScrollPopup {
         setTextSize(Utils.toScreenPixels(mRes, 56));
         setBackgroundSize(Utils.toPixels(mRes, 88));
     }
+
+    public void removeCustomBubbleFromView() {
+        mCustomBubbleBitMap = null;
+    }
+
+    public void setCustomBubbleFromView(@NonNull View customBubbleFromView) {
+        mCustomBubbleBitMap = loadBitmapFromView(customBubbleFromView);
+    }
+
 
     public void setBgColor(int color) {
         mBackgroundColor = color;
@@ -126,6 +146,45 @@ public class FastScrollPopup {
         mRecyclerView.invalidate(mBgBounds);
     }
 
+    @Nullable
+    public Bitmap loadBitmapFromView(@NonNull final View view) {
+
+        final ViewGroup vg = (ViewGroup) view;
+
+        for (int i = 0; i < vg.getChildCount(); i++) {
+            View childAt = vg.getChildAt(i);
+            ViewGroup.LayoutParams params = childAt.getLayoutParams();
+
+            if (params.width == ViewGroup.LayoutParams.MATCH_PARENT) {
+                params.width = mBgBounds.width();
+                vg.getChildAt(i).setLayoutParams(params);
+            }
+        }
+
+
+        view.setMinimumWidth(mBgBounds.width());
+        view.setMinimumHeight(mBgBounds.height());
+
+        if (view == null) {
+            Log.e(FastScrollPopup.class.getSimpleName(), "view is null !!");
+            return null;
+        }
+
+        try {
+            view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+            Bitmap bitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(),
+                    Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap);
+            view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+            view.draw(canvas);
+            return bitmap;
+        } catch (Exception ex) {
+            Log.e(FastScrollPopup.class.getSimpleName(), "loadBitmapFromView error !! ", ex);
+            return null;
+        }
+
+    }
+
     @Keep
     public float getAlpha() {
         return mAlpha;
@@ -170,9 +229,14 @@ public class FastScrollPopup {
             mBackgroundPaint.setAlpha((int) (Color.alpha(mBackgroundColor) * mAlpha));
             mTextPaint.setAlpha((int) (mAlpha * 255));
             canvas.drawPath(mBackgroundPath, mBackgroundPaint);
-            canvas.drawText(mSectionName, (mBgBounds.width() - mTextBounds.width()) / 2,
-                    mBgBounds.height() - (mBgBounds.height() - mTextBounds.height()) / 2,
-                    mTextPaint);
+
+            if (mCustomBubbleBitMap==null){
+                canvas.drawText(mSectionName, (mBgBounds.width() - mTextBounds.width()) / 2,
+                        mBgBounds.height() - (mBgBounds.height() - mTextBounds.height()) / 2,
+                        mTextPaint);
+            }else {
+                canvas.drawBitmap(mCustomBubbleBitMap, 0, 0, null);
+            }
             canvas.restoreToCount(restoreCount);
         }
     }

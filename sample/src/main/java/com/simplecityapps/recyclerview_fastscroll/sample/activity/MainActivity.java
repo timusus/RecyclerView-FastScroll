@@ -20,6 +20,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -49,11 +50,13 @@ public class MainActivity extends AppCompatActivity {
 
         private static final int REGULAR_ITEM = 0;
         private static final int TALL_ITEM = 1;
+        private View view;
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             @LayoutRes int viewId;
 
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_view,null);
             if (viewType == TALL_ITEM) {
                 viewId = R.layout.tall_item;
             } else {
@@ -85,7 +88,16 @@ public class MainActivity extends AppCompatActivity {
         @NonNull
         @Override
         public String getSectionName(int position) {
-            return String.valueOf(position);
+            return " ";
+        }
+
+        @Nullable
+        @Override
+        public View getSectionCustomView(int position) {
+
+            final TextView textView = (TextView) view.findViewById(R.id.text1);
+            textView.setText(""+position);
+            return view;
         }
 
         @Override
