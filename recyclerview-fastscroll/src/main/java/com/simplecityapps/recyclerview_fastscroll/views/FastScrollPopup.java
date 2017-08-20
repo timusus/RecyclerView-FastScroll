@@ -73,7 +73,7 @@ public class FastScrollPopup {
         mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mTextPaint.setAlpha(0);
 
-        setTextSize(Utils.toScreenPixels(mRes, 56));
+        setTextSize(Utils.toScreenPixels(mRes, 44));
         setBackgroundSize(Utils.toPixels(mRes, 88));
     }
 
