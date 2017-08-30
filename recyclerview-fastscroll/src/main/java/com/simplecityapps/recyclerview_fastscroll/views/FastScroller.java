@@ -79,6 +79,10 @@ public class FastScroller {
     private boolean mAutoHideEnabled = true;
     private final Runnable mHideRunnable;
 
+    private int mThumbActiveColor;
+    private final int mThumbInactiveColor = 0x79000000;
+    private boolean mThumbInactiveState;
+
     @Retention(SOURCE)
     @IntDef({FastScrollerPopupPosition.ADJACENT, FastScrollerPopupPosition.CENTER})
     public @interface FastScrollerPopupPosition {
@@ -106,9 +110,10 @@ public class FastScroller {
         try {
             mAutoHideEnabled = typedArray.getBoolean(R.styleable.FastScrollRecyclerView_fastScrollAutoHide, true);
             mAutoHideDelay = typedArray.getInteger(R.styleable.FastScrollRecyclerView_fastScrollAutoHideDelay, DEFAULT_AUTO_HIDE_DELAY);
+            mThumbInactiveState = typedArray.getBoolean(R.styleable.FastScrollRecyclerView_fastScrollThumbInactiveColor, false);
+            mThumbActiveColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollThumbColor, 0x79000000);
 
-            int trackColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollTrackColor, 0x1f000000);
-            int thumbColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollThumbColor, 0xff000000);
+            int trackColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollTrackColor, 0x28000000);
             int popupBgColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollPopupBgColor, 0xff000000);
             int popupTextColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollPopupTextColor, 0xffffffff);
             int popupTextSize = typedArray.getDimensionPixelSize(R.styleable.FastScrollRecyclerView_fastScrollPopupTextSize, Utils.toScreenPixels(resources, 44));
@@ -116,7 +121,7 @@ public class FastScroller {
             @FastScrollerPopupPosition int popupPosition = typedArray.getInteger(R.styleable.FastScrollRecyclerView_fastScrollPopupPosition, FastScrollerPopupPosition.ADJACENT);
 
             mTrack.setColor(trackColor);
-            mThumb.setColor(thumbColor);
+            mThumb.setColor(mThumbInactiveState ? mThumbInactiveColor : mThumbActiveColor);
             mPopup.setBgColor(popupBgColor);
             mPopup.setTextColor(popupTextColor);
             mPopup.setTextSize(popupTextSize);
@@ -196,6 +201,9 @@ public class FastScroller {
                     if (stateChangeListener != null) {
                         stateChangeListener.onFastScrollStart();
                     }
+                    if (mThumbInactiveState) {
+                        mThumb.setColor(mThumbActiveColor);
+                    }
                 }
                 if (mIsDragging) {
                     // Update the fastscroller section name at this touch position
@@ -217,6 +225,9 @@ public class FastScroller {
                     if (stateChangeListener != null) {
                         stateChangeListener.onFastScrollStop();
                     }
+                }
+                if (mThumbInactiveState) {
+                    mThumb.setColor(mThumbInactiveColor);
                 }
                 break;
         }
@@ -372,5 +383,10 @@ public class FastScroller {
 
     public void setPopupPosition(@FastScrollerPopupPosition int popupPosition) {
         mPopup.setPopupPosition(popupPosition);
+    }
+
+    public void setThumbInactiveColor(boolean thumbInactiveColor) {
+        mThumbInactiveState = thumbInactiveColor;
+        mThumb.setColor(mThumbInactiveState ? mThumbInactiveColor : mThumbActiveColor);
     }
 }
