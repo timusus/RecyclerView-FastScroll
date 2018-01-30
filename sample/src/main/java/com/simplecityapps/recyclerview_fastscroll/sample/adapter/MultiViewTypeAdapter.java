@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.simplecityapps.recyclerview_fastscroll.sample.R;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
-public class SimpleRecyclerAdapter extends RecyclerView.Adapter<SimpleRecyclerAdapter.ViewHolder>
+public class MultiViewTypeAdapter extends RecyclerView.Adapter<MultiViewTypeAdapter.ViewHolder>
         implements FastScrollRecyclerView.SectionedAdapter,
         FastScrollRecyclerView.MeasurableAdapter {
 
@@ -22,6 +22,9 @@ public class SimpleRecyclerAdapter extends RecyclerView.Adapter<SimpleRecyclerAd
 
     @Override
     public int getItemViewType(int position) {
+        if (position % 4 == 0) {
+            return R.layout.list_item_header;
+        }
         return R.layout.list_item;
     }
 
@@ -40,7 +43,11 @@ public class SimpleRecyclerAdapter extends RecyclerView.Adapter<SimpleRecyclerAd
     @NonNull
     @Override
     public String getSectionName(int position) {
-        return String.format("%d", position + 1);
+        if (position % 4 == 0) {
+            return String.format("H%d", (position / 4) + 1);
+        } else {
+            return String.format("%d", position - position / 4);
+        }
     }
 
     @Override
@@ -56,7 +63,11 @@ public class SimpleRecyclerAdapter extends RecyclerView.Adapter<SimpleRecyclerAd
     @SuppressLint("DefaultLocale")
     @NonNull
     private String getNameForItem(int position) {
-        return String.format("Item %d", position + 1);
+        if (position % 4 == 0) {
+            return String.format("Header %d", (position / 4) + 1);
+        } else {
+            return String.format("Item %d", position - position / 4);
+        }
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

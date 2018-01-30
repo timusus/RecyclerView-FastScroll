@@ -24,8 +24,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+
 import com.simplecityapps.recyclerview_fastscroll.sample.R;
-import com.simplecityapps.recyclerview_fastscroll.sample.fragment.Fragment1;
+import com.simplecityapps.recyclerview_fastscroll.sample.fragment.MultiViewTypeFragment;
+import com.simplecityapps.recyclerview_fastscroll.sample.fragment.SimpleFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,14 +51,16 @@ public class MainActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return new Fragment1();
+                    return new SimpleFragment();
+                case 1:
+                    return new MultiViewTypeFragment();
             }
             throw new IllegalArgumentException(String.format("No fragment returned for position: %d", position));
         }
 
         @Override
         public int getCount() {
-            return 1;
+            return 2;
         }
 
         @SuppressLint("DefaultLocale")
