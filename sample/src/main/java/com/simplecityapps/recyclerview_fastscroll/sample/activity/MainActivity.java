@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FastScrollRecyclerView recyclerView = (FastScrollRecyclerView) findViewById(R.id.recycler);
+        FastScrollRecyclerView recyclerView = findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new RecyclerAdapter());
     }
@@ -101,9 +101,9 @@ public class MainActivity extends AppCompatActivity {
         static class ViewHolder extends RecyclerView.ViewHolder {
             public TextView text;
 
-            public ViewHolder(View itemView) {
+            ViewHolder(View itemView) {
                 super(itemView);
-                text = (TextView) itemView.findViewById(R.id.text);
+                text = itemView.findViewById(R.id.text);
             }
         }
     }

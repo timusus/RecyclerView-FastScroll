@@ -44,11 +44,11 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
      */
     public static class ScrollPositionState {
         // The index of the first visible row
-        public int rowIndex;
+        int rowIndex;
         // The offset of the first visible row
-        public int rowTopOffset;
+        int rowTopOffset;
         // The height of a given row (they are currently all the same height)
-        public int rowHeight;
+        int rowHeight;
     }
 
     private ScrollPositionState mScrollPosState = new ScrollPositionState();

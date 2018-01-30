@@ -62,7 +62,7 @@ public class FastScrollPopup {
 
     @FastScroller.FastScrollerPopupPosition private int mPosition;
 
-    public FastScrollPopup(Resources resources, FastScrollRecyclerView recyclerView) {
+    FastScrollPopup(Resources resources, FastScrollRecyclerView recyclerView) {
 
         mRes = resources;
 
