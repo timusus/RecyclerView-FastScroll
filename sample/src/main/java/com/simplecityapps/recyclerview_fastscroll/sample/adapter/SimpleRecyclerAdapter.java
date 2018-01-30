@@ -33,11 +33,9 @@ public class SimpleRecyclerAdapter extends RecyclerView.Adapter<SimpleRecyclerAd
 
     @Override
     public int getItemViewType(int position) {
-
-        if (position % 5 == 0) {
+        if (position % 2 == 0) {
             return TALL_ITEM;
         }
-
         return REGULAR_ITEM;
     }
 
