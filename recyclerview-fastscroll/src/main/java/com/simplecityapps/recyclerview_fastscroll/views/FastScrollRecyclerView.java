@@ -25,6 +25,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.MotionEvent;
 import android.view.View;
@@ -33,6 +34,8 @@ import com.simplecityapps.recyclerview_fastscroll.interfaces.OnFastScrollStateCh
 import com.simplecityapps.recyclerview_fastscroll.utils.Utils;
 
 public class FastScrollRecyclerView extends RecyclerView implements RecyclerView.OnItemTouchListener {
+
+    private static final String TAG = "FastScrollRecyclerView";
 
     private FastScroller mScrollbar;
 
@@ -283,19 +286,35 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
 
         getCurScrollState(mScrollPosState);
 
-        float itemPos = itemCount * touchFraction;
+        float itemPos;
+        int availableScrollHeight;
 
-        int availableScrollHeight = getAvailableScrollHeight(rowCount, mScrollPosState.rowHeight, 0);
+        int scrollPosition;
+        int scrollOffset;
 
-        //The exact position of our desired item
-        int exactItemPos = (int) (availableScrollHeight * touchFraction);
+        if (getAdapter() instanceof MeasurableAdapter) {
+            availableScrollHeight = calculateAdapterHeight();
+            itemPos = findItemPositionWithMeasurableAdapter(touchFraction);
 
-        //Scroll to the desired item. The offset used here is kind of hard to explain.
-        //If the position we wish to scroll to is, say, position 10.5, we scroll to position 10,
-        //and then offset by 0.5 * rowHeight. This is how we achieve smooth scrolling.
+            scrollPosition = (int) itemPos;
+            scrollOffset = calculateScrollDistanceToPosition(scrollPosition)
+                    - (int) (touchFraction * availableScrollHeight);
+        } else {
+            itemPos = itemCount * touchFraction;
+            availableScrollHeight = getAvailableScrollHeight(rowCount, mScrollPosState.rowHeight, 0);
+
+            //The exact position of our desired item
+            int exactItemPos = (int) (availableScrollHeight * touchFraction);
+
+            //The offset used here is kind of hard to explain.
+            //If the position we wish to scroll to is, say, position 10.5, we scroll to position 10,
+            //and then offset by 0.5 * rowHeight. This is how we achieve smooth scrolling.
+            scrollPosition = spanCount * exactItemPos / mScrollPosState.rowHeight;
+            scrollOffset = -(exactItemPos % mScrollPosState.rowHeight);
+        }
+
         LinearLayoutManager layoutManager = ((LinearLayoutManager) getLayoutManager());
-        layoutManager.scrollToPositionWithOffset(spanCount * exactItemPos / mScrollPosState.rowHeight,
-                -(exactItemPos % mScrollPosState.rowHeight));
+        layoutManager.scrollToPositionWithOffset(scrollPosition, scrollOffset);
 
         if (!(getAdapter() instanceof SectionedAdapter)) {
             return "";
@@ -305,6 +324,24 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
 
         SectionedAdapter sectionedAdapter = (SectionedAdapter) getAdapter();
         return sectionedAdapter.getSectionName(posInt);
+    }
+
+    private float findItemPositionWithMeasurableAdapter(float touchFraction) {
+        MeasurableAdapter measurer = (MeasurableAdapter) getAdapter();
+        int viewTop = (int) (touchFraction * calculateAdapterHeight());
+
+        for (int i = 0; i < getAdapter().getItemCount(); i++) {
+            int top = calculateScrollDistanceToPosition(i);
+            int bottom = top + measurer.getViewTypeHeight(this, getAdapter().getItemViewType(i));
+            if (viewTop >= top && viewTop <= bottom) {
+                return i;
+            }
+        }
+
+        // Should never happen
+        Log.w(TAG, "Failed to find a view at the provided scroll fraction ("
+                + touchFraction + ")");
+        return touchFraction * getAdapter().getItemCount();
     }
 
     /**
