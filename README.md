@@ -72,6 +72,14 @@ The popup background, popup text, popupbackground size, popup text size, track b
                   ...
 Or programmatically via `setThumbColor(@ColorInt int color)`, `setTrackColor(@ColorInt int color)`, `setPopupBgColor(@ColorInt int color)`, `setPopupTextColor(@ColorInt int color)`, `setPopupTextSize(int size)` & `setPopupPosition(@FastScroller.FastScrollerPopupPosition int position)`
 
+You can enable/disable fast-scrolling via:
+
+
+      <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
+                  app:fastScrollThumbEnabled="false"
+                  ...
+Or programmatically via `setFastScrollThumbEnabled(boolean enabled)`
+
 ### Updates
 
 1.0.16

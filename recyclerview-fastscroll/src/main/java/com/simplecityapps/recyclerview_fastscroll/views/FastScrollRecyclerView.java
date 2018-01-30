@@ -17,6 +17,7 @@
 package com.simplecityapps.recyclerview_fastscroll.views;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
@@ -29,6 +30,8 @@ import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.MotionEvent;
 import android.view.View;
+
+import com.simplecityapps.recyclerview_fastscroll.R;
 import com.simplecityapps.recyclerview_fastscroll.interfaces.OnFastScrollStateChangeListener;
 import com.simplecityapps.recyclerview_fastscroll.utils.Utils;
 
@@ -37,6 +40,8 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     private static final String TAG = "FastScrollRecyclerView";
 
     private FastScroller mScrollbar;
+
+    private boolean mFastScrollThumbEnabled = true;
 
     /**
      * The current scroll state of the recycler view.  We use this in onUpdateScrollbar()
@@ -74,6 +79,15 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
 
     public FastScrollRecyclerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        TypedArray typedArray = context.getTheme().obtainStyledAttributes(
+                attrs, R.styleable.FastScrollRecyclerView, 0, 0);
+        try {
+            mFastScrollThumbEnabled = typedArray.getBoolean(R.styleable.FastScrollRecyclerView_fastScrollThumbEnabled, true);
+        } finally {
+            typedArray.recycle();
+        }
+
         mScrollbar = new FastScroller(context, this, attrs);
         mScrollOffsetInvalidator = new ScrollOffsetInvalidator();
         mScrollOffsets = new SparseIntArray();
@@ -178,8 +192,10 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     @Override
     public void draw(Canvas c) {
         super.draw(c);
-        onUpdateScrollbar();
-        mScrollbar.draw(c);
+        if (mFastScrollThumbEnabled) {
+            onUpdateScrollbar();
+            mScrollbar.draw(c);
+        }
     }
 
     /**
@@ -446,6 +462,10 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
 
     public void setThumbInactiveColor(boolean autoHideEnabled) {
         mScrollbar.setThumbInactiveColor(autoHideEnabled);
+    }
+
+    public void setThumbEnabled(boolean thumbEnabled) {
+        mFastScrollThumbEnabled = thumbEnabled;
     }
 
     /**

@@ -33,6 +33,7 @@
         app:fastScrollPopupPosition="adjacent"
         app:fastScrollPopupTextColor="@android:color/primary_text_dark"
         app:fastScrollPopupTextSize="56sp"
+        app:fastScrollThumbEnabled="true"
         app:fastScrollThumbColor="@color/colorAccent"
         app:fastScrollThumbInactiveColor="true"
         tools:listitem="@layout/list_item_header"/>
