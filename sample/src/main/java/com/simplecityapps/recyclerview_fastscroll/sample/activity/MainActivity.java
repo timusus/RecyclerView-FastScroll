@@ -18,93 +18,52 @@ package com.simplecityapps.recyclerview_fastscroll.sample.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-
 import com.simplecityapps.recyclerview_fastscroll.sample.R;
-import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
+import com.simplecityapps.recyclerview_fastscroll.sample.fragment.Fragment1;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
-        FastScrollRecyclerView recyclerView = findViewById(R.id.recycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new RecyclerAdapter());
+        ViewPager viewPager = findViewById(R.id.viewPager);
+        viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
     }
 
-    private static class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>
-            implements FastScrollRecyclerView.SectionedAdapter,
-            FastScrollRecyclerView.MeasurableAdapter {
+    private static class PagerAdapter extends FragmentPagerAdapter {
 
-        private static final int REGULAR_ITEM = 0;
-        private static final int TALL_ITEM = 1;
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            @LayoutRes int viewId;
-
-            if (viewType == TALL_ITEM) {
-                viewId = R.layout.tall_item;
-            } else {
-                viewId = R.layout.item;
-            }
-
-            return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(viewId, parent, false));
+        PagerAdapter(FragmentManager fm) {
+            super(fm);
         }
 
         @Override
-        public int getItemViewType(int position) {
-            if (position > 100) {
-                return TALL_ITEM;
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    return new Fragment1();
             }
-            return REGULAR_ITEM;
+            throw new IllegalArgumentException(String.format("No fragment returned for position: %d", position));
+        }
+
+        @Override
+        public int getCount() {
+            return 1;
         }
 
         @SuppressLint("DefaultLocale")
+        @Nullable
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            holder.text.setText(String.format("Item %d", position));
-        }
-
-        @Override
-        public int getItemCount() {
-            return 200;
-        }
-
-        @NonNull
-        @Override
-        public String getSectionName(int position) {
-            return String.valueOf(position);
-        }
-
-        @Override
-        public int getViewTypeHeight(RecyclerView recyclerView, int viewType) {
-            if (viewType == REGULAR_ITEM) {
-                return recyclerView.getResources().getDimensionPixelSize(R.dimen.list_item_height);
-            } else if (viewType == TALL_ITEM) {
-                return recyclerView.getResources().getDimensionPixelSize(R.dimen.list_item_tall_height);
-            }
-            return 0;
-        }
-
-        static class ViewHolder extends RecyclerView.ViewHolder {
-            public TextView text;
-
-            ViewHolder(View itemView) {
-                super(itemView);
-                text = itemView.findViewById(R.id.text);
-            }
+        public CharSequence getPageTitle(int position) {
+            return String.format("Page %d", position + 1);
         }
     }
 }
