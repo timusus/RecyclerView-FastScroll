@@ -13,7 +13,7 @@ The style is loosely based on the `ListView` `FastScroller` from whatever the la
 ![Screenshot](https://github.com/timusus/RecyclerView-FastScroll/blob/master/screenshot.png)
 
 ### Gradle
-`compile 'com.simplecityapps:recyclerview-fastscroll:1.0.15'`
+`compile 'com.simplecityapps:recyclerview-fastscroll:1.0.16'`
 
 ### Usage
 You must use `FastScrollRecyclerView` as your base `RecyclerView`. See the sample project if you're having trouble.
@@ -74,7 +74,7 @@ Or programmatically via `setThumbColor(@ColorInt int color)`, `setTrackColor(@Co
 
 ### Updates
 
-1.0.16 (Waiting to be published @ MavenCentral)
+1.0.16
 
 - Added support for varying row heights via `MeasurableAdapter`
 
