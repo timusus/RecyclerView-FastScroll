@@ -22,12 +22,12 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    //Appcompat
+    // Appcompat
     implementation "com.android.support:appcompat-v7:27.0.2"
 
-    //RecyclerView
+    // RecyclerView
     implementation 'com.android.support:recyclerview-v7:27.0.2'
 
-    //RecyclerView-FastScroll
+    // RecyclerView-FastScroll
     implementation project(':recyclerview-fastscroll')
 }
