@@ -6,8 +6,12 @@ android {
 
     defaultConfig {
         minSdkVersion 14
-        versionCode 15
-        versionName "1.0.16"
+        versionCode 16
+        versionName "1.0.17"
+    }
+
+    lintOptions {
+        abortOnError false
     }
 }
 
