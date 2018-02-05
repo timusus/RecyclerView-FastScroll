@@ -29,6 +29,8 @@
         </attr>
         <attr name="fastScrollAutoHide" format="reference|boolean" />
         <attr name="fastScrollAutoHideDelay" format="reference|integer" />
+        <!-- {@deprecated Use fastScrollAllowThumbInactiveColor instead.} -->
+        <attr name="fastScrollThumbInactiveColor" format="reference|boolean" />
         <attr name="fastScrollAllowThumbInactiveColor" format="reference|boolean" />
         <attr name="fastScrollThumbEnabled" format="reference|boolean" />
     </declare-styleable>
