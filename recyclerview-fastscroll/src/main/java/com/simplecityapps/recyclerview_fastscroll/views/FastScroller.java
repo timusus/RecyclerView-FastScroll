@@ -80,7 +80,7 @@ public class FastScroller {
     private final Runnable mHideRunnable;
 
     private int mThumbActiveColor;
-    private final int mThumbInactiveColor = 0x79000000;
+    private int mThumbInactiveColor = 0x79000000;
     private boolean mThumbInactiveState;
 
     @Retention(SOURCE)
@@ -385,8 +385,13 @@ public class FastScroller {
         mPopup.setPopupPosition(popupPosition);
     }
 
-    public void setThumbInactiveColor(boolean thumbInactiveColor) {
-        mThumbInactiveState = thumbInactiveColor;
+    public void allowThumbInactiveColor(boolean allowInactiveColor) {
+        mThumbInactiveState = allowInactiveColor;
         mThumb.setColor(mThumbInactiveState ? mThumbInactiveColor : mThumbActiveColor);
+    }
+
+    @Deprecated
+    public void setThumbInactiveColor(boolean thumbInactiveColor) {
+        allowThumbInactiveColor(thumbInactiveColor);
     }
 }
