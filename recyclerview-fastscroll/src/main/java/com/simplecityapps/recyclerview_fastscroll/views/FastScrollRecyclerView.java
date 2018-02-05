@@ -463,13 +463,13 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         mScrollbar.setAutoHideEnabled(autoHideEnabled);
     }
 
-    public void setOnScrollbarStateChangeListener(OnFastScrollStateChangeListener stateChangeListener){
+    public void setOnFastScrollStateChangeListener(OnFastScrollStateChangeListener stateChangeListener){
         mStateChangeListener = stateChangeListener;
     }
 
     @Deprecated
     public void setStateChangeListener(OnFastScrollStateChangeListener stateChangeListener) {
-        setOnScrollbarStateChangeListener(stateChangeListener);
+        setOnFastScrollStateChangeListener(stateChangeListener);
     }
 
     public void setThumbInactiveColor(@ColorInt int color){
