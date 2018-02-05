@@ -68,13 +68,13 @@ public class FastScroller {
     // prevent jumping, this offset is applied as the user scrolls.
     private int mTouchOffset;
 
-    public Point mThumbPosition = new Point(-1, -1);
-    public Point mOffset = new Point(0, 0);
+    private Point mThumbPosition = new Point(-1, -1);
+    private Point mOffset = new Point(0, 0);
 
     private boolean mIsDragging;
 
     private Animator mAutoHideAnimator;
-    boolean mAnimatingShow;
+    private boolean mAnimatingShow;
     private int mAutoHideDelay = DEFAULT_AUTO_HIDE_DELAY;
     private boolean mAutoHideEnabled = true;
     private final Runnable mHideRunnable;
