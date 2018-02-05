@@ -385,6 +385,11 @@ public class FastScroller {
         mPopup.setPopupPosition(popupPosition);
     }
 
+    public void setThumbInactiveColor(@ColorInt int color){
+        mThumbInactiveColor = color;
+        allowThumbInactiveColor(true);
+    }
+
     public void allowThumbInactiveColor(boolean allowInactiveColor) {
         mThumbInactiveState = allowInactiveColor;
         mThumb.setColor(mThumbInactiveState ? mThumbInactiveColor : mThumbActiveColor);
