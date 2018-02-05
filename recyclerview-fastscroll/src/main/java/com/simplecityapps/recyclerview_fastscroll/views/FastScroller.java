@@ -110,7 +110,7 @@ public class FastScroller {
         try {
             mAutoHideEnabled = typedArray.getBoolean(R.styleable.FastScrollRecyclerView_fastScrollAutoHide, true);
             mAutoHideDelay = typedArray.getInteger(R.styleable.FastScrollRecyclerView_fastScrollAutoHideDelay, DEFAULT_AUTO_HIDE_DELAY);
-            mThumbInactiveState = typedArray.getBoolean(R.styleable.FastScrollRecyclerView_fastScrollAllowThumbInactiveColor, true);
+            mThumbInactiveState = typedArray.getBoolean(R.styleable.FastScrollRecyclerView_fastScrollEnableThumbInactiveColor, true);
             mThumbActiveColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollThumbColor, 0x79000000);
             mThumbInactiveColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollThumbInactiveColor, 0x79000000);
 
@@ -388,16 +388,16 @@ public class FastScroller {
 
     public void setThumbInactiveColor(@ColorInt int color){
         mThumbInactiveColor = color;
-        allowThumbInactiveColor(true);
+        enableThumbInactiveColor(true);
     }
 
-    public void allowThumbInactiveColor(boolean allowInactiveColor) {
+    public void enableThumbInactiveColor(boolean allowInactiveColor) {
         mThumbInactiveState = allowInactiveColor;
         mThumb.setColor(mThumbInactiveState ? mThumbInactiveColor : mThumbActiveColor);
     }
 
     @Deprecated
     public void setThumbInactiveColor(boolean thumbInactiveColor) {
-        allowThumbInactiveColor(thumbInactiveColor);
+        enableThumbInactiveColor(thumbInactiveColor);
     }
 }

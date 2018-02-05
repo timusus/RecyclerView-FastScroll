@@ -35,7 +35,7 @@
         app:fastScrollPopupTextSize="56sp"
         app:fastScrollThumbEnabled="true"
         app:fastScrollThumbColor="@color/colorAccent"
-        app:fastScrollAllowThumbInactiveColor="true"
+        app:fastScrollEnableThumbInactiveColor="true"
         tools:listitem="@layout/list_item_header"/>
 
 </FrameLayout>

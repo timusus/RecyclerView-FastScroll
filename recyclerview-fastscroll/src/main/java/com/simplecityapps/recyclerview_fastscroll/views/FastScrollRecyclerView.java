@@ -477,7 +477,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     }
 
     public void allowThumbInactiveColor(boolean allowInactiveColor) {
-        mScrollbar.allowThumbInactiveColor(allowInactiveColor);
+        mScrollbar.enableThumbInactiveColor(allowInactiveColor);
     }
 
     @Deprecated
