@@ -464,6 +464,10 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         mStateChangeListener = stateChangeListener;
     }
 
+    public void setThumbInactiveColor(@ColorInt int color){
+        mScrollbar.setThumbInactiveColor(color);
+    }
+
     public void allowThumbInactiveColor(boolean allowInactiveColor) {
         mScrollbar.allowThumbInactiveColor(allowInactiveColor);
     }
