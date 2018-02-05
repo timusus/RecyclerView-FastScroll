@@ -42,7 +42,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
 
     private FastScroller mScrollbar;
 
-    private boolean mFastScrollThumbEnabled = true;
+    private boolean mFastScrollEnabled = true;
 
     /**
      * The current scroll state of the recycler view.  We use this in onUpdateScrollbar()
@@ -84,7 +84,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(
                 attrs, R.styleable.FastScrollRecyclerView, 0, 0);
         try {
-            mFastScrollThumbEnabled = typedArray.getBoolean(R.styleable.FastScrollRecyclerView_fastScrollThumbEnabled, true);
+            mFastScrollEnabled = typedArray.getBoolean(R.styleable.FastScrollRecyclerView_fastScrollThumbEnabled, true);
         } finally {
             typedArray.recycle();
         }
@@ -193,7 +193,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     @Override
     public void draw(Canvas c) {
         super.draw(c);
-        if (mFastScrollThumbEnabled) {
+        if (mFastScrollEnabled) {
             onUpdateScrollbar();
             mScrollbar.draw(c);
         }
@@ -485,8 +485,13 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         allowThumbInactiveColor(allowInactiveColor);
     }
 
+    public void setFastScrollEnabled(boolean fastScrollEnabled){
+        mFastScrollEnabled = fastScrollEnabled;
+    }
+
+    @Deprecated
     public void setThumbEnabled(boolean thumbEnabled) {
-        mFastScrollThumbEnabled = thumbEnabled;
+        setFastScrollEnabled(thumbEnabled);
     }
 
     /**
