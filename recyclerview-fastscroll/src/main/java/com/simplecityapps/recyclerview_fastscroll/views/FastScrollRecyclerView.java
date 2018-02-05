@@ -424,6 +424,10 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         return calculateScrollDistanceToPosition(getAdapter().getItemCount());
     }
 
+    public void showScrollbar() {
+        mScrollbar.show();
+    }
+
     public void setThumbColor(@ColorInt int color) {
         mScrollbar.setThumbColor(color);
     }
