@@ -22,6 +22,7 @@ import android.graphics.Canvas;
 import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -301,6 +302,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         return sectionedAdapter.getSectionName(posInt);
     }
 
+    @SuppressWarnings("unchecked")
     private float findItemPosition(float touchFraction) {
 
         if (getAdapter() instanceof MeasurableAdapter) {
@@ -309,7 +311,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
 
             for (int i = 0; i < getAdapter().getItemCount(); i++) {
                 int top = calculateScrollDistanceToPosition(i);
-                int bottom = top + measurer.getViewTypeHeight(this, getAdapter().getItemViewType(i));
+                int bottom = top + measurer.getViewTypeHeight(this, findViewHolderForAdapterPosition(i), getAdapter().getItemViewType(i));
                 if (viewTop >= top && viewTop <= bottom) {
                     return i;
                 }
@@ -387,6 +389,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
      *                     corresponding view
      * @return The total height of all views above {@code adapterIndex} in pixels
      */
+    @SuppressWarnings("unchecked")
     private int calculateScrollDistanceToPosition(int adapterIndex) {
         if (!(getAdapter() instanceof MeasurableAdapter)) {
             throw new IllegalStateException("calculateScrollDistanceToPosition() should only be called where the RecyclerView.Adapter is an instance of MeasurableAdapter");
@@ -404,7 +407,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         for (int i = 0; i < adapterIndex; i++) {
             mScrollOffsets.put(i, totalHeight);
             int viewType = getAdapter().getItemViewType(i);
-            totalHeight += measurer.getViewTypeHeight(this, viewType);
+            totalHeight += measurer.getViewTypeHeight(this, findViewHolderForAdapterPosition(i), viewType);
         }
 
         mScrollOffsets.put(adapterIndex, totalHeight);
@@ -542,13 +545,14 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
      * can be calculated. If your list uses different view heights, then make your adapter implement
      * this interface.
      */
-    public interface MeasurableAdapter {
+    public interface MeasurableAdapter<VH extends ViewHolder> {
         /**
          * Gets the height of a specific view type, including item decorations
          * @param recyclerView The recyclerView that this item view will be placed in
+         * @param viewHolder The viewHolder that corresponds to this item view
          * @param viewType The view type to get the height of
          * @return The height of a single view for the given view type in pixels
          */
-        int getViewTypeHeight(RecyclerView recyclerView, int viewType);
+        int getViewTypeHeight(RecyclerView recyclerView, @Nullable VH viewHolder, int viewType);
     }
 }
