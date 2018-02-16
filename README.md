@@ -30,6 +30,29 @@ Via xml:
 
 To display the `FastScrollPopup`, your adapter must implement `FastScrollRecyclerView.SectionedAdapter` and override `getSectionName()`.
 
+Example for FastScrollRecyclerView displaying String items:
+
+```java
+public static class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
+    implements FastScrollRecyclerView.SectionedAdapter {
+
+  private final List<String> mObjects;
+
+  public RecyclerViewAdapter(List<String> objects) {
+    mObjects = objects;
+  }
+  
+  ...
+
+  @NonNull
+  @Override
+  public String getSectionName(int position) {
+    //show the first item character for example
+    return mObjects.get(position).substring(0, 1).toUpperCase(Locale.getDefault());
+  }
+}
+```
+
 If you need to know when fast-scrolling starts or stops, you can attach an OnFastScrollStateChangedListener to the FastScrollRecyclerView.
 
 ##### Varying Row Heights
