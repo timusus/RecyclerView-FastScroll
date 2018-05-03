@@ -68,19 +68,19 @@ public class FastScroller {
     // prevent jumping, this offset is applied as the user scrolls.
     private int mTouchOffset;
 
-    public Point mThumbPosition = new Point(-1, -1);
-    public Point mOffset = new Point(0, 0);
+    private Point mThumbPosition = new Point(-1, -1);
+    private Point mOffset = new Point(0, 0);
 
     private boolean mIsDragging;
 
     private Animator mAutoHideAnimator;
-    boolean mAnimatingShow;
+    private boolean mAnimatingShow;
     private int mAutoHideDelay = DEFAULT_AUTO_HIDE_DELAY;
     private boolean mAutoHideEnabled = true;
     private final Runnable mHideRunnable;
 
     private int mThumbActiveColor;
-    private final int mThumbInactiveColor = 0x79000000;
+    private int mThumbInactiveColor = 0x79000000;
     private boolean mThumbInactiveState;
 
     @Retention(SOURCE)
@@ -110,8 +110,9 @@ public class FastScroller {
         try {
             mAutoHideEnabled = typedArray.getBoolean(R.styleable.FastScrollRecyclerView_fastScrollAutoHide, true);
             mAutoHideDelay = typedArray.getInteger(R.styleable.FastScrollRecyclerView_fastScrollAutoHideDelay, DEFAULT_AUTO_HIDE_DELAY);
-            mThumbInactiveState = typedArray.getBoolean(R.styleable.FastScrollRecyclerView_fastScrollThumbInactiveColor, false);
+            mThumbInactiveState = typedArray.getBoolean(R.styleable.FastScrollRecyclerView_fastScrollEnableThumbInactiveColor, true);
             mThumbActiveColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollThumbColor, 0x79000000);
+            mThumbInactiveColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollThumbInactiveColor, 0x79000000);
 
             int trackColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollTrackColor, 0x28000000);
             int popupBgColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollPopupBgColor, 0xff000000);
@@ -385,8 +386,18 @@ public class FastScroller {
         mPopup.setPopupPosition(popupPosition);
     }
 
-    public void setThumbInactiveColor(boolean thumbInactiveColor) {
-        mThumbInactiveState = thumbInactiveColor;
+    public void setThumbInactiveColor(@ColorInt int color) {
+        mThumbInactiveColor = color;
+        enableThumbInactiveColor(true);
+    }
+
+    public void enableThumbInactiveColor(boolean enableInactiveColor) {
+        mThumbInactiveState = enableInactiveColor;
         mThumb.setColor(mThumbInactiveState ? mThumbInactiveColor : mThumbActiveColor);
+    }
+
+    @Deprecated
+    public void setThumbInactiveColor(boolean thumbInactiveColor) {
+        enableThumbInactiveColor(thumbInactiveColor);
     }
 }
