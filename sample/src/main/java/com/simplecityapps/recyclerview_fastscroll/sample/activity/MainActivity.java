@@ -18,6 +18,9 @@ package com.simplecityapps.recyclerview_fastscroll.sample.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -40,8 +43,26 @@ public class MainActivity extends AppCompatActivity {
         ViewPager viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
     }
+    private static class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>
+            implements FastScrollRecyclerView.SectionedAdapter,
+            FastScrollRecyclerView.MeasurableAdapter {
 
+        private static final int REGULAR_ITEM = 0;
+        private static final int TALL_ITEM = 1;
+        private View view;
+
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            @LayoutRes int viewId;
+
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_view,null);
+            if (viewType == TALL_ITEM) {
+                viewId = R.layout.tall_item;
+            } else {
+                viewId = R.layout.item;
+            }
     private static class PagerAdapter extends FragmentPagerAdapter {
+
 
         PagerAdapter(FragmentManager fm) {
             super(fm);
@@ -59,8 +80,27 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
+        public int getItemCount() {
+            return 200;
+        }
+
+        @NonNull
+        @Override
+        public String getSectionName(int position) {
+            return " ";
+        }
+
+        @Nullable
+        @Override
+        public View getSectionCustomView(int position) {
+
+            final TextView textView = (TextView) view.findViewById(R.id.text1);
+            textView.setText(""+position);
+            return view;
+
         public int getCount() {
             return 2;
+
         }
 
         @SuppressLint("DefaultLocale")

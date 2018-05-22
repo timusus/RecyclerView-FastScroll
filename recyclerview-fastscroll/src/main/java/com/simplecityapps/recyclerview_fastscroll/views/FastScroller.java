@@ -22,6 +22,7 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
@@ -30,11 +31,13 @@ import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
 import android.support.annotation.IntDef;
 import android.support.annotation.Keep;
+import android.support.annotation.NonNull;
 import android.support.v4.view.animation.FastOutLinearInInterpolator;
 import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewConfiguration;
 
 import com.simplecityapps.recyclerview_fastscroll.R;
@@ -296,6 +299,9 @@ public class FastScroller {
         return mOffset.x;
     }
 
+    public void setCustomBubbleFromView(@NonNull View customBubbleFromView) {
+        mPopup.setCustomBubbleFromView(customBubbleFromView);
+    }
     public void show() {
         if (!mAnimatingShow) {
             if (mAutoHideAnimator != null) {

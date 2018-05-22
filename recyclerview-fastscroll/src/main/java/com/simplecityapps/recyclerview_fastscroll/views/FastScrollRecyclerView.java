@@ -17,10 +17,12 @@
 package com.simplecityapps.recyclerview_fastscroll.views;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -299,6 +301,11 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         int posInt = (int) ((touchFraction == 1) ? itemPos - 1 : itemPos);
 
         SectionedAdapter sectionedAdapter = (SectionedAdapter) getAdapter();
+        final View view = sectionedAdapter.getSectionCustomView(posInt);
+
+        if (view!=null){
+            setCustomBubbleFromView(view);
+        }
         return sectionedAdapter.getSectionName(posInt);
     }
 
@@ -430,7 +437,9 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     public void showScrollbar() {
         mScrollbar.show();
     }
-
+    public void setCustomBubbleFromView(@NonNull View customBubbleFromView) {
+        mScrollbar.setCustomBubbleFromView(customBubbleFromView);
+    }
     public void setThumbColor(@ColorInt int color) {
         mScrollbar.setThumbColor(color);
     }
@@ -542,6 +551,9 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     public interface SectionedAdapter {
         @NonNull
         String getSectionName(int position);
+
+        @Nullable
+        View getSectionCustomView(int position);
     }
 
     /**
