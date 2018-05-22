@@ -1,6 +1,6 @@
 # RecyclerView-FastScroll
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.simplecityapps/recyclerview-fastscroll/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.simplecityapps/recyclerview-fastscroll) [![API](https://img.shields.io/badge/API-11%2B-blue.svg?style=flat)](https://android-arsenal.com/api?level=11)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.simplecityapps/recyclerview-fastscroll/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.simplecityapps/recyclerview-fastscroll) [![API](https://img.shields.io/badge/API-14%2B-blue.svg?style=flat)](https://android-arsenal.com/api?level=14)
 [![License](http://img.shields.io/badge/license-APACHE2-blue.svg)](NOTICE)
 [![Build Status](https://travis-ci.org/timusus/RecyclerView-FastScroll.svg?branch=master)](https://travis-ci.org/timusus/RecyclerView-FastScroll)
 
@@ -13,7 +13,7 @@ The style is loosely based on the `ListView` `FastScroller` from whatever the la
 ![Screenshot](https://github.com/timusus/RecyclerView-FastScroll/blob/master/screenshot.png)
 
 ### Gradle
-`compile 'com.simplecityapps:recyclerview-fastscroll:1.0.16'`
+`compile 'com.simplecityapps:recyclerview-fastscroll:1.0.18'`
 
 ### Usage
 You must use `FastScrollRecyclerView` as your base `RecyclerView`. See the sample project if you're having trouble.
@@ -72,7 +72,33 @@ The popup background, popup text, popupbackground size, popup text size, track b
                   ...
 Or programmatically via `setThumbColor(@ColorInt int color)`, `setTrackColor(@ColorInt int color)`, `setPopupBgColor(@ColorInt int color)`, `setPopupTextColor(@ColorInt int color)`, `setPopupTextSize(int size)` & `setPopupPosition(@FastScroller.FastScrollerPopupPosition int position)`
 
+You can enable/disable fast-scrolling via:
+
+
+      <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
+                  app:fastScrollThumbEnabled="false"
+                  ...
+Or programmatically via `setFastScrollThumbEnabled(boolean enabled)`
+
 ### Updates
+
+1.0.18
+
+- Added method `showScrollbar()` to `FastScrollRecyclerView`
+- Added method `setThumbInactiveColor(ColorInt)` to `FastScroller`
+- Renamed `setThumbInactiveColor(boolean) to enableThumbInactiveColor(boolean)`.
+- Renamed `setStateChangeListener` to `setOnFastScrollStateChangedListener`
+- Renamed `setThumbEnabled` to `setFastScrollEnabled`
+- Set `enableThumbInactiveColor` to true by default
+- Pass `ViewHolder` into `MeasurableAdapter` to ease item height calculations
+- Dependency updates
+
+1.0.17
+
+- `MeasurableAdapter` tweaks
+- Improved sample, better demonstration of `MeasurableAdapter`
+- Add option to enable/disable fastscroll (via `fastScrollThumbEnabled` property)
+- Dependency updates
 
 1.0.16
 

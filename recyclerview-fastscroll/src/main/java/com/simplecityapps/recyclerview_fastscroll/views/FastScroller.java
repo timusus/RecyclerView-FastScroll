@@ -71,16 +71,20 @@ public class FastScroller {
     // prevent jumping, this offset is applied as the user scrolls.
     private int mTouchOffset;
 
-    public Point mThumbPosition = new Point(-1, -1);
-    public Point mOffset = new Point(0, 0);
+    private Point mThumbPosition = new Point(-1, -1);
+    private Point mOffset = new Point(0, 0);
 
     private boolean mIsDragging;
 
     private Animator mAutoHideAnimator;
-    boolean mAnimatingShow;
+    private boolean mAnimatingShow;
     private int mAutoHideDelay = DEFAULT_AUTO_HIDE_DELAY;
     private boolean mAutoHideEnabled = true;
     private final Runnable mHideRunnable;
+
+    private int mThumbActiveColor;
+    private int mThumbInactiveColor = 0x79000000;
+    private boolean mThumbInactiveState;
 
     @Retention(SOURCE)
     @IntDef({FastScrollerPopupPosition.ADJACENT, FastScrollerPopupPosition.CENTER})
@@ -109,17 +113,19 @@ public class FastScroller {
         try {
             mAutoHideEnabled = typedArray.getBoolean(R.styleable.FastScrollRecyclerView_fastScrollAutoHide, true);
             mAutoHideDelay = typedArray.getInteger(R.styleable.FastScrollRecyclerView_fastScrollAutoHideDelay, DEFAULT_AUTO_HIDE_DELAY);
+            mThumbInactiveState = typedArray.getBoolean(R.styleable.FastScrollRecyclerView_fastScrollEnableThumbInactiveColor, true);
+            mThumbActiveColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollThumbColor, 0x79000000);
+            mThumbInactiveColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollThumbInactiveColor, 0x79000000);
 
-            int trackColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollTrackColor, 0x1f000000);
-            int thumbColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollThumbColor, 0xff000000);
+            int trackColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollTrackColor, 0x28000000);
             int popupBgColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollPopupBgColor, 0xff000000);
             int popupTextColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollPopupTextColor, 0xffffffff);
-            int popupTextSize = typedArray.getDimensionPixelSize(R.styleable.FastScrollRecyclerView_fastScrollPopupTextSize, Utils.toScreenPixels(resources, 56));
+            int popupTextSize = typedArray.getDimensionPixelSize(R.styleable.FastScrollRecyclerView_fastScrollPopupTextSize, Utils.toScreenPixels(resources, 44));
             int popupBackgroundSize = typedArray.getDimensionPixelSize(R.styleable.FastScrollRecyclerView_fastScrollPopupBackgroundSize, Utils.toPixels(resources, 88));
             @FastScrollerPopupPosition int popupPosition = typedArray.getInteger(R.styleable.FastScrollRecyclerView_fastScrollPopupPosition, FastScrollerPopupPosition.ADJACENT);
 
             mTrack.setColor(trackColor);
-            mThumb.setColor(thumbColor);
+            mThumb.setColor(mThumbInactiveState ? mThumbInactiveColor : mThumbActiveColor);
             mPopup.setBgColor(popupBgColor);
             mPopup.setTextColor(popupTextColor);
             mPopup.setTextSize(popupTextSize);
@@ -199,6 +205,9 @@ public class FastScroller {
                     if (stateChangeListener != null) {
                         stateChangeListener.onFastScrollStart();
                     }
+                    if (mThumbInactiveState) {
+                        mThumb.setColor(mThumbActiveColor);
+                    }
                 }
                 if (mIsDragging) {
                     // Update the fastscroller section name at this touch position
@@ -221,6 +230,9 @@ public class FastScroller {
                         stateChangeListener.onFastScrollStop();
                     }
                 }
+                if (mThumbInactiveState) {
+                    mThumb.setColor(mThumbInactiveColor);
+                }
                 break;
         }
     }
@@ -232,7 +244,7 @@ public class FastScroller {
         }
 
         //Background
-        canvas.drawRect(mThumbPosition.x + mOffset.x, mThumbHeight / 2 + mOffset.y, mThumbPosition.x + mOffset.x + mWidth, mRecyclerView.getHeight() + mOffset.y - mThumbHeight / 2, mTrack);
+        canvas.drawRect(mThumbPosition.x + mOffset.x, mOffset.y, mThumbPosition.x + mOffset.x + mWidth, mRecyclerView.getHeight() + mOffset.y, mTrack);
 
         //Handle
         canvas.drawRect(mThumbPosition.x + mOffset.x, mThumbPosition.y + mOffset.y, mThumbPosition.x + mOffset.x + mWidth, mThumbPosition.y + mOffset.y + mThumbHeight, mThumb);
@@ -378,5 +390,20 @@ public class FastScroller {
 
     public void setPopupPosition(@FastScrollerPopupPosition int popupPosition) {
         mPopup.setPopupPosition(popupPosition);
+    }
+
+    public void setThumbInactiveColor(@ColorInt int color) {
+        mThumbInactiveColor = color;
+        enableThumbInactiveColor(true);
+    }
+
+    public void enableThumbInactiveColor(boolean enableInactiveColor) {
+        mThumbInactiveState = enableInactiveColor;
+        mThumb.setColor(mThumbInactiveState ? mThumbInactiveColor : mThumbActiveColor);
+    }
+
+    @Deprecated
+    public void setThumbInactiveColor(boolean thumbInactiveColor) {
+        enableThumbInactiveColor(thumbInactiveColor);
     }
 }

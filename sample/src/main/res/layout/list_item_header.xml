@@ -14,12 +14,15 @@
   ~  limitations under the License.
   -->
 
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="@dimen/list_item_header_height"
     android:id="@+id/text"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/list_item_height"
-    android:background="?selectableItemBackground"
-    android:clickable="true"
     android:gravity="center_vertical"
-    android:paddingEnd="16dp"
-    android:paddingStart="16dp" />
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:layout_width="match_parent"
+    android:text="Line 1"
+    android:textSize="16sp"/>
+
