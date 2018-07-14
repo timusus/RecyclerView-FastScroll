@@ -83,6 +83,10 @@ public class FastScroller {
     private int mThumbInactiveColor = 0x79000000;
     private boolean mThumbInactiveState;
 
+    private int mTouchSlop;
+
+    private int mLastY;
+
     @Retention(SOURCE)
     @IntDef({FastScrollerPopupPosition.ADJACENT, FastScrollerPopupPosition.CENTER})
     public @interface FastScrollerPopupPosition {
@@ -104,6 +108,8 @@ public class FastScroller {
 
         mThumb = new Paint(Paint.ANTI_ALIAS_FLAG);
         mTrack = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+        mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
 
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(
                 attrs, R.styleable.FastScrollRecyclerView, 0, 0);
@@ -181,8 +187,6 @@ public class FastScroller {
      */
     public void handleTouchEvent(MotionEvent ev, int downX, int downY, int lastY,
                                  OnFastScrollStateChangeListener stateChangeListener) {
-        ViewConfiguration config = ViewConfiguration.get(mRecyclerView.getContext());
-
         int action = ev.getAction();
         int y = (int) ev.getY();
         switch (action) {
@@ -194,7 +198,7 @@ public class FastScroller {
             case MotionEvent.ACTION_MOVE:
                 // Check if we should start scrolling
                 if (!mIsDragging && isNearPoint(downX, downY) &&
-                        Math.abs(y - downY) > config.getScaledTouchSlop()) {
+                        Math.abs(y - downY) > mTouchSlop) {
                     mRecyclerView.getParent().requestDisallowInterceptTouchEvent(true);
                     mIsDragging = true;
                     mTouchOffset += (lastY - downY);
@@ -207,19 +211,23 @@ public class FastScroller {
                     }
                 }
                 if (mIsDragging) {
-                    // Update the fastscroller section name at this touch position
-                    int top = 0;
-                    int bottom = mRecyclerView.getHeight() - mThumbHeight;
-                    float boundedY = (float) Math.max(top, Math.min(bottom, y - mTouchOffset));
-                    String sectionName = mRecyclerView.scrollToPositionAtProgress((boundedY - top) / (bottom - top));
-                    mPopup.setSectionName(sectionName);
-                    mPopup.animateVisibility(!sectionName.isEmpty());
-                    mRecyclerView.invalidate(mPopup.updateFastScrollerBounds(mRecyclerView, mThumbPosition.y));
+                    if (mLastY == 0 || Math.abs(mLastY - y) >= mTouchSlop) {
+                        mLastY = y;
+                        // Update the fastscroller section name at this touch position
+                        int top = 0;
+                        int bottom = mRecyclerView.getHeight() - mThumbHeight;
+                        float boundedY = (float) Math.max(top, Math.min(bottom, y - mTouchOffset));
+                        String sectionName = mRecyclerView.scrollToPositionAtProgress((boundedY - top) / (bottom - top));
+                        mPopup.setSectionName(sectionName);
+                        mPopup.animateVisibility(!sectionName.isEmpty());
+                        mRecyclerView.invalidate(mPopup.updateFastScrollerBounds(mRecyclerView, mThumbPosition.y));
+                    }
                 }
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
                 mTouchOffset = 0;
+                mLastY = 0;
                 if (mIsDragging) {
                     mIsDragging = false;
                     mPopup.animateVisibility(false);
