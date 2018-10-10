@@ -19,7 +19,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     //RecyclerView
-    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
 }
 
 //To deploy, re-comment following line & run ./gradlew clean assembleRelease install bintrayUpload
