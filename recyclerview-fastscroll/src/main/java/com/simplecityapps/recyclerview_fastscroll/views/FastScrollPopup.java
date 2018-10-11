@@ -25,7 +25,7 @@ import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
-import android.support.annotation.Keep;
+import androidx.annotation.Keep;
 import android.text.TextUtils;
 
 import com.simplecityapps.recyclerview_fastscroll.utils.Utils;
@@ -155,7 +155,7 @@ public class FastScrollPopup {
     public void draw(Canvas canvas) {
         if (isVisible()) {
             // Draw the fast scroller popup
-            int restoreCount = canvas.save(Canvas.MATRIX_SAVE_FLAG);
+            int restoreCount = canvas.save();
             canvas.translate(mBgBounds.left, mBgBounds.top);
             mTmpRect.set(mBgBounds);
             mTmpRect.offsetTo(0, 0);
