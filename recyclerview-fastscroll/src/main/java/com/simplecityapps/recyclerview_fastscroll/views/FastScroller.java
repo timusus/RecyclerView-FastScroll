@@ -349,6 +349,7 @@ public class FastScroller {
     }
 
     public void setThumbColor(@ColorInt int color) {
+        mThumbActiveColor = color;
         mThumb.setColor(color);
         mRecyclerView.invalidate(mInvalidateRect);
     }
