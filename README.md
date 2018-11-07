@@ -13,7 +13,7 @@ The style is loosely based on the `ListView` `FastScroller` from whatever the la
 ![Screenshot](https://github.com/timusus/RecyclerView-FastScroll/blob/master/screenshot.png)
 
 ### Gradle
-`compile 'com.simplecityapps:recyclerview-fastscroll:1.0.18'`
+`compile 'com.simplecityapps:recyclerview-fastscroll:1.0.19'`
 
 ### Usage
 You must use `FastScrollRecyclerView` as your base `RecyclerView`. See the sample project if you're having trouble.
@@ -81,6 +81,13 @@ You can enable/disable fast-scrolling via:
 Or programmatically via `setFastScrollThumbEnabled(boolean enabled)`
 
 ### Updates
+
+1.0.19
+
+- Update dependencies, compile SDK to Android 28
+- Fixed an issue where thumb colour was not persisted after setThumbColor()
+- Fixed a compilation issue on Android 28
+- Fixed 'scrolling jitter' when using items with varying height
 
 1.0.18
 
