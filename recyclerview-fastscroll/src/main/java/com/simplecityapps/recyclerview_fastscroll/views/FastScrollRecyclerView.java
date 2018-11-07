@@ -305,10 +305,10 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     @SuppressWarnings("unchecked")
     private int findMeasureAdapterFirstVisiblePosition(int passedHeight) {
         if (getAdapter() instanceof MeasurableAdapter) {
-            MeasurableAdapter measurer = (MeasurableAdapter) getAdapter();
+            MeasurableAdapter measurmeasurableAdapterr = (MeasurableAdapter) getAdapter();
             for (int i = 0; i < getAdapter().getItemCount(); i++) {
                 int top = calculateScrollDistanceToPosition(i);
-                int bottom = top + measurer.getViewTypeHeight(this, findViewHolderForAdapterPosition(i), getAdapter().getItemViewType(i));
+                int bottom = top + measurmeasurableAdapterr.getViewTypeHeight(this, findViewHolderForAdapterPosition(i), getAdapter().getItemViewType(i));
                 if (i == getAdapter().getItemCount() - 1) {
                     if (passedHeight >= top && passedHeight <= bottom) {
                         return i;
@@ -321,9 +321,8 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
             }
             int low = calculateScrollDistanceToPosition(0);
             int height = calculateScrollDistanceToPosition(getAdapter().getItemCount() - 1)
-                    + measurer.getViewTypeHeight(this, findViewHolderForAdapterPosition(getAdapter().getItemCount() - 1), getAdapter().getItemViewType(getAdapter().getItemCount() - 1));
-            ;
-            throw new IllegalStateException(String.format("Invalid passed height:%d,[low:%d,height:%d]", passedHeight, low, height));
+                    + measurmeasurableAdapterr.getViewTypeHeight(this, findViewHolderForAdapterPosition(getAdapter().getItemCount() - 1), getAdapter().getItemViewType(getAdapter().getItemCount() - 1));
+            throw new IllegalStateException(String.format("Invalid passed height: %d, [low: %d, height: %d]", passedHeight, low, height));
         } else {
             throw new IllegalStateException("findMeasureAdapterFirstVisiblePosition() should only be called where the RecyclerView.Adapter is an instance of MeasurableAdapter");
         }
