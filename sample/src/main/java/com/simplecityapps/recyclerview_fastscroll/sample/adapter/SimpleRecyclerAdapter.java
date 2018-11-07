@@ -34,7 +34,7 @@ public class SimpleRecyclerAdapter extends RecyclerView.Adapter<SimpleRecyclerAd
 
     @Override
     public int getItemCount() {
-        return 12000;
+        return 200;
     }
 
     @SuppressLint("DefaultLocale")
