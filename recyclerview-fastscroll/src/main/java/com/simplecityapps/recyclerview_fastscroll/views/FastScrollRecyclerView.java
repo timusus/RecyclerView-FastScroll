@@ -277,7 +277,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
             scrollOffset = calculateScrollDistanceToPosition(scrollPosition) - passedHeight;
         } else {
             itemPos = findItemPosition(touchFraction);
-            availableScrollHeight = getAvailableScrollHeight(calculateAdapterHeight(), 0);
+            availableScrollHeight = getAvailableScrollHeight(rowCount * mScrollPosState.rowHeight, 0);
 
             //The exact position of our desired item
             int exactItemPos = (int) (availableScrollHeight * touchFraction);
@@ -305,10 +305,10 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     @SuppressWarnings("unchecked")
     private int findMeasureAdapterFirstVisiblePosition(int passedHeight) {
         if (getAdapter() instanceof MeasurableAdapter) {
-            MeasurableAdapter measurmeasurableAdapterr = (MeasurableAdapter) getAdapter();
+            MeasurableAdapter measurableAdapter = (MeasurableAdapter) getAdapter();
             for (int i = 0; i < getAdapter().getItemCount(); i++) {
                 int top = calculateScrollDistanceToPosition(i);
-                int bottom = top + measurmeasurableAdapterr.getViewTypeHeight(this, findViewHolderForAdapterPosition(i), getAdapter().getItemViewType(i));
+                int bottom = top + measurableAdapter.getViewTypeHeight(this, findViewHolderForAdapterPosition(i), getAdapter().getItemViewType(i));
                 if (i == getAdapter().getItemCount() - 1) {
                     if (passedHeight >= top && passedHeight <= bottom) {
                         return i;
@@ -321,7 +321,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
             }
             int low = calculateScrollDistanceToPosition(0);
             int height = calculateScrollDistanceToPosition(getAdapter().getItemCount() - 1)
-                    + measurmeasurableAdapterr.getViewTypeHeight(this, findViewHolderForAdapterPosition(getAdapter().getItemCount() - 1), getAdapter().getItemViewType(getAdapter().getItemCount() - 1));
+                    + measurableAdapter.getViewTypeHeight(this, findViewHolderForAdapterPosition(getAdapter().getItemCount() - 1), getAdapter().getItemViewType(getAdapter().getItemCount() - 1));
             throw new IllegalStateException(String.format("Invalid passed height: %d, [low: %d, height: %d]", passedHeight, low, height));
         } else {
             throw new IllegalStateException("findMeasureAdapterFirstVisiblePosition() should only be called where the RecyclerView.Adapter is an instance of MeasurableAdapter");
