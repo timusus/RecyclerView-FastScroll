@@ -258,10 +258,22 @@ public class FastScroller {
         }
 
         //Background
-        canvas.drawRect(mThumbPosition.x + mOffset.x, mOffset.y, mThumbPosition.x + mOffset.x + mWidth, mRecyclerView.getHeight() + mOffset.y, mTrack);
+        canvas.drawRect(
+                mThumbPosition.x + mOffset.x,
+                mOffset.y + mRecyclerView.getPaddingTop(),
+                mThumbPosition.x + mOffset.x + mWidth,
+                mRecyclerView.getHeight() + mOffset.y - mRecyclerView.getPaddingBottom(),
+                mTrack
+        );
 
         //Handle
-        canvas.drawRect(mThumbPosition.x + mOffset.x, mThumbPosition.y + mOffset.y, mThumbPosition.x + mOffset.x + mWidth, mThumbPosition.y + mOffset.y + mThumbHeight, mThumb);
+        canvas.drawRect(
+                mThumbPosition.x + mOffset.x,
+                mThumbPosition.y + mOffset.y,
+                mThumbPosition.x + mOffset.x + mWidth,
+                mThumbPosition.y + mOffset.y + mThumbHeight,
+                mThumb
+        );
 
         //Popup
         mPopup.draw(canvas);

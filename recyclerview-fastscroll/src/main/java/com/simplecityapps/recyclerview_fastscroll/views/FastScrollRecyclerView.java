@@ -185,7 +185,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
      * AvailableScrollBarHeight = Total height of the visible view - thumb height
      */
     protected int getAvailableScrollBarHeight() {
-        int visibleHeight = getHeight();
+        int visibleHeight = getHeight() - getPaddingTop() - getPaddingBottom();
         return visibleHeight - mScrollbar.getThumbHeight();
     }
 
@@ -234,7 +234,9 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
 
         int scrollBarY = (int) (((float) scrollY / availableScrollHeight) * availableScrollBarHeight);
         if (isLayoutManagerReversed()) {
-            scrollBarY = availableScrollBarHeight - scrollBarY;
+            scrollBarY = availableScrollBarHeight - scrollBarY + getPaddingBottom();
+        } else {
+            scrollBarY += getPaddingTop();
         }
 
         // Calculate the position and size of the scroll bar
