@@ -25,10 +25,11 @@ import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
-import androidx.annotation.Keep;
 import android.text.TextUtils;
 
 import com.simplecityapps.recyclerview_fastscroll.utils.Utils;
+
+import androidx.annotation.Keep;
 
 public class FastScrollPopup {
 
@@ -170,9 +171,12 @@ public class FastScrollPopup {
             mBackgroundPaint.setAlpha((int) (Color.alpha(mBackgroundColor) * mAlpha));
             mTextPaint.setAlpha((int) (mAlpha * 255));
             canvas.drawPath(mBackgroundPath, mBackgroundPaint);
-            canvas.drawText(mSectionName, (mBgBounds.width() - mTextBounds.width()) / 2,
-                    mBgBounds.height() - (mBgBounds.height() - mTextBounds.height()) / 2,
-                    mTextPaint);
+            canvas.drawText(
+                    mSectionName,
+                    (mBgBounds.width() - mTextBounds.width()) / 2,
+                    mBgBounds.height() / 2 + ((mBgBounds.height() - mTextBounds.height()) / 2),
+                    mTextPaint
+            );
             canvas.restoreToCount(restoreCount);
         }
     }
