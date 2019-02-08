@@ -30,12 +30,6 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
-import androidx.annotation.ColorInt;
-import androidx.annotation.IntDef;
-import androidx.annotation.Keep;
-import androidx.interpolator.view.animation.FastOutLinearInInterpolator;
-import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.simplecityapps.recyclerview_fastscroll.R;
 import com.simplecityapps.recyclerview_fastscroll.interfaces.OnFastScrollStateChangeListener;
@@ -43,8 +37,16 @@ import com.simplecityapps.recyclerview_fastscroll.utils.Utils;
 
 import java.lang.annotation.Retention;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.IntDef;
+import androidx.annotation.Keep;
+import androidx.interpolator.view.animation.FastOutLinearInInterpolator;
+import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
+import androidx.recyclerview.widget.RecyclerView;
+
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
+@SuppressWarnings("WeakerAccess")
 public class FastScroller {
     private static final int DEFAULT_AUTO_HIDE_DELAY = 1500;
 
@@ -214,10 +216,17 @@ public class FastScroller {
                     if (mLastY == 0 || Math.abs(mLastY - y) >= mTouchSlop) {
                         mLastY = y;
                         // Update the fastscroller section name at this touch position
-                        int top = 0;
+                        boolean layoutManagerReversed = mRecyclerView.isLayoutManagerReversed();
                         int bottom = mRecyclerView.getHeight() - mThumbHeight;
-                        float boundedY = (float) Math.max(top, Math.min(bottom, y - mTouchOffset));
-                        String sectionName = mRecyclerView.scrollToPositionAtProgress((boundedY - top) / (bottom - top));
+                        float boundedY = (float) Math.max(0, Math.min(bottom, y - mTouchOffset));
+
+                        // Represents the amount the thumb has scrolled divided by its total scroll range
+                        float touchFraction = boundedY / bottom;
+                        if (layoutManagerReversed) {
+                            touchFraction = 1 - touchFraction;
+                        }
+
+                        String sectionName = mRecyclerView.scrollToPositionAtProgress(touchFraction);
                         mPopup.setSectionName(sectionName);
                         mPopup.animateVisibility(!sectionName.isEmpty());
                         mRecyclerView.invalidate(mPopup.updateFastScrollerBounds(mRecyclerView, mThumbPosition.y));

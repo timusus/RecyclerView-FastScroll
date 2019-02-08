@@ -20,12 +20,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Typeface;
-import androidx.annotation.ColorInt;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseIntArray;
@@ -35,6 +29,13 @@ import android.view.View;
 import com.simplecityapps.recyclerview_fastscroll.R;
 import com.simplecityapps.recyclerview_fastscroll.interfaces.OnFastScrollStateChangeListener;
 import com.simplecityapps.recyclerview_fastscroll.utils.Utils;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class FastScrollRecyclerView extends RecyclerView implements RecyclerView.OnItemTouchListener {
 
@@ -229,9 +230,12 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         // Calculate the current scroll position, the scrollY of the recycler view accounts for the
         // view padding, while the scrollBarY is drawn right up to the background padding (ignoring
         // padding)
-        int scrollY = Math.min(availableScrollHeight, getPaddingTop() + scrolledPastHeight - scrollPosState.rowTopOffset);
+        int scrollY = Math.min(availableScrollHeight, getPaddingTop() + scrolledPastHeight);
 
         int scrollBarY = (int) (((float) scrollY / availableScrollHeight) * availableScrollBarHeight);
+        if (isLayoutManagerReversed()) {
+            scrollBarY = availableScrollBarHeight - scrollBarY;
+        }
 
         // Calculate the position and size of the scroll bar
         int scrollBarX;
@@ -386,6 +390,13 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         }
 
         updateThumbPosition(mScrollPosState, rowCount);
+    }
+
+    protected boolean isLayoutManagerReversed() {
+        if (getLayoutManager() instanceof LinearLayoutManager) {
+            return ((LinearLayoutManager) getLayoutManager()).getReverseLayout();
+        }
+        return false;
     }
 
     /**
