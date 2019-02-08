@@ -165,6 +165,7 @@ public class FastScrollPopup {
             mBackgroundRect.set(mTmpRect);
 
             float[] radii = createRadii();
+            Paint.FontMetrics fontMetrics = mTextPaint.getFontMetrics();
 
             mBackgroundPath.addRoundRect(mBackgroundRect, radii, Path.Direction.CW);
 
@@ -173,8 +174,8 @@ public class FastScrollPopup {
             canvas.drawPath(mBackgroundPath, mBackgroundPaint);
             canvas.drawText(
                     mSectionName,
-                    (mBgBounds.width() - mTextBounds.width()) / 2,
-                    mBgBounds.height() / 2 + ((mBgBounds.height() - mTextBounds.height()) / 2),
+                    (mBgBounds.width() - mTextBounds.width()) / 2f,
+                    (mBgBounds.height() - fontMetrics.ascent - fontMetrics.descent) / 2f,
                     mTextPaint
             );
             canvas.restoreToCount(restoreCount);
@@ -201,7 +202,7 @@ public class FastScrollPopup {
         if (isVisible()) {
             // Calculate the dimensions and position of the fast scroller popup
             int edgePadding = recyclerView.getScrollBarWidth();
-            int bgPadding = Math.round((mBackgroundSize - mTextBounds.height()) / 10) * 5;
+            int bgPadding = Math.round((mBackgroundSize - mTextBounds.height()) / 10f) * 5;
             int bgHeight = mBackgroundSize;
             int bgWidth = Math.max(mBackgroundSize, mTextBounds.width() + (2 * bgPadding));
             if (mPosition == FastScroller.FastScrollerPopupPosition.CENTER) {
