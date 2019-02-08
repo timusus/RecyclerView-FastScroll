@@ -61,6 +61,7 @@ public class FastScrollPopup {
     private ObjectAnimator mAlphaAnimator;
     private boolean mVisible;
 
+    @FastScroller.FastScrollerPopupTextHeight private int mTextHeight;
     @FastScroller.FastScrollerPopupPosition private int mPosition;
 
     FastScrollPopup(Resources resources, FastScrollRecyclerView recyclerView) {
@@ -132,6 +133,15 @@ public class FastScrollPopup {
         return mAlpha;
     }
 
+    public void setPopupTextHeight(@FastScroller.FastScrollerPopupTextHeight int height) {
+        mTextHeight = height;
+    }
+
+    @FastScroller.FastScrollerPopupTextHeight
+    public int getPopupTextHeight() {
+        return mTextHeight;
+    }
+
     public void setPopupPosition(@FastScroller.FastScrollerPopupPosition int position) {
         mPosition = position;
     }
@@ -165,7 +175,13 @@ public class FastScrollPopup {
             mBackgroundRect.set(mTmpRect);
 
             float[] radii = createRadii();
-            Paint.FontMetrics fontMetrics = mTextPaint.getFontMetrics();
+            float baselinePosition;
+            if (mTextHeight == FastScroller.FastScrollerPopupTextHeight.FONT_METRICS) {
+                Paint.FontMetrics fontMetrics = mTextPaint.getFontMetrics();
+                baselinePosition = (mBgBounds.height() - fontMetrics.ascent - fontMetrics.descent) / 2f;
+            } else {
+                baselinePosition = (mBgBounds.height() + mTextBounds.height()) / 2f;
+            }
 
             mBackgroundPath.addRoundRect(mBackgroundRect, radii, Path.Direction.CW);
 
@@ -175,7 +191,7 @@ public class FastScrollPopup {
             canvas.drawText(
                     mSectionName,
                     (mBgBounds.width() - mTextBounds.width()) / 2f,
-                    (mBgBounds.height() - fontMetrics.ascent - fontMetrics.descent) / 2f,
+                    baselinePosition,
                     mTextPaint
             );
             canvas.restoreToCount(restoreCount);
