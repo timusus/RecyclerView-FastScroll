@@ -6,8 +6,8 @@ android {
 
     defaultConfig {
         minSdkVersion 14
-        versionCode 17
-        versionName "1.0.20"
+        versionCode 18
+        versionName "1.0.21"
     }
 
     lintOptions {
