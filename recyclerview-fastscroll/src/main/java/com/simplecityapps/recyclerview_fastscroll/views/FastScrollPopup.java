@@ -61,8 +61,8 @@ public class FastScrollPopup {
     private ObjectAnimator mAlphaAnimator;
     private boolean mVisible;
 
-    @FastScroller.FastScrollerPopupTextHeight private int mTextHeight;
-    @FastScroller.FastScrollerPopupPosition private int mPosition;
+    @FastScroller.PopupTextVerticalAlignmentMode private int mTextVerticalAlignmentMode;
+    @FastScroller.PopupPosition private int mPosition;
 
     FastScrollPopup(Resources resources, FastScrollRecyclerView recyclerView) {
 
@@ -133,26 +133,26 @@ public class FastScrollPopup {
         return mAlpha;
     }
 
-    public void setPopupTextHeight(@FastScroller.FastScrollerPopupTextHeight int height) {
-        mTextHeight = height;
+    public void setPopupTextVerticalAlignmentMode(@FastScroller.PopupTextVerticalAlignmentMode int mode) {
+        mTextVerticalAlignmentMode = mode;
     }
 
-    @FastScroller.FastScrollerPopupTextHeight
-    public int getPopupTextHeight() {
-        return mTextHeight;
+    @FastScroller.PopupTextVerticalAlignmentMode
+    public int getPopupTextVerticalAlignmentMode() {
+        return mTextVerticalAlignmentMode;
     }
 
-    public void setPopupPosition(@FastScroller.FastScrollerPopupPosition int position) {
+    public void setPopupPosition(@FastScroller.PopupPosition int position) {
         mPosition = position;
     }
 
-    @FastScroller.FastScrollerPopupPosition
+    @FastScroller.PopupPosition
     public int getPopupPosition() {
         return mPosition;
     }
 
     private float[] createRadii() {
-        if (mPosition == FastScroller.FastScrollerPopupPosition.CENTER) {
+        if (mPosition == FastScroller.PopupPosition.CENTER) {
             return new float[]{mCornerRadius, mCornerRadius, mCornerRadius, mCornerRadius, mCornerRadius, mCornerRadius, mCornerRadius, mCornerRadius};
         }
 
@@ -176,7 +176,7 @@ public class FastScrollPopup {
 
             float[] radii = createRadii();
             float baselinePosition;
-            if (mTextHeight == FastScroller.FastScrollerPopupTextHeight.FONT_METRICS) {
+            if (mTextVerticalAlignmentMode == FastScroller.PopupTextVerticalAlignmentMode.FONT_METRICS) {
                 Paint.FontMetrics fontMetrics = mTextPaint.getFontMetrics();
                 baselinePosition = (mBgBounds.height() - fontMetrics.ascent - fontMetrics.descent) / 2f;
             } else {
@@ -221,7 +221,7 @@ public class FastScrollPopup {
             int bgPadding = Math.round((mBackgroundSize - mTextBounds.height()) / 10f) * 5;
             int bgHeight = mBackgroundSize;
             int bgWidth = Math.max(mBackgroundSize, mTextBounds.width() + (2 * bgPadding));
-            if (mPosition == FastScroller.FastScrollerPopupPosition.CENTER) {
+            if (mPosition == FastScroller.PopupPosition.CENTER) {
                 mBgBounds.left = (recyclerView.getWidth() - bgWidth) / 2;
                 mBgBounds.right = mBgBounds.left + bgWidth;
                 mBgBounds.top = (recyclerView.getHeight() - bgHeight) / 2;

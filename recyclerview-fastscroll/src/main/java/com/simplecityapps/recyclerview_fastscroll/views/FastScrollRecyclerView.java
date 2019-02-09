@@ -547,11 +547,11 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     }
 
     /**
-     * Set the FastScroll Popup position. This is either {@link FastScroller.FastScrollerPopupPosition#ADJACENT},
-     * meaning the popup moves adjacent to the FastScroll thumb, or {@link FastScroller.FastScrollerPopupPosition#CENTER},
+     * Set the FastScroll Popup position. This is either {@link FastScroller.PopupPosition#ADJACENT},
+     * meaning the popup moves adjacent to the FastScroll thumb, or {@link FastScroller.PopupPosition#CENTER},
      * meaning the popup is static and centered within the RecyclerView.
      */
-    public void setPopupPosition(@FastScroller.FastScrollerPopupPosition int popupPosition) {
+    public void setPopupPosition(@FastScroller.PopupPosition int popupPosition) {
         mScrollbar.setPopupPosition(popupPosition);
     }
 

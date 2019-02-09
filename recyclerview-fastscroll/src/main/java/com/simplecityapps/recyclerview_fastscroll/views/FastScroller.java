@@ -91,13 +91,13 @@ public class FastScroller {
     private int mLastY;
 
     @Retention(SOURCE)
-    @IntDef({FastScrollerPopupTextHeight.TEXT_BOUNDS, FastScrollerPopupTextHeight.FONT_METRICS})
-    public @interface FastScrollerPopupTextHeight {
+    @IntDef({PopupTextVerticalAlignmentMode.TEXT_BOUNDS, PopupTextVerticalAlignmentMode.FONT_METRICS})
+    public @interface PopupTextVerticalAlignmentMode {
         int TEXT_BOUNDS = 0;
         int FONT_METRICS = 1;
     }
-    @IntDef({FastScrollerPopupPosition.ADJACENT, FastScrollerPopupPosition.CENTER})
-    public @interface FastScrollerPopupPosition {
+    @IntDef({PopupPosition.ADJACENT, PopupPosition.CENTER})
+    public @interface PopupPosition {
         int ADJACENT = 0;
         int CENTER = 1;
     }
@@ -133,8 +133,8 @@ public class FastScroller {
             int popupTextColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollPopupTextColor, 0xffffffff);
             int popupTextSize = typedArray.getDimensionPixelSize(R.styleable.FastScrollRecyclerView_fastScrollPopupTextSize, Utils.toScreenPixels(resources, 44));
             int popupBackgroundSize = typedArray.getDimensionPixelSize(R.styleable.FastScrollRecyclerView_fastScrollPopupBackgroundSize, Utils.toPixels(resources, 88));
-            @FastScrollerPopupTextHeight int popupTextHeight = typedArray.getInteger(R.styleable.FastScrollRecyclerView_fastScrollPopupTextHeight, FastScrollerPopupTextHeight.TEXT_BOUNDS);
-            @FastScrollerPopupPosition int popupPosition = typedArray.getInteger(R.styleable.FastScrollRecyclerView_fastScrollPopupPosition, FastScrollerPopupPosition.ADJACENT);
+            @PopupTextVerticalAlignmentMode int popupTextVerticalAlignmentMode = typedArray.getInteger(R.styleable.FastScrollRecyclerView_fastScrollPopupTextVerticalAlignmentMode, PopupTextVerticalAlignmentMode.TEXT_BOUNDS);
+            @PopupPosition int popupPosition = typedArray.getInteger(R.styleable.FastScrollRecyclerView_fastScrollPopupPosition, PopupPosition.ADJACENT);
 
             mTrack.setColor(trackColor);
             mThumb.setColor(mThumbInactiveState ? mThumbInactiveColor : mThumbActiveColor);
@@ -142,7 +142,7 @@ public class FastScroller {
             mPopup.setTextColor(popupTextColor);
             mPopup.setTextSize(popupTextSize);
             mPopup.setBackgroundSize(popupBackgroundSize);
-            mPopup.setPopupTextHeight(popupTextHeight);
+            mPopup.setPopupTextVerticalAlignmentMode(popupTextVerticalAlignmentMode);
             mPopup.setPopupPosition(popupPosition);
         } finally {
             typedArray.recycle();
@@ -420,7 +420,7 @@ public class FastScroller {
         }
     }
 
-    public void setPopupPosition(@FastScrollerPopupPosition int popupPosition) {
+    public void setPopupPosition(@PopupPosition int popupPosition) {
         mPopup.setPopupPosition(popupPosition);
     }
 
