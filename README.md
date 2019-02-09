@@ -12,25 +12,30 @@ The style is loosely based on the `ListView` `FastScroller` from whatever the la
 
 ![Screenshot](https://github.com/timusus/RecyclerView-FastScroll/blob/master/screenshot.png)
 
+
 ### Gradle
-`compile 'com.simplecityapps:recyclerview-fastscroll:1.0.21'`
+`compile 'com.simplecityapps:recyclerview-fastscroll:2.0.0'`
+
 
 ### Usage
 You must use `FastScrollRecyclerView` as your base `RecyclerView`. See the sample project if you're having trouble.
 
 Via xml:
 
-     <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
-             android:id="@+id/recycler"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             app:fastScrollPopupBgColor="@color/colorAccent"
-             app:fastScrollPopupTextColor="@android:color/primary_text_dark"
-             app:fastScrollThumbColor="@color/colorAccent" />
+```
+<com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
+    android:id="@+id/recycler"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:fastScrollPopupBgColor="@color/colorAccent"
+    app:fastScrollPopupTextColor="@android:color/primary_text_dark"
+    app:fastScrollThumbColor="@color/colorAccent" />
+```
 
 To display the `FastScrollPopup`, your adapter must implement `FastScrollRecyclerView.SectionedAdapter` and override `getSectionName()`.
 
 If you need to know when fast-scrolling starts or stops, you can attach an OnFastScrollStateChangedListener to the FastScrollRecyclerView.
+
 
 ##### Varying Row Heights
 
@@ -48,148 +53,59 @@ Currently, `MeasurableAdapter` only works with `LinearLayoutManager`. Using `Mea
 `GridLayoutManager` that has more than one span will cause the scrollbar thumb to reach the bottom of the list before
 the halfway point on the scrollbar's background.
 
+
 ##### Customisation
 
 You can enable/disable autohide using the `fastScrollAutoHide` & `fastScrollAutoHideDelay` attributes in xml:
 
-     <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
-             app:fastScrollAutoHide="true"
-             app:fastScrollAutoHideDelay="1500"
-             ...
+```
+ <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
+     app:fastScrollAutoHide="true"
+     app:fastScrollAutoHideDelay="1500"
+     ...
+```
              
 Or programmatically via `setAutoHideDelay(int hideDelay)` and `setAutoHideEnabled(boolean autoHideEnabled)`
 
-The popup background, popup text, popupbackground size, popup text size, track background, thumb color and popup position can all be styled via xml:
+The following can  be styled via xml:
 
-      <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
-                  app:fastScrollPopupBgColor="@color/colorAccent"
-                  app:fastScrollPopupTextColor="@android:color/primary_text_dark"
-                  app:fastScrollPopupTextSize="56sp"
-                  app:fastScrollPopupBackgroundSize="88dp"
-                  app:fastScrollThumbColor="@color/colorAccent"
-                  app:fastScrollTrackColor="#1f000000" 
-                  app:fastScrollPopupPosition="adjacent"/>
-                  ...
-Or programmatically via `setThumbColor(@ColorInt int color)`, `setTrackColor(@ColorInt int color)`, `setPopupBgColor(@ColorInt int color)`, `setPopupTextColor(@ColorInt int color)`, `setPopupTextSize(int size)` & `setPopupPosition(@FastScroller.FastScrollerPopupPosition int position)`
+- Popup background
+- Popup text
+- Popup background size
+- Popup text size
+- Track background
+- Thumb color
+- Popup position
+- Popup text vertical alignment mode
+
+```
+<com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
+    app:fastScrollPopupBgColor="@color/colorAccent"
+    app:fastScrollPopupTextColor="@android:color/primary_text_dark"
+    app:fastScrollPopupTextSize="56sp"
+    app:fastScrollPopupBackgroundSize="88dp"
+    app:fastScrollThumbColor="@color/colorAccent"
+    app:fastScrollTrackColor="#1f000000"
+    app:fastScrollPopupPosition="adjacent"
+    app:fastScrollPopupTextVerticalAlignmentMode="fontMetrics"/>
+    ...
+```
+
+Or programmatically via
+
+- `setThumbColor(@ColorInt int color)`
+- `setTrackColor(@ColorInt int color)`
+- `setPopupBgColor(@ColorInt int color)`
+- `setPopupTextColor(@ColorInt int color)`
+- `setPopupTextSize(int size)`
+- `setPopupPosition(@FastScroller.FastScrollerPopupPosition int position)`
+
 
 You can enable/disable fast-scrolling via:
 
-
-      <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
-                  app:fastScrollThumbEnabled="false"
-                  ...
+```
+<com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
+    app:fastScrollThumbEnabled="false"
+    ...
+```
 Or programmatically via `setFastScrollThumbEnabled(boolean enabled)`
-
-### Updates
-
-1.0.21
-
-- LayoutManager.reverseLayout(true) is now supported
-- Fixed an issue where popup text wasn't vertically centered
-- Respect top and bottom padding of RecyclerView when drawing thumb/track
-
-1.0.20
-
-- Crash fix
-
-1.0.19
-
-- Update dependencies, compile SDK to Android 28
-- Fixed an issue where thumb colour was not persisted after setThumbColor()
-- Fixed a compilation issue on Android 28
-- Fixed 'scrolling jitter' when using items with varying height
-
-1.0.18
-
-- Added method `showScrollbar()` to `FastScrollRecyclerView`
-- Added method `setThumbInactiveColor(ColorInt)` to `FastScroller`
-- Renamed `setThumbInactiveColor(boolean) to enableThumbInactiveColor(boolean)`.
-- Renamed `setStateChangeListener` to `setOnFastScrollStateChangedListener`
-- Renamed `setThumbEnabled` to `setFastScrollEnabled`
-- Set `enableThumbInactiveColor` to true by default
-- Pass `ViewHolder` into `MeasurableAdapter` to ease item height calculations
-- Dependency updates
-
-1.0.17
-
-- `MeasurableAdapter` tweaks
-- Improved sample, better demonstration of `MeasurableAdapter`
-- Add option to enable/disable fastscroll (via `fastScrollThumbEnabled` property)
-- Dependency updates
-
-1.0.16
-
-- Added support for varying row heights via `MeasurableAdapter`
-
-1.0.15
-
-- Fixed an issue preventing the view from rendering in the Android Studio 'design' panel.
-- Updated dependencies
-
-1.0.14
-
-- Make it possible to set popup position programmatically
-
-1.0.13
-
-- Added option to position the FastScroll-Popup in the center of the RecyclerView (rather than tracking adjacent to the FastScroll thumb)
-
-1.0.12
-
-- Fixed a Proguard Obfuscation issue preventing animations from running
-- Fixed an issue where popup background color ignored alpha channel
-- Added support for item decorations
-
-1.0.11
-
-- Added FastScrollStateChanged listener. Notifies when scrolling starts & stops.
-
-1.0.10
-
-- Added methods/attributes to set popup background & text size
-- Added method to set popup typeface
-- Fixed issue where item decorations were drawn over the top of the popup (#18)
-- Updated dependencies
-
-v1.0.9 
-
-- Updated gradle & dependencies
-- Fixed crash when no adapter was set on the `RecyclerView`
-- Fixed crash when `RecyclerView` children are null (`itemCount` is non zero, but `getChildAt(0)` returns null).
-
-v1.0.6
-- The `FastScrollPopup` no longer requires your adapter to implement `SectionIndexer`, but rather `FastScrollRecyclerView.SectionedAdapter`, which is much easier to use.
-
-### Licenses
-
-RecyclerView-FastScroll
-
-     Copyright (C) 2016 Tim Malseed
-   
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
-Launcher 3:
- 
-     Copyright (C) 2010 The Android Open Source Project
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.

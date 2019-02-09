@@ -28,14 +28,15 @@
         android:layout_height="match_parent"
         app:fastScrollAutoHide="true"
         app:fastScrollAutoHideDelay="1500"
+        app:fastScrollEnableThumbInactiveColor="true"
         app:fastScrollPopupBackgroundSize="88dp"
         app:fastScrollPopupBgColor="@color/colorAccent"
         app:fastScrollPopupPosition="adjacent"
         app:fastScrollPopupTextColor="@android:color/primary_text_dark"
         app:fastScrollPopupTextSize="56sp"
-        app:fastScrollThumbEnabled="true"
+        app:fastScrollPopupTextVerticalAlignmentMode="font_metrics"
         app:fastScrollThumbColor="@color/colorAccent"
-        app:fastScrollEnableThumbInactiveColor="true"
-        tools:listitem="@layout/list_item_header"/>
+        app:fastScrollThumbEnabled="true"
+        tools:listitem="@layout/list_item_header" />
 
 </FrameLayout>

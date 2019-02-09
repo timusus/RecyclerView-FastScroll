@@ -23,7 +23,7 @@
         <attr name="fastScrollPopupBgColor" format="reference|color" />
         <attr name="fastScrollPopupTextColor" format="reference|color" />
         <attr name="fastScrollPopupTextSize" format="reference|dimension" />
-        <attr name="fastScrollPopupTextHeight" format="enum">
+        <attr name="fastScrollPopupTextVerticalAlignmentMode" format="enum">
             <enum name="text_bounds" value="0"/>
             <enum name="font_metrics" value="1"/>
         </attr>
