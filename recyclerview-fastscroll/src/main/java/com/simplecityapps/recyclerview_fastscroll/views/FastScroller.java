@@ -40,6 +40,7 @@ import java.lang.annotation.Retention;
 import androidx.annotation.ColorInt;
 import androidx.annotation.IntDef;
 import androidx.annotation.Keep;
+import androidx.annotation.NonNull;
 import androidx.interpolator.view.animation.FastOutLinearInInterpolator;
 import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
 import androidx.recyclerview.widget.RecyclerView;
@@ -90,6 +91,11 @@ public class FastScroller {
     private int mLastY;
 
     @Retention(SOURCE)
+    @IntDef({FastScrollerPopupTextHeight.TEXT_BOUNDS, FastScrollerPopupTextHeight.FONT_METRICS})
+    public @interface FastScrollerPopupTextHeight {
+        int TEXT_BOUNDS = 0;
+        int FONT_METRICS = 1;
+    }
     @IntDef({FastScrollerPopupPosition.ADJACENT, FastScrollerPopupPosition.CENTER})
     public @interface FastScrollerPopupPosition {
         int ADJACENT = 0;
@@ -127,6 +133,7 @@ public class FastScroller {
             int popupTextColor = typedArray.getColor(R.styleable.FastScrollRecyclerView_fastScrollPopupTextColor, 0xffffffff);
             int popupTextSize = typedArray.getDimensionPixelSize(R.styleable.FastScrollRecyclerView_fastScrollPopupTextSize, Utils.toScreenPixels(resources, 44));
             int popupBackgroundSize = typedArray.getDimensionPixelSize(R.styleable.FastScrollRecyclerView_fastScrollPopupBackgroundSize, Utils.toPixels(resources, 88));
+            @FastScrollerPopupTextHeight int popupTextHeight = typedArray.getInteger(R.styleable.FastScrollRecyclerView_fastScrollPopupTextHeight, FastScrollerPopupTextHeight.TEXT_BOUNDS);
             @FastScrollerPopupPosition int popupPosition = typedArray.getInteger(R.styleable.FastScrollRecyclerView_fastScrollPopupPosition, FastScrollerPopupPosition.ADJACENT);
 
             mTrack.setColor(trackColor);
@@ -135,6 +142,7 @@ public class FastScroller {
             mPopup.setTextColor(popupTextColor);
             mPopup.setTextSize(popupTextSize);
             mPopup.setBackgroundSize(popupBackgroundSize);
+            mPopup.setPopupTextHeight(popupTextHeight);
             mPopup.setPopupPosition(popupPosition);
         } finally {
             typedArray.recycle();
@@ -157,7 +165,7 @@ public class FastScroller {
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
                 if (!mRecyclerView.isInEditMode()) {
