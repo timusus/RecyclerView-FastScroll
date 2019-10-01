@@ -88,10 +88,6 @@ public class FastScroller {
     private int mThumbInactiveColor = 0x79000000;
     private boolean mThumbInactiveState;
 
-    private int mTouchSlop;
-
-    private int mLastY;
-
     @Retention(SOURCE)
     @IntDef({PopupTextVerticalAlignmentMode.TEXT_BOUNDS, PopupTextVerticalAlignmentMode.FONT_METRICS})
     public @interface PopupTextVerticalAlignmentMode {
@@ -119,8 +115,6 @@ public class FastScroller {
 
         mThumb = new Paint(Paint.ANTI_ALIAS_FLAG);
         mTrack = new Paint(Paint.ANTI_ALIAS_FLAG);
-
-        mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
 
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(
                 attrs, R.styleable.FastScrollRecyclerView, 0, 0);
@@ -210,8 +204,7 @@ public class FastScroller {
                 break;
             case MotionEvent.ACTION_MOVE:
                 // Check if we should start scrolling
-                if (!mIsDragging && isNearPoint(downX, downY) &&
-                        Math.abs(y - downY) > mTouchSlop) {
+                if (!mIsDragging && isNearPoint(downX, downY)) {
                     mRecyclerView.getParent().requestDisallowInterceptTouchEvent(true);
                     mIsDragging = true;
                     mTouchOffset += (lastY - downY);
@@ -224,8 +217,6 @@ public class FastScroller {
                     }
                 }
                 if (mIsDragging) {
-                    if (mLastY == 0 || Math.abs(mLastY - y) >= mTouchSlop) {
-                        mLastY = y;
                         // Update the fastscroller section name at this touch position
                         boolean layoutManagerReversed = mRecyclerView.isLayoutManagerReversed();
                         int bottom = mRecyclerView.getHeight() - mThumbHeight;
@@ -241,13 +232,11 @@ public class FastScroller {
                         mPopup.setSectionName(sectionName);
                         mPopup.animateVisibility(!sectionName.isEmpty());
                         mRecyclerView.invalidate(mPopup.updateFastScrollerBounds(mRecyclerView, mThumbPosition.y));
-                    }
                 }
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
                 mTouchOffset = 0;
-                mLastY = 0;
                 if (mIsDragging) {
                     mIsDragging = false;
                     mPopup.animateVisibility(false);
