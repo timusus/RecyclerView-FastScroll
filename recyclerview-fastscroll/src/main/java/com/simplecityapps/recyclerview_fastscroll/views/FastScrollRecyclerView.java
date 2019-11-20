@@ -230,7 +230,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         // Calculate the current scroll position, the scrollY of the recycler view accounts for the
         // view padding, while the scrollBarY is drawn right up to the background padding (ignoring
         // padding)
-        int scrollY = Math.min(availableScrollHeight, getPaddingTop() + scrolledPastHeight);
+        int scrollY = Math.min(availableScrollHeight, getPaddingTop() + scrolledPastHeight - scrollPosState.rowTopOffset);
 
         int scrollBarY = (int) (((float) scrollY / availableScrollHeight) * availableScrollBarHeight);
         if (isLayoutManagerReversed()) {
