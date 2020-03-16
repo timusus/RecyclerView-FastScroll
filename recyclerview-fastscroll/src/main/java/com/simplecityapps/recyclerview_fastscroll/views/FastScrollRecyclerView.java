@@ -231,7 +231,11 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         // view padding, while the scrollBarY is drawn right up to the background padding (ignoring
         // padding)
         int scrollY = Math.min(availableScrollHeight, getPaddingTop() + scrolledPastHeight);
-
+        if (isLayoutManagerReversed()) {
+            scrollY = scrollY + scrollPosState.rowTopOffset - availableScrollBarHeight;
+        } else {
+            scrollY = scrollY - scrollPosState.rowTopOffset;
+        }
         int scrollBarY = (int) (((float) scrollY / availableScrollHeight) * availableScrollBarHeight);
         if (isLayoutManagerReversed()) {
             scrollBarY = availableScrollBarHeight - scrollBarY + getPaddingBottom();
