@@ -14,7 +14,7 @@ The style is loosely based on the `ListView` `FastScroller` from whatever the la
 
 
 ### Gradle
-`compile 'com.simplecityapps:recyclerview-fastscroll:2.0.0'`
+`compile 'com.simplecityapps:recyclerview-fastscroll:2.0.1'`
 
 
 ### Usage
