@@ -26,10 +26,10 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     //Appcompat
-    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
 
     //RecyclerView
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
     //RecyclerView-FastScroll
     implementation project(':recyclerview-fastscroll')
