@@ -1,5 +1,10 @@
 ### Changelog
 
+2.0.1
+
+- Fixed scrolling smoothness regression
+- Updated thumb style to more closely match Google's recent changes
+
 2.0.0
 
 - Version updated due to binary incompatible change in 1.0.21 (AndroidX migration)
