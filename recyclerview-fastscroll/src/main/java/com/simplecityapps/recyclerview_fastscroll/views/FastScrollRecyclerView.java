@@ -141,6 +141,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
      * it is already showing).
      */
     private boolean handleTouchEvent(MotionEvent ev) {
+        if (!mFastScrollEnabled) return false;
         int action = ev.getAction();
         int x = (int) ev.getX();
         int y = (int) ev.getY();
