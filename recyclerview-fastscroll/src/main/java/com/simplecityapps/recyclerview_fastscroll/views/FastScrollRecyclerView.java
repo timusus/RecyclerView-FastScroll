@@ -177,7 +177,8 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
      */
     protected int getAvailableScrollHeight(int adapterHeight, int yOffset) {
         int visibleHeight = getHeight();
-        int scrollHeight = getPaddingTop() + yOffset + adapterHeight + getPaddingBottom();
+        int scrollHeight = yOffset + adapterHeight;
+        if (getClipToPadding()) scrollHeight += getPaddingTop() + getPaddingBottom();
         return scrollHeight - visibleHeight;
     }
 
@@ -239,9 +240,9 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         }
         int scrollBarY = (int) (((float) scrollY / availableScrollHeight) * availableScrollBarHeight);
         if (isLayoutManagerReversed()) {
-            scrollBarY = availableScrollBarHeight - scrollBarY + getPaddingBottom();
+            scrollBarY = availableScrollBarHeight - scrollBarY + (getClipToPadding() ? getPaddingBottom() : 0);
         } else {
-            scrollBarY += getPaddingTop();
+            scrollBarY += (getClipToPadding() ? getPaddingTop() : 0);
         }
 
         // Calculate the position and size of the scroll bar
