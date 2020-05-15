@@ -270,11 +270,14 @@ public class FastScroller {
             return;
         }
 
+        int rvPaddingTop = mRecyclerView.getClipToPadding() ? mRecyclerView.getPaddingTop() : 0;
+        int rvPaddingBottom = mRecyclerView.getClipToPadding() ? mRecyclerView.getPaddingBottom() : 0;
+
         //Background
         rect.set(mThumbPosition.x + mOffset.x + (mThumbWidth - mTrackWidth),
-                mOffset.y + mRecyclerView.getPaddingTop(),
+                mOffset.y + rvPaddingTop,
                 mThumbPosition.x + mOffset.x + mTrackWidth + (mThumbWidth - mTrackWidth),
-                mRecyclerView.getHeight() + mOffset.y - mRecyclerView.getPaddingBottom());
+                mRecyclerView.getHeight() + mOffset.y - rvPaddingBottom);
         canvas.drawRoundRect(rect,
                 mTrackWidth,
                 mTrackWidth,
