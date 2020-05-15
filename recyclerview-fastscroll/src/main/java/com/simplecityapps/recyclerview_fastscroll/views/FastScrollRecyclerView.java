@@ -141,6 +141,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
      * it is already showing).
      */
     private boolean handleTouchEvent(MotionEvent ev) {
+        if (!mFastScrollEnabled) return false;
         int action = ev.getAction();
         int x = (int) ev.getX();
         int y = (int) ev.getY();
@@ -176,7 +177,8 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
      */
     protected int getAvailableScrollHeight(int adapterHeight, int yOffset) {
         int visibleHeight = getHeight();
-        int scrollHeight = getPaddingTop() + yOffset + adapterHeight + getPaddingBottom();
+        int scrollHeight = yOffset + adapterHeight;
+        if (getClipToPadding()) scrollHeight += getPaddingTop() + getPaddingBottom();
         return scrollHeight - visibleHeight;
     }
 
@@ -238,9 +240,9 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         }
         int scrollBarY = (int) (((float) scrollY / availableScrollHeight) * availableScrollBarHeight);
         if (isLayoutManagerReversed()) {
-            scrollBarY = availableScrollBarHeight - scrollBarY + getPaddingBottom();
+            scrollBarY = availableScrollBarHeight - scrollBarY + (getClipToPadding() ? getPaddingBottom() : 0);
         } else {
-            scrollBarY += getPaddingTop();
+            scrollBarY += (getClipToPadding() ? getPaddingTop() : 0);
         }
 
         // Calculate the position and size of the scroll bar
@@ -295,8 +297,9 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
             //The offset used here is kind of hard to explain.
             //If the position we wish to scroll to is, say, position 10.5, we scroll to position 10,
             //and then offset by 0.5 * rowHeight. This is how we achieve smooth scrolling.
-            scrollPosition = spanCount * exactItemPos / mScrollPosState.rowHeight;
-            scrollOffset = -(exactItemPos % mScrollPosState.rowHeight);
+            int rowHeight = mScrollPosState.rowHeight > 0 ? mScrollPosState.rowHeight : 1;
+            scrollPosition = spanCount * exactItemPos / rowHeight;
+            scrollOffset = -(exactItemPos % rowHeight);
         }
 
         LinearLayoutManager layoutManager = ((LinearLayoutManager) getLayoutManager());
