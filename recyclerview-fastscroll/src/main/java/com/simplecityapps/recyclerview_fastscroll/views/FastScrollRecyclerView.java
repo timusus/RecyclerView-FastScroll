@@ -295,8 +295,9 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
             //The offset used here is kind of hard to explain.
             //If the position we wish to scroll to is, say, position 10.5, we scroll to position 10,
             //and then offset by 0.5 * rowHeight. This is how we achieve smooth scrolling.
-            scrollPosition = spanCount * exactItemPos / mScrollPosState.rowHeight;
-            scrollOffset = -(exactItemPos % mScrollPosState.rowHeight);
+            int rowHeight = mScrollPosState.rowHeight > 0 ? mScrollPosState.rowHeight : 1;
+            scrollPosition = spanCount * exactItemPos / rowHeight;
+            scrollOffset = -(exactItemPos % rowHeight);
         }
 
         LinearLayoutManager layoutManager = ((LinearLayoutManager) getLayoutManager());
