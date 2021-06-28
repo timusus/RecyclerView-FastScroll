@@ -139,6 +139,11 @@ public class FastScroller {
             @PopupTextVerticalAlignmentMode int popupTextVerticalAlignmentMode = typedArray.getInteger(R.styleable.FastScrollRecyclerView_fastScrollPopupTextVerticalAlignmentMode, PopupTextVerticalAlignmentMode.TEXT_BOUNDS);
             @PopupPosition int popupPosition = typedArray.getInteger(R.styleable.FastScrollRecyclerView_fastScrollPopupPosition, PopupPosition.ADJACENT);
 
+            mThumbWidth =
+                typedArray.getDimensionPixelSize(R.styleable.FastScrollRecyclerView_fastScrollThumbWidth, mThumbWidth);
+            mTrackWidth =
+                typedArray.getDimensionPixelSize(R.styleable.FastScrollRecyclerView_fastScrollTrackWidth, mTrackWidth);
+
             mTrack.setColor(trackColor);
             mThumb.setColor(mThumbInactiveState ? mThumbInactiveColor : mThumbActiveColor);
             mPopup.setBgColor(popupBgColor);
