@@ -73,8 +73,8 @@ The following can  be styled via xml:
 - Popup text
 - Popup background size
 - Popup text size
-- Track background
-- Thumb color
+- Track width and background
+- Thumb width and color
 - Popup position
 - Popup text vertical alignment mode
 
@@ -85,7 +85,9 @@ The following can  be styled via xml:
     app:fastScrollPopupTextSize="56sp"
     app:fastScrollPopupBackgroundSize="88dp"
     app:fastScrollThumbColor="@color/colorAccent"
+    app:fastScrollThumbWidth="6dp"
     app:fastScrollTrackColor="#1f000000"
+    app:fastScrollTrackWidth="8dp"
     app:fastScrollPopupPosition="adjacent"
     app:fastScrollPopupTextVerticalAlignmentMode="fontMetrics"/>
     ...
