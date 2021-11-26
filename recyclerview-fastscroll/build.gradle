@@ -6,8 +6,6 @@ android {
 
     defaultConfig {
         minSdkVersion 14
-        versionCode 19
-        versionName "2.0.2"
     }
 
     lintOptions {
