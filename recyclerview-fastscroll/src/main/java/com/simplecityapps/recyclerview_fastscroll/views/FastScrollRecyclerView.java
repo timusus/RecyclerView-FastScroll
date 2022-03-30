@@ -424,6 +424,8 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         View child = getChildAt(0);
 
         stateOut.rowIndex = getChildAdapterPosition(child);
+        if (stateOut.rowIndex == NO_POSITION)
+            return;
         if (getLayoutManager() instanceof GridLayoutManager) {
             stateOut.rowIndex = stateOut.rowIndex / ((GridLayoutManager) getLayoutManager()).getSpanCount();
         }
