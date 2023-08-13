@@ -36,6 +36,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 public class FastScrollRecyclerView extends RecyclerView implements RecyclerView.OnItemTouchListener {
 
@@ -299,8 +300,12 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
             scrollOffset = -(exactItemPos % mScrollPosState.rowHeight);
         }
 
-        LinearLayoutManager layoutManager = ((LinearLayoutManager) getLayoutManager());
-        layoutManager.scrollToPositionWithOffset(scrollPosition, scrollOffset);
+        RecyclerView.LayoutManager layoutManager = getLayoutManager();
+        if (layoutManager instanceof LinearLayoutManager) {
+            ((LinearLayoutManager) layoutManager).scrollToPositionWithOffset(scrollPosition, scrollOffset);
+        } else if (layoutManager instanceof StaggeredGridLayoutManager) {
+            ((StaggeredGridLayoutManager) layoutManager).scrollToPositionWithOffset(scrollPosition, scrollOffset);
+        }
 
         if (!(getAdapter() instanceof SectionedAdapter)) {
             return "";
